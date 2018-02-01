@@ -21,7 +21,7 @@ package com.ivianuu.traveler
  * To use it, instantiate it using one of the [.create] methods.
  * When you need a [NavigatorHolder] or router, get it here.
  */
-class Traveler<out T : BaseRouter> private constructor(val router: T) {
+class Traveler<T : BaseRouter> private constructor(val router: T) {
 
     val navigatorHolder: NavigatorHolder
         get() = router.commandBuffer
