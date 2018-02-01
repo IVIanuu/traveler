@@ -175,7 +175,7 @@ abstract class SupportFragmentNavigator(
         backToRoot()
     }
 
-    protected fun unknownScreen(command: Command) {
+    protected open fun unknownScreen(command: Command) {
         throw RuntimeException("Can't create a screen for passed screenKey.")
     }
 
