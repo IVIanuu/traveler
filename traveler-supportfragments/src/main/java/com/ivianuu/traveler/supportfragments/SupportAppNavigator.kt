@@ -77,12 +77,12 @@ abstract class SupportAppNavigator @JvmOverloads constructor(
         return null
     }
 
-    protected fun unexistingActivity(key: Any, intent: Intent) {
+    protected open fun unexistingActivity(key: Any, intent: Intent) {
         // Do nothing by default
     }
 
     protected abstract fun createActivityIntent(
-        context: Context?,
+        context: Context,
         key: Any
     ): Intent?
 
