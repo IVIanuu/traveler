@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Traveler.iml" filepath="$PROJECT_DIR$/Traveler.iml" />
-      <module fileurl="file://C:\Users\IVIanuu\AndroidStudioProjects\Traveler\sample\app.iml" filepath="C:\Users\IVIanuu\AndroidStudioProjects\Traveler\sample\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/sample/sample.iml" filepath="$PROJECT_DIR$/sample/sample.iml" />
       <module fileurl="file://$PROJECT_DIR$/traveler/traveler.iml" filepath="$PROJECT_DIR$/traveler/traveler.iml" />
       <module fileurl="file://$PROJECT_DIR$/traveler-supportfragments/traveler-supportfragments.iml" filepath="$PROJECT_DIR$/traveler-supportfragments/traveler-supportfragments.iml" />
