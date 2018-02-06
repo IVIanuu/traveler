@@ -75,7 +75,7 @@ open class Router : BaseRouter() {
         resultListeners.remove(resultCode)
     }
 
-    protected open fun sendResult(resultCode: Int, result: Any): Boolean {
+    open fun sendResult(resultCode: Int, result: Any): Boolean {
         val resultListener = resultListeners[resultCode]
         if (resultListener != null) {
             resultListener.onResult(result)
