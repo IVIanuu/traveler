@@ -17,7 +17,7 @@
 package com.ivianuu.traveler.result
 
 /**
- * Listens for results
+ * Listener for results
  */
 interface ResultListener {
 
