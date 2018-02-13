@@ -28,9 +28,9 @@ import java.util.*
 /**
  * Navigator for key based navigation
  */
-class KeyNavigator @JvmOverloads constructor(
+open class KeyNavigator(
     private val activity: FragmentActivity,
-    private val fragmentManager: FragmentManager = activity.supportFragmentManager,
+    private val fragmentManager: FragmentManager,
     private val containerId: Int
 ): Navigator {
 
