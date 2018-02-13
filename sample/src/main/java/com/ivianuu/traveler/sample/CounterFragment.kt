@@ -24,12 +24,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ivianuu.traveler.Router
+import com.ivianuu.traveler.keys.FragmentKey
+import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.synthetic.main.fragment_counter.*
 
 @SuppressLint("ParcelCreator")
 @Parcelize
-data class CounterKey(val count: Int) : Parcelable
+data class CounterKey(val count: Int) : FragmentKey(), Parcelable {
+    @IgnoredOnParcel override val fragmentTag: String = "counter_$count"
+    override fun createFragment(): Fragment = CounterFragment()
+}
 
 /**
  * @author Manuel Wrage (IVIanuu)
@@ -50,13 +55,15 @@ class CounterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val key = arguments!!["key"] as CounterKey
+        val key = FragmentKey.get<CounterKey>(this)
 
         title.text = "Count ${key.count}"
 
         add.setOnClickListener { router.navigateTo(CounterKey(key.count + 1)) }
         remove.setOnClickListener { router.exit() }
         show_message.setOnClickListener { router.showSystemMessage(title.text.toString()) }
+        show_dialog.setOnClickListener { router.navigateTo(DialogKey(key.count)) }
+        new_activity.setOnClickListener { router.navigateTo(MainKey) }
         root.setOnClickListener { router.backTo() }
         quit.setOnClickListener { router.finishChain() }
     }

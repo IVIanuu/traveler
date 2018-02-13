@@ -14,23 +14,26 @@
  * limitations under the License.
  */
 
-package com.ivianuu.traveler.supportfragments
+package com.ivianuu.traveler.keys
 
-import android.support.v4.app.Fragment
+import android.content.Intent
+import android.os.Bundle
+import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentTransaction
+import android.widget.Toast
 import com.ivianuu.traveler.Navigator
 import com.ivianuu.traveler.commands.*
 import java.util.*
 
 /**
- * A [Navigator] for [Fragment]'s
+ * Navigator for key based navigation
  */
-abstract class SupportFragmentNavigator(
-    private val fragmentManager: FragmentManager,
+class KeyNavigator @JvmOverloads constructor(
+    private val activity: FragmentActivity,
+    private val fragmentManager: FragmentManager = activity.supportFragmentManager,
     private val containerId: Int
-) : Navigator {
-    
+): Navigator {
+
     protected val localStackCopy = LinkedList<String>()
 
     override fun applyCommands(commands: Array<Command>) {
@@ -55,28 +58,54 @@ abstract class SupportFragmentNavigator(
     }
 
     protected open fun forward(command: Forward) {
-        val fragment = createFragment(command.key)
-
-        if (fragment == null) {
-            unknownScreen(command)
-            return
+        when(command.key) {
+            is ActivityKey -> forwardActivity(command, command.key as ActivityKey)
+            is DialogKey -> forwardDialog(command, command.key as DialogKey)
+            is DialogFragmentKey -> forwardDialogFragment(command, command.key as DialogFragmentKey)
+            is FragmentKey -> forwardFragment(command, command.key as FragmentKey)
+            else -> unknownScreen(command)
         }
+    }
+
+    protected open fun forwardActivity(command: Forward,
+                                       key: ActivityKey) {
+        val activityIntent = key.newIntent(activity)
+        val options = key.createStartActivityOptions(command, activityIntent)
+        checkAndStartActivity(command.key, activityIntent, options)
+    }
+
+    protected open fun forwardDialog(command: Forward,
+                                     key: DialogKey) {
+        val dialog = key.createDialog(activity)
+        dialog.show()
+    }
+
+    protected open fun forwardDialogFragment(command: Forward,
+                                             key: DialogFragmentKey) {
+        val dialogFragment = key.newInstance()
+        val tag = key.fragmentTag
+        dialogFragment.show(fragmentManager, tag)
+    }
+
+    protected open fun forwardFragment(command: Forward,
+                                       key: FragmentKey) {
+        val fragment = key.newInstance()
+        val tag = key.fragmentTag
 
         val fragmentTransaction = fragmentManager.beginTransaction()
 
-        setupFragmentTransactionAnimation(
+        key.setupFragmentTransactionAnimation(
             command,
             fragmentManager.findFragmentById(containerId),
             fragment,
             fragmentTransaction
         )
 
-        val tag = getFragmentTag(command.key)
-
         fragmentTransaction
             .replace(containerId, fragment)
             .addToBackStack(tag)
             .commit()
+
         localStackCopy.add(tag)
     }
 
@@ -90,12 +119,26 @@ abstract class SupportFragmentNavigator(
     }
 
     protected open fun replace(command: Replace) {
-        val fragment = createFragment(command.key)
-
-        if (fragment == null) {
-            unknownScreen(command)
-            return
+        when(command.key) {
+            is ActivityKey -> replaceActivity(command, command.key as ActivityKey)
+            is FragmentKey -> replaceFragment(command, command.key as FragmentKey)
+            else -> unknownScreen(command)
         }
+    }
+
+    protected open fun replaceActivity(command: Replace,
+                                       key: ActivityKey) {
+        val activityIntent = key.newIntent(activity)
+
+        val options = key.createStartActivityOptions(command, activityIntent)
+        checkAndStartActivity(command.key, activityIntent, options)
+        activity.finish()
+    }
+
+    protected open fun replaceFragment(command: Replace,
+                                       key: FragmentKey) {
+        val fragment = key.newInstance()
+        val tag = key.fragmentTag
 
         if (localStackCopy.size > 0) {
             fragmentManager.popBackStack()
@@ -103,25 +146,22 @@ abstract class SupportFragmentNavigator(
 
             val fragmentTransaction = fragmentManager.beginTransaction()
 
-            setupFragmentTransactionAnimation(
+            key.setupFragmentTransactionAnimation(
                 command,
                 fragmentManager.findFragmentById(containerId),
                 fragment,
                 fragmentTransaction
             )
 
-            val tag = getFragmentTag(command.key)
-
             fragmentTransaction
                 .replace(containerId, fragment)
                 .addToBackStack(tag)
                 .commit()
-
             localStackCopy.add(tag)
         } else {
             val fragmentTransaction = fragmentManager.beginTransaction()
 
-            setupFragmentTransactionAnimation(
+            key.setupFragmentTransactionAnimation(
                 command,
                 fragmentManager.findFragmentById(containerId),
                 fragment,
@@ -137,29 +177,22 @@ abstract class SupportFragmentNavigator(
     protected open fun backTo(command: BackTo) {
         val key = command.key
 
-        if (key == null) {
+        if (key == null
+            || key !is FragmentKey) {
             backToRoot()
         } else {
-            val index = localStackCopy.indexOf(key)
+            val index = localStackCopy.indexOf(key.fragmentTag)
             val size = localStackCopy.size
 
             if (index != -1) {
                 for (i in 1 until size - index) {
                     localStackCopy.pop()
                 }
-                fragmentManager.popBackStack(getFragmentTag(key), 0)
+                fragmentManager.popBackStack(key.fragmentTag, 0)
             } else {
                 backToUnexisting(command)
             }
         }
-    }
-
-    protected open fun setupFragmentTransactionAnimation(
-        command: Command,
-        currentFragment: Fragment?,
-        nextFragment: Fragment,
-        fragmentTransaction: FragmentTransaction
-    ) {
     }
 
     protected open fun backToUnexisting(key: Any) {
@@ -170,13 +203,17 @@ abstract class SupportFragmentNavigator(
         throw RuntimeException("Can't create a screen for passed screenKey.")
     }
 
-    protected abstract fun createFragment(key: Any): Fragment?
+    protected open fun unexistingActivity(key: Any, intent: Intent) {
+        // Do nothing by default
+    }
 
-    protected abstract fun getFragmentTag(key: Any): String
+    protected open fun showSystemMessage(message: String) {
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+    }
 
-    protected abstract fun showSystemMessage(message: String)
-
-    protected abstract fun exit()
+    protected open fun exit() {
+        activity.finish()
+    }
 
     private fun copyStackToLocal() {
         localStackCopy.clear()
@@ -188,5 +225,14 @@ abstract class SupportFragmentNavigator(
     private fun backToRoot() {
         fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         localStackCopy.clear()
+    }
+
+    private fun checkAndStartActivity(key: Any, activityIntent: Intent, options: Bundle?) {
+        // Check if we can start activity
+        if (activityIntent.resolveActivity(activity.packageManager) != null) {
+            activity.startActivity(activityIntent, options)
+        } else {
+            unexistingActivity(key, activityIntent)
+        }
     }
 }

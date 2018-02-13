@@ -47,5 +47,6 @@ dependencies {
 
     // Traveler
     implementation project(':traveler')
+    implementation project(':traveler-keys')
     implementation project(':traveler-supportfragments')
 }
