@@ -27,7 +27,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     defaultConfig {
-        applicationId "com.ivianuu.stacks.sample"
+        applicationId "com.ivianuu.traveler.sample"
         minSdkVersion 21
         targetSdkVersion 27
         versionCode 1
