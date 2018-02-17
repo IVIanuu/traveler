@@ -102,7 +102,7 @@ open class KeyNavigator(
         )
 
         fragmentTransaction
-            .replace(containerId, fragment)
+            .replace(containerId, fragment, tag)
             .addToBackStack(tag)
             .commit()
 
@@ -154,7 +154,7 @@ open class KeyNavigator(
             )
 
             fragmentTransaction
-                .replace(containerId, fragment)
+                .replace(containerId, fragment, tag)
                 .addToBackStack(tag)
                 .commit()
             localStackCopy.add(tag)
@@ -169,7 +169,7 @@ open class KeyNavigator(
             )
 
             fragmentTransaction
-                .replace(containerId, fragment)
+                .replace(containerId, fragment, tag)
                 .commit()
         }
     }
