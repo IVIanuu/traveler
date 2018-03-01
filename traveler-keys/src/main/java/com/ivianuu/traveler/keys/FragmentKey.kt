@@ -18,6 +18,7 @@ package com.ivianuu.traveler.keys
 
 import android.os.Bundle
 import android.os.Parcelable
+import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import com.ivianuu.traveler.commands.Command
@@ -54,7 +55,13 @@ abstract class FragmentKey {
     companion object {
         private const val KEY_KEY = "key"
 
-        fun <T> get(fragment: Fragment) where T : FragmentKey, T : Parcelable =
-            fragment.arguments!![KEY_KEY] as T
+        fun <T> get(fragment: Fragment): T? where T : FragmentKey, T : Parcelable =
+            fragment.arguments?.getParcelable(KEY_KEY) as T?
     }
 }
+
+fun <T> Fragment.key() where T : FragmentKey, T : Parcelable =
+    FragmentKey.get<T>(this)
+
+fun <T> Fragment.requireKey() where T : FragmentKey, T : Parcelable =
+    key<T>() ?: throw IllegalStateException("missing key")

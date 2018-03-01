@@ -43,7 +43,13 @@ abstract class ActivityKey {
     companion object {
         private const val KEY_KEY = "key"
 
-        fun <T> get(activity: Activity) where T : ActivityKey, T : Parcelable =
-            activity.intent.getParcelableExtra<T>(KEY_KEY)
+        fun <T> get(activity: Activity) :T? where T : ActivityKey, T : Parcelable =
+            activity.intent.getParcelableExtra(KEY_KEY)
     }
 }
+
+fun <T> Activity.key() where T : ActivityKey, T : Parcelable =
+        ActivityKey.get<T>(this)
+
+fun <T> Activity.requireKey() where T : ActivityKey, T : Parcelable =
+        key<T>() ?: throw IllegalStateException("missing key")
