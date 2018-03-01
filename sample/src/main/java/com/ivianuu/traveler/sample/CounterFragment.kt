@@ -25,6 +25,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.ivianuu.traveler.Router
 import com.ivianuu.traveler.keys.FragmentKey
+import com.ivianuu.traveler.keys.requireKey
 import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.synthetic.main.fragment_counter.*
@@ -52,10 +53,11 @@ class CounterFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_counter, container, false)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val key = FragmentKey.get<CounterKey>(this)
+        val key = requireKey<CounterKey>()
 
         title.text = "Count ${key.count}"
 

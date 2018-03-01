@@ -23,3 +23,29 @@ import com.ivianuu.traveler.Navigator
  * that can be processed by [Navigator].
  */
 interface Command
+
+/**
+ * Rolls back the last transition from the screens chain.
+ */
+class Back : Command
+
+/**
+ * Goes back to the screen with [key]
+ * Or to the root if [null]
+ */
+class BackTo(val key: Any?) : Command
+
+/**
+ * Opens a new screen.
+ */
+class Forward(val key: Any) : Command
+
+/**
+ * Replaces the current screen.
+ */
+class Replace(val key: Any) : Command
+
+/**
+ * Shows system message.
+ */
+class SystemMessage(val message: String) : Command

@@ -26,8 +26,7 @@ import java.util.*
  */
 open class Router : BaseRouter() {
 
-    @SuppressLint("UseSparseArrays")
-    private val resultListeners = HashMap<Int, ResultListener>()
+    private val resultListeners = mutableListOf<Pair<Int, ResultListener>>()
 
     open fun navigateTo(key: Any) {
         executeCommands(Forward(key))
@@ -68,21 +67,25 @@ open class Router : BaseRouter() {
     }
 
     open fun setResultListener(resultCode: Int, listener: ResultListener) {
-        resultListeners[resultCode] = listener
+        resultListeners.add(resultCode to listener)
     }
 
-    open fun removeResultListener(resultCode: Int) {
-        resultListeners.remove(resultCode)
+    open fun removeResultListener(listener: ResultListener) {
+        val index = resultListeners.indexOfFirst { it.second == listener }
+        if (index != -1) resultListeners.removeAt(index)
     }
 
     open fun sendResult(resultCode: Int, result: Any): Boolean {
-        val resultListener = resultListeners[resultCode]
-        if (resultListener != null) {
-            resultListener.onResult(result)
-            return true
-        }
+        var notified = false
+        resultListeners
+            .filter { it.first == resultCode }
+            .map { it.second }
+            .forEach {
+                it.onResult(result)
+                notified = true
+            }
 
-        return false
+        return notified
     }
 
     open fun exitWithResult(resultCode: Int, result: Any) {
