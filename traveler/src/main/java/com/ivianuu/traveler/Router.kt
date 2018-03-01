@@ -26,7 +26,7 @@ import java.util.*
  */
 open class Router : BaseRouter() {
 
-    private val resultListeners = mutableListOf<Pair<Int, ResultListener>>()
+    private val resultListeners = mutableMapOf<Int, ResultListener>()
 
     open fun navigateTo(key: Any) {
         executeCommands(Forward(key))
@@ -67,25 +67,21 @@ open class Router : BaseRouter() {
     }
 
     open fun setResultListener(resultCode: Int, listener: ResultListener) {
-        resultListeners.add(resultCode to listener)
+        resultListeners[resultCode] = listener
     }
 
-    open fun removeResultListener(listener: ResultListener) {
-        val index = resultListeners.indexOfFirst { it.second == listener }
-        if (index != -1) resultListeners.removeAt(index)
+    open fun removeResultListener(resultCode: Int) {
+        resultListeners.remove(resultCode)
     }
 
     open fun sendResult(resultCode: Int, result: Any): Boolean {
-        var notified = false
-        resultListeners
-            .filter { it.first == resultCode }
-            .map { it.second }
-            .forEach {
-                it.onResult(result)
-                notified = true
-            }
+        val resultListener = resultListeners[resultCode]
+        if (resultListener != null) {
+            resultListener.onResult(result)
+            return true
+        }
 
-        return notified
+        return false
     }
 
     open fun exitWithResult(resultCode: Int, result: Any) {
