@@ -18,6 +18,7 @@ package com.ivianuu.traveler.keys
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
 import android.widget.Toast
@@ -34,16 +35,21 @@ open class KeyNavigator(
     private val containerId: Int
 ): Navigator {
 
-    protected val localStackCopy = LinkedList<String>()
+    private val handler = Handler()
+    private val localStackCopy = LinkedList<String>()
 
     override fun applyCommands(commands: Array<Command>) {
-        fragmentManager.executePendingTransactions()
+        handler.post {
+            fragmentManager.executePendingTransactions()
 
-        //copy stack before apply commands
-        copyStackToLocal()
+            handler.post {
+                //copy stack before apply commands
+                copyStackToLocal()
 
-        for (command in commands) {
-            applyCommand(command)
+                for (command in commands) {
+                    applyCommand(command)
+                }
+            }
         }
     }
 
