@@ -28,6 +28,7 @@ import com.ivianuu.traveler.commands.Command
  */
 abstract class ActivityKey {
 
+
     fun newIntent(context: Context): Intent = createIntent(context).apply {
         if (this@ActivityKey is Parcelable) {
             putExtra(KEY_KEY, this@ActivityKey)
