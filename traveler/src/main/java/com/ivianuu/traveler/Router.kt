@@ -16,10 +16,8 @@
 
 package com.ivianuu.traveler
 
-import android.annotation.SuppressLint
 import com.ivianuu.traveler.commands.*
 import com.ivianuu.traveler.result.ResultListener
-import java.util.*
 
 /**
  * Router

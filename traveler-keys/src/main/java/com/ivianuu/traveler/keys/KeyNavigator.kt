@@ -40,14 +40,18 @@ open class KeyNavigator(
 
     override fun applyCommands(commands: Array<Command>) {
         handler.post {
-            fragmentManager.executePendingTransactions()
+            if (!fragmentManager.isStateSaved) {
+                fragmentManager.executePendingTransactions()
 
-            handler.post {
-                //copy stack before apply commands
-                copyStackToLocal()
+                handler.post {
+                    if (!fragmentManager.isStateSaved) {
+                        //copy stack before apply commands
+                        copyStackToLocal()
 
-                for (command in commands) {
-                    applyCommand(command)
+                        for (command in commands) {
+                            applyCommand(command)
+                        }
+                    }
                 }
             }
         }
