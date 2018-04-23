@@ -16,13 +16,13 @@ object MainKey : ActivityKey() {
 
 class MainActivity : AppCompatActivity() {
 
-    val traveler by lazy { Traveler.create() }
-    private val fragmentNavigator by lazy {
-        KeyNavigator(this, supportFragmentManager, R.id.fragment_container) }
+    val traveler = Traveler.create()
+    private val fragmentNavigator by lazy(LazyThreadSafetyMode.NONE) {
+        KeyNavigator(this, supportFragmentManager, android.R.id.content)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         if (savedInstanceState == null) {
             traveler.router.newRootScreen(CounterKey(1))

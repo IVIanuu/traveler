@@ -34,8 +34,8 @@ class Traveler<T : BaseRouter> private constructor(val router: T) {
         }
 
         @JvmStatic
-        fun <T : BaseRouter> create(customRouter: T): Traveler<T> {
-            return Traveler(customRouter)
+        fun <T : BaseRouter> create(router: T): Traveler<T> {
+            return Traveler(router)
         }
     }
 }

@@ -26,20 +26,14 @@ import android.view.ViewGroup
 import com.ivianuu.traveler.Router
 import com.ivianuu.traveler.keys.FragmentKey
 import com.ivianuu.traveler.keys.requireKey
-import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.synthetic.main.fragment_counter.*
 
-@SuppressLint("ParcelCreator")
 @Parcelize
 data class CounterKey(val count: Int) : FragmentKey(), Parcelable {
-    @IgnoredOnParcel override val fragmentTag: String = "counter_$count"
     override fun createFragment(): Fragment = CounterFragment()
 }
 
-/**
- * @author Manuel Wrage (IVIanuu)
- */
 class CounterFragment : Fragment() {
 
     private val router: Router
