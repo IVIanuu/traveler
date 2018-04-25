@@ -88,7 +88,10 @@ open class KeyNavigator(
                                              key: DialogFragmentKey) {
         val dialogFragment = key.newInstance()
         val tag = key.fragmentTag
-        dialogFragment.show(fragmentManager, tag)
+
+        val transaction = fragmentManager.beginTransaction()
+        transaction.addToBackStack(tag)
+        dialogFragment.show(transaction, tag)
     }
 
     protected open fun forwardFragment(command: Forward,
