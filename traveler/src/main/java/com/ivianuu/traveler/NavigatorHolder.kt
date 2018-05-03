@@ -22,6 +22,8 @@ package com.ivianuu.traveler
  */
 interface NavigatorHolder {
 
+    val hasNavigator: Boolean
+
     fun setNavigator(navigator: Navigator)
 
     fun removeNavigator()

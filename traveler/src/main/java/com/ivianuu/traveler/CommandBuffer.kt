@@ -25,6 +25,9 @@ import java.util.*
  */
 internal class CommandBuffer : NavigatorHolder {
 
+    override val hasNavigator: Boolean
+        get() = navigator != null
+
     private var navigator: Navigator? = null
     private val pendingCommands = LinkedList<Array<Command>>()
 
