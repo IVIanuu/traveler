@@ -97,10 +97,10 @@ open class Router : BaseRouter() {
         )
     }
 
-    open fun exitWithMessage(messageRes: Int) {
+    open fun exitWithMessage(messageRes: Int, vararg args: Any) {
         executeCommands(
             Back(),
-            SystemMessageRes(messageRes)
+            SystemMessageRes(messageRes, *args)
         )
     }
 
@@ -108,7 +108,7 @@ open class Router : BaseRouter() {
         executeCommands(SystemMessage(message))
     }
 
-    open fun showSystemMessage(messageRes: Int) {
-        executeCommands(SystemMessageRes(messageRes))
+    open fun showSystemMessage(messageRes: Int, vararg args: Any) {
+        executeCommands(SystemMessageRes(messageRes, *args))
     }
 }

@@ -53,4 +53,4 @@ class SystemMessage(val message: String) : Command
 /**
  * Shows a system message
  */
-class SystemMessageRes(val messageRes: Int) : Command
+class SystemMessageRes(val messageRes: Int, vararg val args: Any) : Command

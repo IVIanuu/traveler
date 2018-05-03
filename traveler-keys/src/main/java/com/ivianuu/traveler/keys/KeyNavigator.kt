@@ -56,7 +56,7 @@ open class KeyNavigator(
             is Replace -> replace(command)
             is BackTo -> backTo(command)
             is SystemMessage -> showSystemMessage(command.message)
-            is SystemMessageRes -> showSystemMessage(command.messageRes)
+            is SystemMessageRes -> showSystemMessage(command.messageRes, *command.args)
         }
     }
 
@@ -209,8 +209,8 @@ open class KeyNavigator(
         // Do nothing by default
     }
 
-    protected open fun showSystemMessage(messageRes: Int) {
-        Toast.makeText(activity, messageRes, Toast.LENGTH_SHORT).show()
+    protected open fun showSystemMessage(messageRes: Int, vararg args: Any) {
+        showSystemMessage(activity.getString(messageRes, *args))
     }
 
     protected open fun showSystemMessage(message: String) {

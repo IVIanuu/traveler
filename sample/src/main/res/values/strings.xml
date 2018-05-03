@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TravelerSample</string>
+
+    <string name="test_string">Current count is %1$d</string>
 </resources>
