@@ -48,9 +48,12 @@ open class Router : BaseRouter() {
         executeCommands(Replace(key))
     }
 
-    @JvmOverloads
-    open fun backTo(key: Any? = null) {
+    open fun backTo(key: Any) {
         executeCommands(BackTo(key))
+    }
+
+    open fun backToRoot() {
+        executeCommands(BackTo(null))
     }
 
     open fun finishChain() {
@@ -94,7 +97,18 @@ open class Router : BaseRouter() {
         )
     }
 
+    open fun exitWithMessage(messageRes: Int) {
+        executeCommands(
+            Back(),
+            SystemMessageRes(messageRes)
+        )
+    }
+
     open fun showSystemMessage(message: String) {
         executeCommands(SystemMessage(message))
+    }
+
+    open fun showSystemMessage(messageRes: Int) {
+        executeCommands(SystemMessageRes(messageRes))
     }
 }

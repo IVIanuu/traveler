@@ -46,6 +46,11 @@ class Forward(val key: Any) : Command
 class Replace(val key: Any) : Command
 
 /**
- * Shows system message.
+ * Shows a system message.
  */
 class SystemMessage(val message: String) : Command
+
+/**
+ * Shows a system message
+ */
+class SystemMessageRes(val messageRes: Int) : Command

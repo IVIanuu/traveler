@@ -46,9 +46,7 @@ open class KeyNavigator(
         //copy stack before apply commands
         copyStackToLocal()
 
-        for (command in commands) {
-            applyCommand(command)
-        }
+        commands.forEach(this::applyCommand)
     }
 
     protected open fun applyCommand(command: Command) {
@@ -58,6 +56,7 @@ open class KeyNavigator(
             is Replace -> replace(command)
             is BackTo -> backTo(command)
             is SystemMessage -> showSystemMessage(command.message)
+            is SystemMessageRes -> showSystemMessage(command.messageRes)
         }
     }
 
@@ -71,21 +70,18 @@ open class KeyNavigator(
         }
     }
 
-    protected open fun forwardActivity(command: Forward,
-                                       key: ActivityKey) {
+    protected open fun forwardActivity(command: Forward, key: ActivityKey) {
         val activityIntent = key.newIntent(activity)
         val options = key.createStartActivityOptions(command, activityIntent)
         checkAndStartActivity(command.key, activityIntent, options)
     }
 
-    protected open fun forwardDialog(command: Forward,
-                                     key: DialogKey) {
+    protected open fun forwardDialog(command: Forward, key: DialogKey) {
         val dialog = key.createDialog(activity)
         dialog.show()
     }
 
-    protected open fun forwardDialogFragment(command: Forward,
-                                             key: DialogFragmentKey) {
+    protected open fun forwardDialogFragment(command: Forward, key: DialogFragmentKey) {
         val dialogFragment = key.newInstance()
         val tag = key.fragmentTag
 
@@ -94,8 +90,7 @@ open class KeyNavigator(
         dialogFragment.show(transaction, tag)
     }
 
-    protected open fun forwardFragment(command: Forward,
-                                       key: FragmentKey) {
+    protected open fun forwardFragment(command: Forward, key: FragmentKey) {
         val fragment = key.newInstance()
         val tag = key.fragmentTag
 
@@ -207,11 +202,15 @@ open class KeyNavigator(
     }
 
     protected open fun unknownScreen(command: Command) {
-        throw RuntimeException("Can't create a screen for passed screenKey.")
+        throw RuntimeException("unknown screen $command")
     }
 
     protected open fun unexistingActivity(key: Any, intent: Intent) {
         // Do nothing by default
+    }
+
+    protected open fun showSystemMessage(messageRes: Int) {
+        Toast.makeText(activity, messageRes, Toast.LENGTH_SHORT).show()
     }
 
     protected open fun showSystemMessage(message: String) {
