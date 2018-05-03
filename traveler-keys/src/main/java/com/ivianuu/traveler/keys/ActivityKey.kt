@@ -22,6 +22,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
 import com.ivianuu.traveler.commands.Command
+import kotlin.reflect.KClass
 
 /**
  * Key for [Activity]'s
@@ -46,6 +47,13 @@ abstract class ActivityKey {
         fun <T> get(activity: Activity) :T? where T : ActivityKey, T : Parcelable =
             activity.intent.getParcelableExtra(KEY_KEY)
     }
+}
+
+/**
+ * Auto creates the intent by using its clazz new instance
+ */
+open class ActivityClassKey(val clazz: KClass<out Activity>) : ActivityKey() {
+    override fun createIntent(context: Context) = Intent(context, clazz.java)
 }
 
 fun <T> Activity.key() where T : ActivityKey, T : Parcelable =

@@ -19,6 +19,7 @@ package com.ivianuu.traveler.keys
 import android.os.Bundle
 import android.os.Parcelable
 import android.support.v4.app.DialogFragment
+import kotlin.reflect.KClass
 
 /**
  * Key for [DialogFragment]'s
@@ -48,6 +49,13 @@ abstract class DialogFragmentKey {
         fun <T> get(dialog: DialogFragment): T? where T : DialogFragmentKey, T : Parcelable =
             dialog.arguments?.getParcelable(KEY_KEY) as T?
     }
+}
+
+/**
+ * Auto creates the dialog fragment by using its clazz new instance
+ */
+open class DialogFragmentClassKey(val clazz: KClass<out DialogFragment>) : DialogFragmentKey() {
+    override fun createDialogFragment(): DialogFragment = clazz.java.newInstance()
 }
 
 fun <T> DialogFragment.key() where T : DialogFragmentKey, T : Parcelable =

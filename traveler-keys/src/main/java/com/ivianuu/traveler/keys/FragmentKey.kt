@@ -21,6 +21,7 @@ import android.os.Parcelable
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import com.ivianuu.traveler.commands.Command
+import kotlin.reflect.KClass
 
 /**
  * Key for [Fragment]'s
@@ -58,6 +59,13 @@ abstract class FragmentKey {
         fun <T> get(fragment: Fragment): T? where T : FragmentKey, T : Parcelable =
             fragment.arguments?.getParcelable(KEY_KEY) as T?
     }
+}
+
+/**
+ * Auto creates the fragment by using its clazz new instance
+ */
+open class FragmentClassKey(val clazz: KClass<out Fragment>) : FragmentKey() {
+    override fun createFragment(): Fragment = clazz.java.newInstance()
 }
 
 fun <T> Fragment.key() where T : FragmentKey, T : Parcelable =

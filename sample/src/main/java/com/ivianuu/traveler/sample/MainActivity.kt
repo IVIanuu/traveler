@@ -1,18 +1,12 @@
 package com.ivianuu.traveler.sample
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.ivianuu.traveler.Traveler
-import com.ivianuu.traveler.keys.ActivityKey
+import com.ivianuu.traveler.keys.ActivityClassKey
 import com.ivianuu.traveler.keys.KeyNavigator
 
-object MainKey : ActivityKey() {
-    override fun createIntent(context: Context): Intent {
-        return Intent(context, MainActivity::class.java)
-    }
-}
+object MainKey : ActivityClassKey(MainActivity::class)
 
 class MainActivity : AppCompatActivity() {
 

@@ -16,30 +16,22 @@
 
 package com.ivianuu.traveler.sample
 
-import android.annotation.SuppressLint
 import android.app.Dialog
 import android.os.Bundle
 import android.os.Parcelable
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
+import com.ivianuu.traveler.keys.DialogFragmentClassKey
 import com.ivianuu.traveler.keys.DialogFragmentKey
-import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
 
-@SuppressLint("ParcelCreator")
 @Parcelize
-data class DialogKey(val count: Int): DialogFragmentKey(), Parcelable {
-    override fun createDialogFragment(): DialogFragment = com.ivianuu.traveler.sample.DialogFragment()
-    @IgnoredOnParcel override val fragmentTag: String = "dialog_fragment_$count"
-}
+data class CountDialogKey(val count: Int): DialogFragmentClassKey(CountDialog::class), Parcelable
 
-/**
- * @author Manuel Wrage (IVIanuu)
- */
-class DialogFragment : DialogFragment() {
+class CountDialog : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val key = DialogFragmentKey.get<DialogKey>(this)
+        val key = DialogFragmentKey.get<CountDialogKey>(this)
         return AlertDialog.Builder(context!!)
             .setTitle("Dialog")
             .setMessage("current count is $key.count")
