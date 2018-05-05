@@ -97,7 +97,8 @@ open class Router : BaseRouter() {
         )
     }
 
-    open fun exitWithMessage(messageRes: Int, vararg args: Any) {
+    @JvmOverloads
+    open fun exitWithMessage(messageRes: Int, vararg args: Any = emptyArray()) {
         executeCommands(
             Back(),
             SystemMessageRes(messageRes, *args)
@@ -108,7 +109,8 @@ open class Router : BaseRouter() {
         executeCommands(SystemMessage(message))
     }
 
-    open fun showSystemMessage(messageRes: Int, vararg args: Any) {
+    @JvmOverloads
+    open fun showSystemMessage(messageRes: Int, vararg args: Any = emptyArray()) {
         executeCommands(SystemMessageRes(messageRes, *args))
     }
 }
