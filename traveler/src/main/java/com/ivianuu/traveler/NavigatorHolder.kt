@@ -16,6 +16,8 @@
 
 package com.ivianuu.traveler
 
+import com.ivianuu.traveler.commands.Command
+
 /**
  * Navigator holder interface.
  * Use it to connect a [Navigator] to the [Traveler].
@@ -25,6 +27,10 @@ interface NavigatorHolder {
     val hasNavigator: Boolean
 
     fun setNavigator(navigator: Navigator)
+
+    fun setNavigator(applyCommands: (commands: Array<Command>) -> Unit) {
+        setNavigator(applyCommands)
+    }
 
     fun removeNavigator()
 
