@@ -23,5 +23,5 @@ import android.content.Intent
  * Key for a simple intent
  */
 open class IntentKey(val intent: Intent): ActivityKey() {
-    override fun createIntent(context: Context): Intent = intent
+    override fun createIntent(context: Context, data: Any?) = intent
 }

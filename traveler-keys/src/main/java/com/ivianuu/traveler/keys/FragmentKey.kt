@@ -31,7 +31,7 @@ abstract class FragmentKey {
     open val fragmentTag: String
         get() = hashCode().toString()
 
-    fun newInstance(): Fragment = createFragment().apply {
+    fun newInstance(data: Any? = null) = createFragment(data).apply {
         if (this@FragmentKey is Parcelable) {
             if (arguments != null) {
                 arguments!!.putParcelable(KEY_KEY, this@FragmentKey)
@@ -43,7 +43,7 @@ abstract class FragmentKey {
         }
     }
 
-    protected abstract fun createFragment(): Fragment
+    protected abstract fun createFragment(data: Any?): Fragment
 
     open fun setupFragmentTransactionAnimation(
         command: Command,
@@ -65,7 +65,7 @@ abstract class FragmentKey {
  * Auto creates the fragment by using its clazz new instance
  */
 open class FragmentClassKey(val clazz: KClass<out Fragment>) : FragmentKey() {
-    override fun createFragment(): Fragment = clazz.java.newInstance()
+    override fun createFragment(data: Any?) = clazz.java.newInstance()
 }
 
 fun <T> Fragment.key() where T : FragmentKey, T : Parcelable =

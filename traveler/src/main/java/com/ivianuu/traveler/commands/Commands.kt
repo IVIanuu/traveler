@@ -38,12 +38,12 @@ class BackTo(val key: Any?) : Command
 /**
  * Opens a new screen.
  */
-class Forward(val key: Any) : Command
+class Forward(val key: Any, val data: Any?) : Command
 
 /**
  * Replaces the current screen.
  */
-class Replace(val key: Any) : Command
+class Replace(val key: Any, val data: Any?) : Command
 
 /**
  * Shows a system message.

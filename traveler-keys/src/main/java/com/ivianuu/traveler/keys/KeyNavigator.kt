@@ -63,7 +63,6 @@ open class KeyNavigator(
     protected open fun forward(command: Forward) {
         when(command.key) {
             is ActivityKey -> forwardActivity(command, command.key as ActivityKey)
-            is DialogKey -> forwardDialog(command, command.key as DialogKey)
             is DialogFragmentKey -> forwardDialogFragment(command, command.key as DialogFragmentKey)
             is FragmentKey -> forwardFragment(command, command.key as FragmentKey)
             else -> unknownScreen(command)
@@ -71,18 +70,13 @@ open class KeyNavigator(
     }
 
     protected open fun forwardActivity(command: Forward, key: ActivityKey) {
-        val activityIntent = key.newIntent(activity)
+        val activityIntent = key.newIntent(activity, command.data)
         val options = key.createStartActivityOptions(command, activityIntent)
         checkAndStartActivity(command.key, activityIntent, options)
     }
 
-    protected open fun forwardDialog(command: Forward, key: DialogKey) {
-        val dialog = key.createDialog(activity)
-        dialog.show()
-    }
-
     protected open fun forwardDialogFragment(command: Forward, key: DialogFragmentKey) {
-        val dialogFragment = key.newInstance()
+        val dialogFragment = key.newInstance(command.data)
         val tag = key.fragmentTag
 
         val transaction = fragmentManager.beginTransaction()
@@ -91,7 +85,7 @@ open class KeyNavigator(
     }
 
     protected open fun forwardFragment(command: Forward, key: FragmentKey) {
-        val fragment = key.newInstance()
+        val fragment = key.newInstance(command.data)
         val tag = key.fragmentTag
 
         val fragmentTransaction = fragmentManager.beginTransaction()
@@ -130,7 +124,7 @@ open class KeyNavigator(
 
     protected open fun replaceActivity(command: Replace,
                                        key: ActivityKey) {
-        val activityIntent = key.newIntent(activity)
+        val activityIntent = key.newIntent(activity, command.data)
 
         val options = key.createStartActivityOptions(command, activityIntent)
         checkAndStartActivity(command.key, activityIntent, options)
@@ -139,7 +133,7 @@ open class KeyNavigator(
 
     protected open fun replaceFragment(command: Replace,
                                        key: FragmentKey) {
-        val fragment = key.newInstance()
+        val fragment = key.newInstance(command.data)
         val tag = key.fragmentTag
 
         if (localStackCopy.size > 0) {

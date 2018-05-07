@@ -24,11 +24,7 @@ import com.ivianuu.traveler.commands.Command
 abstract class BaseRouter {
     internal val commandBuffer = CommandBuffer()
 
-    fun executeCommand(command: Command) {
-        executeCommands(command)
-    }
-
-    fun executeCommands(vararg commands: Command) {
+    protected fun executeCommands(vararg commands: Command) {
         commandBuffer.executeCommands(arrayOf(*commands))
     }
 }

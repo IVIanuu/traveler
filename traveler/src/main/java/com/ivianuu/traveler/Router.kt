@@ -26,26 +26,30 @@ open class Router : BaseRouter() {
 
     private val resultListeners = mutableMapOf<Int, ResultListener>()
 
-    open fun navigateTo(key: Any) {
-        executeCommands(Forward(key))
+    @JvmOverloads
+    open fun navigateTo(key: Any, data: Any? = null) {
+        executeCommands(Forward(key, data))
     }
 
-    open fun newScreenChain(key: Any) {
+    @JvmOverloads
+    open fun newScreenChain(key: Any, data: Any? = null) {
         executeCommands(
             BackTo(null),
-            Forward(key)
+            Forward(key, data)
         )
     }
 
-    open fun newRootScreen(key: Any) {
+    @JvmOverloads
+    open fun newRootScreen(key: Any, data: Any? = null) {
         executeCommands(
             BackTo(null),
-            Replace(key)
+            Replace(key, data)
         )
     }
 
-    open fun replaceScreen(key: Any) {
-        executeCommands(Replace(key))
+    @JvmOverloads
+    open fun replaceScreen(key: Any, data: Any? = null) {
+        executeCommands(Replace(key, data))
     }
 
     open fun backTo(key: Any) {
@@ -65,6 +69,10 @@ open class Router : BaseRouter() {
 
     open fun exit() {
         executeCommands(Back())
+    }
+
+    open fun customCommands(vararg commands: Command) {
+        executeCommands(*commands)
     }
 
     open fun setResultListener(resultCode: Int, listener: ResultListener) {

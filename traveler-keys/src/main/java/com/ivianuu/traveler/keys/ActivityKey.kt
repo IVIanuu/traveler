@@ -29,13 +29,13 @@ import kotlin.reflect.KClass
  */
 abstract class ActivityKey {
 
-    fun newIntent(context: Context): Intent = createIntent(context).apply {
+    fun newIntent(context: Context, data: Any? = null) = createIntent(context, data).apply {
         if (this@ActivityKey is Parcelable) {
             putExtra(KEY_KEY, this@ActivityKey)
         }
     }
 
-    protected abstract fun createIntent(context: Context): Intent
+    protected abstract fun createIntent(context: Context, data: Any?): Intent
 
     open fun createStartActivityOptions(command: Command, activityIntent: Intent): Bundle? {
         return null
@@ -53,7 +53,7 @@ abstract class ActivityKey {
  * Auto creates the intent by using its clazz new instance
  */
 open class ActivityClassKey(val clazz: KClass<out Activity>) : ActivityKey() {
-    override fun createIntent(context: Context) = Intent(context, clazz.java)
+    override fun createIntent(context: Context, data: Any?) = Intent(context, clazz.java)
 }
 
 fun <T> Activity.key() where T : ActivityKey, T : Parcelable =

@@ -29,7 +29,7 @@ abstract class DialogFragmentKey {
     open val fragmentTag: String
         get() = hashCode().toString()
 
-    fun newInstance(): DialogFragment = createDialogFragment().apply {
+    fun newInstance(data: Any? = null) = createDialogFragment(data).apply {
         if (this@DialogFragmentKey is Parcelable) {
             if (arguments != null) {
                 arguments!!.putParcelable(KEY_KEY, this@DialogFragmentKey)
@@ -41,7 +41,7 @@ abstract class DialogFragmentKey {
         }
     }
 
-    protected abstract fun createDialogFragment(): DialogFragment
+    protected abstract fun createDialogFragment(data: Any?): DialogFragment
 
     companion object {
         private const val KEY_KEY = "key"
@@ -55,7 +55,7 @@ abstract class DialogFragmentKey {
  * Auto creates the dialog fragment by using its clazz new instance
  */
 open class DialogFragmentClassKey(val clazz: KClass<out DialogFragment>) : DialogFragmentKey() {
-    override fun createDialogFragment(): DialogFragment = clazz.java.newInstance()
+    override fun createDialogFragment(data: Any?) = clazz.java.newInstance()
 }
 
 fun <T> DialogFragment.key() where T : DialogFragmentKey, T : Parcelable =
