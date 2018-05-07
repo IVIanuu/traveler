@@ -11,7 +11,6 @@
             <option value="$PROJECT_DIR$/sample" />
             <option value="$PROJECT_DIR$/traveler" />
             <option value="$PROJECT_DIR$/traveler-keys" />
-            <option value="$PROJECT_DIR$/traveler-supportfragments" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

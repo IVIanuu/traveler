@@ -1,1 +1,1 @@
-include ':sample', ':traveler', ':traveler-supportfragments', ':traveler-keys'
+include ':sample', ':traveler', ':traveler-keys'

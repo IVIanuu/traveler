@@ -22,7 +22,7 @@ buildscript {
         compileSdkVersion = 27
         targetSdkVersion = 27
 
-        kotlinVersion = '1.2.40'
+        kotlinVersion = '1.2.41'
         kotlinPlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         kotlinStdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 

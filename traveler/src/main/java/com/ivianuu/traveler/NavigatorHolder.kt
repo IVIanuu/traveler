@@ -29,7 +29,11 @@ interface NavigatorHolder {
     fun setNavigator(navigator: Navigator)
 
     fun setNavigator(applyCommands: (commands: Array<Command>) -> Unit) {
-        setNavigator(applyCommands)
+        setNavigator(object : Navigator {
+            override fun applyCommands(commands: Array<Command>) {
+                applyCommands.invoke(commands)
+            }
+        })
     }
 
     fun removeNavigator()
