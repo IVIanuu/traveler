@@ -15,8 +15,9 @@
   ~ limitations under the License.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.ivianuu.traveler.sample.CounterView xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:id="@+id/counter_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center">
@@ -39,24 +40,6 @@
         android:text="Remove"/>
 
     <Button
-        android:id="@+id/show_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Show message"/>
-
-    <Button
-        android:id="@+id/show_dialog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Show Dialog"/>
-
-    <Button
-        android:id="@+id/new_activity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Activity"/>
-
-    <Button
         android:id="@+id/root"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -68,4 +51,4 @@
         android:layout_height="wrap_content"
         android:text="Quit"/>
 
-</LinearLayout>
+</com.ivianuu.traveler.sample.CounterView>

@@ -20,7 +20,7 @@ import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
-import com.ivianuu.traveler.Navigator
+import com.ivianuu.traveler.BaseNavigator
 import com.ivianuu.traveler.commands.*
 import java.util.*
 
@@ -30,7 +30,7 @@ import java.util.*
 abstract class FragmentNavigator(
     private val fragmentManager: FragmentManager,
     private val containerId: Int
-): Navigator {
+): BaseNavigator() {
 
     private val localStackCopy = LinkedList<String>()
 
@@ -44,19 +44,10 @@ abstract class FragmentNavigator(
         //copy stack before apply commands
         copyStackToLocal()
 
-        commands.forEach(this::applyCommand)
+        super.applyCommands(commands)
     }
 
-    protected open fun applyCommand(command: Command) {
-        when (command) {
-            is Forward -> forward(command)
-            is Back -> back()
-            is Replace -> replace(command)
-            is BackTo -> backTo(command)
-        }
-    }
-
-    protected open fun forward(command: Forward) {
+    override fun forward(command: Forward) {
         val fragment = createFragment(command.key, command.data)
 
         if (fragment == null) {
@@ -73,7 +64,7 @@ abstract class FragmentNavigator(
 
         val transaction = fragmentManager.beginTransaction()
 
-        setupFragmentTransactionAnimation(
+        setupFragmentTransaction(
             command,
             fragmentManager.findFragmentById(containerId),
             fragment,
@@ -93,16 +84,7 @@ abstract class FragmentNavigator(
         localStackCopy.add(tag)
     }
 
-    protected open fun back() {
-        if (localStackCopy.size > 0) {
-            fragmentManager.popBackStack()
-            localStackCopy.pop()
-        } else {
-            exit()
-        }
-    }
-
-    protected open fun replace(command: Replace) {
+    override fun replace(command: Replace) {
         val fragment = createFragment(command.key, command.data)
 
         if (fragment == null) {
@@ -116,20 +98,20 @@ abstract class FragmentNavigator(
             unknownScreen(command)
             return
         }
-        
+
         if (localStackCopy.size > 0) {
             fragmentManager.popBackStack()
             localStackCopy.pop()
 
             val transaction = fragmentManager.beginTransaction()
 
-            setupFragmentTransactionAnimation(
+            setupFragmentTransaction(
                 command,
                 fragmentManager.findFragmentById(containerId),
                 fragment,
                 transaction
             )
-            
+
             if (fragment !is DialogFragment) {
                 transaction
                     .replace(containerId, fragment, tag)
@@ -144,13 +126,13 @@ abstract class FragmentNavigator(
         } else {
             val transaction = fragmentManager.beginTransaction()
 
-            setupFragmentTransactionAnimation(
+            setupFragmentTransaction(
                 command,
                 fragmentManager.findFragmentById(containerId),
                 fragment,
                 transaction
             )
-            
+
             if (fragment !is DialogFragment) {
                 transaction
                     .replace(containerId, fragment, tag)
@@ -162,28 +144,43 @@ abstract class FragmentNavigator(
         }
     }
 
-    protected open fun backTo(command: BackTo) {
+    override fun back(command: Back) {
+        if (localStackCopy.size > 0) {
+            fragmentManager.popBackStack()
+            localStackCopy.pop()
+        } else {
+            exit()
+        }
+    }
+
+    override fun backTo(command: BackTo) {
         val key = command.key
 
         if (key == null) {
             backToRoot()
         } else {
-            val fragmentTag = getFragmentTag(key)
-            val index = localStackCopy.indexOf(fragmentTag)
+            val tag = getFragmentTag(key)
+
+            if (tag == null) {
+                unknownScreen(command)
+                return
+            }
+
+            val index = localStackCopy.indexOf(tag)
             val size = localStackCopy.size
 
             if (index != -1) {
                 for (i in 1 until size - index) {
                     localStackCopy.pop()
                 }
-                fragmentManager.popBackStack(fragmentTag, 0)
+                fragmentManager.popBackStack(tag, 0)
             } else {
                 backToUnexisting(command)
             }
         }
     }
 
-    open fun setupFragmentTransactionAnimation(
+    open fun setupFragmentTransaction(
         command: Command,
         currentFragment: Fragment?,
         nextFragment: Fragment,
@@ -203,9 +200,9 @@ abstract class FragmentNavigator(
         return key.toString()
     }
 
-    protected abstract fun exit()
-
     protected abstract fun createFragment(key: Any, data: Any?): Fragment?
+
+    protected abstract fun exit()
 
     private fun copyStackToLocal() {
         localStackCopy.clear()

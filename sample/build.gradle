@@ -35,14 +35,12 @@ android {
 }
 
 dependencies {
-    // Android Support
     implementation Deps.supportAppCompat
 
-    // Kotlin
     implementation Deps.kotlinStdLib
 
-    // Traveler
     implementation project(':traveler')
     implementation project(':traveler-android')
+    implementation project(':traveler-conductor')
     implementation project(':traveler-keys')
 }

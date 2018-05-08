@@ -63,11 +63,11 @@ open class KeyNavigator(
         }
     }
 
-    override fun setupFragmentTransactionAnimation(
+    override fun setupFragmentTransaction(
         command: Command,
         currentFragment: Fragment?,
         nextFragment: Fragment,
-        fragmentTransaction: FragmentTransaction
+        transaction: FragmentTransaction
     ) {
         val key = when(command) {
             is Forward -> command.key as FragmentKey
@@ -75,7 +75,7 @@ open class KeyNavigator(
             else -> null
         }
 
-        key?.setupFragmentTransactionAnimation(command, currentFragment,
-            nextFragment, fragmentTransaction)
+        key?.setupFragmentTransaction(command, currentFragment,
+            nextFragment, transaction)
     }
 }

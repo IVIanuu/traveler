@@ -42,7 +42,7 @@ abstract class FragmentKey {
 
     protected abstract fun createFragment(data: Any?): Fragment
 
-    open fun setupFragmentTransactionAnimation(
+    open fun setupFragmentTransaction(
         command: Command,
         currentFragment: Fragment?,
         nextFragment: Fragment,
