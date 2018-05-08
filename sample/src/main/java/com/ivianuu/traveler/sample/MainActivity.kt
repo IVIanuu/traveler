@@ -6,6 +6,7 @@ import com.ivianuu.traveler.Traveler
 import com.ivianuu.traveler.keys.ActivityClassKey
 import com.ivianuu.traveler.keys.KeyNavigator
 
+
 object MainKey : ActivityClassKey(MainActivity::class)
 
 class MainActivity : AppCompatActivity() {

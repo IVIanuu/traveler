@@ -16,223 +16,66 @@
 
 package com.ivianuu.traveler.keys
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
-import android.widget.Toast
-import com.ivianuu.traveler.Navigator
-import com.ivianuu.traveler.commands.*
-import java.util.*
+import android.support.v4.app.FragmentTransaction
+import com.ivianuu.traveler.android.AppNavigator
+import com.ivianuu.traveler.commands.Command
+import com.ivianuu.traveler.commands.Forward
+import com.ivianuu.traveler.commands.Replace
 
 /**
  * Navigator for key based navigation
  */
 open class KeyNavigator(
-    private val activity: FragmentActivity,
-    private val fragmentManager: FragmentManager = activity.supportFragmentManager,
-    private val containerId: Int
-): Navigator {
+    activity: FragmentActivity,
+    fragmentManager: FragmentManager,
+    containerId: Int
+): AppNavigator(activity, fragmentManager, containerId) {
 
-    private val localStackCopy = LinkedList<String>()
-
-    override fun applyCommands(commands: Array<Command>) {
-        try {
-            fragmentManager.executePendingTransactions()
-        } catch (e: Exception) {
-            // ignore
-        }
-
-        //copy stack before apply commands
-        copyStackToLocal()
-
-        commands.forEach(this::applyCommand)
-    }
-
-    protected open fun applyCommand(command: Command) {
-        when (command) {
-            is Forward -> forward(command)
-            is Back -> back()
-            is Replace -> replace(command)
-            is BackTo -> backTo(command)
-            is SystemMessage -> showSystemMessage(command.message)
-            is SystemMessageRes -> showSystemMessage(command.messageRes, *command.args)
-        }
-    }
-
-    protected open fun forward(command: Forward) {
-        when(command.key) {
-            is ActivityKey -> forwardActivity(command, command.key as ActivityKey)
-            is DialogFragmentKey -> forwardDialogFragment(command, command.key as DialogFragmentKey)
-            is FragmentKey -> forwardFragment(command, command.key as FragmentKey)
-            else -> unknownScreen(command)
-        }
-    }
-
-    protected open fun forwardActivity(command: Forward, key: ActivityKey) {
-        val activityIntent = key.newIntent(activity, command.data)
-        val options = key.createStartActivityOptions(command, activityIntent)
-        checkAndStartActivity(command.key, activityIntent, options)
-    }
-
-    protected open fun forwardDialogFragment(command: Forward, key: DialogFragmentKey) {
-        val dialogFragment = key.newInstance(command.data)
-        val tag = key.fragmentTag
-
-        val transaction = fragmentManager.beginTransaction()
-        transaction.addToBackStack(tag)
-        dialogFragment.show(transaction, tag)
-    }
-
-    protected open fun forwardFragment(command: Forward, key: FragmentKey) {
-        val fragment = key.newInstance(command.data)
-        val tag = key.fragmentTag
-
-        val fragmentTransaction = fragmentManager.beginTransaction()
-
-        key.setupFragmentTransactionAnimation(
-            command,
-            fragmentManager.findFragmentById(containerId),
-            fragment,
-            fragmentTransaction
-        )
-
-        fragmentTransaction
-            .replace(containerId, fragment, tag)
-            .addToBackStack(tag)
-            .commit()
-
-        localStackCopy.add(tag)
-    }
-
-    protected open fun back() {
-        if (localStackCopy.size > 0) {
-            fragmentManager.popBackStack()
-            localStackCopy.pop()
+    override fun createActivityIntent(context: Context, key: Any, data: Any?): Intent? {
+        return if (key is ActivityKey) {
+            key.newIntent(context, data)
         } else {
-            exit()
+            null
         }
     }
 
-    protected open fun replace(command: Replace) {
-        when(command.key) {
-            is ActivityKey -> replaceActivity(command, command.key as ActivityKey)
-            is FragmentKey -> replaceFragment(command, command.key as FragmentKey)
-            else -> unknownScreen(command)
+    override fun createStartActivityOptions(command: Command, activityIntent: Intent): Bundle? {
+        val key = when(command) {
+            is Forward -> command.key as ActivityKey
+            is Replace -> command.key as ActivityKey
+            else -> null
         }
+
+        return key?.createStartActivityOptions(command, activityIntent)
     }
 
-    protected open fun replaceActivity(command: Replace,
-                                       key: ActivityKey) {
-        val activityIntent = key.newIntent(activity, command.data)
-
-        val options = key.createStartActivityOptions(command, activityIntent)
-        checkAndStartActivity(command.key, activityIntent, options)
-        activity.finish()
-    }
-
-    protected open fun replaceFragment(command: Replace,
-                                       key: FragmentKey) {
-        val fragment = key.newInstance(command.data)
-        val tag = key.fragmentTag
-
-        if (localStackCopy.size > 0) {
-            fragmentManager.popBackStack()
-            localStackCopy.pop()
-
-            val fragmentTransaction = fragmentManager.beginTransaction()
-
-            key.setupFragmentTransactionAnimation(
-                command,
-                fragmentManager.findFragmentById(containerId),
-                fragment,
-                fragmentTransaction
-            )
-
-            fragmentTransaction
-                .replace(containerId, fragment, tag)
-                .addToBackStack(tag)
-                .commit()
-            localStackCopy.add(tag)
+    override fun createFragment(key: Any, data: Any?): Fragment? {
+        return if (key is FragmentKey) {
+            key.newInstance(data)
         } else {
-            val fragmentTransaction = fragmentManager.beginTransaction()
-
-            key.setupFragmentTransactionAnimation(
-                command,
-                fragmentManager.findFragmentById(containerId),
-                fragment,
-                fragmentTransaction
-            )
-
-            fragmentTransaction
-                .replace(containerId, fragment, tag)
-                .commit()
+            null
         }
     }
 
-    protected open fun backTo(command: BackTo) {
-        val key = command.key
-
-        if (key == null
-            || key !is FragmentKey) {
-            backToRoot()
-        } else {
-            val index = localStackCopy.indexOf(key.fragmentTag)
-            val size = localStackCopy.size
-
-            if (index != -1) {
-                for (i in 1 until size - index) {
-                    localStackCopy.pop()
-                }
-                fragmentManager.popBackStack(key.fragmentTag, 0)
-            } else {
-                backToUnexisting(command)
-            }
+    override fun setupFragmentTransactionAnimation(
+        command: Command,
+        currentFragment: Fragment?,
+        nextFragment: Fragment,
+        fragmentTransaction: FragmentTransaction
+    ) {
+        val key = when(command) {
+            is Forward -> command.key as FragmentKey
+            is Replace -> command.key as FragmentKey
+            else -> null
         }
-    }
 
-    protected open fun backToUnexisting(key: Any) {
-        backToRoot()
-    }
-
-    protected open fun unknownScreen(command: Command) {
-        throw RuntimeException("unknown screen $command")
-    }
-
-    protected open fun unexistingActivity(key: Any, intent: Intent) {
-        // Do nothing by default
-    }
-
-    protected open fun showSystemMessage(messageRes: Int, vararg args: Any) {
-        showSystemMessage(activity.getString(messageRes, *args))
-    }
-
-    protected open fun showSystemMessage(message: String) {
-        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
-    }
-
-    protected open fun exit() {
-        activity.finish()
-    }
-
-    private fun copyStackToLocal() {
-        localStackCopy.clear()
-
-        val stackSize = fragmentManager.backStackEntryCount
-        (0 until stackSize).mapTo(localStackCopy) { fragmentManager.getBackStackEntryAt(it).name }
-    }
-
-    private fun backToRoot() {
-        fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-        localStackCopy.clear()
-    }
-
-    private fun checkAndStartActivity(key: Any, activityIntent: Intent, options: Bundle?) {
-        // Check if we can start activity
-        if (activityIntent.resolveActivity(activity.packageManager) != null) {
-            activity.startActivity(activityIntent, options)
-        } else {
-            unexistingActivity(key, activityIntent)
-        }
+        key?.setupFragmentTransactionAnimation(command, currentFragment,
+            nextFragment, fragmentTransaction)
     }
 }

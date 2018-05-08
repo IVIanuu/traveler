@@ -1,1 +1,1 @@
-include ':sample', ':traveler', ':traveler-keys'
+include ':sample', ':traveler', ':traveler-keys', ':traveler-android'

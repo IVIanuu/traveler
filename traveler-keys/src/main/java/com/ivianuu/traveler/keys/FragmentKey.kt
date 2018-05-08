@@ -28,9 +28,6 @@ import kotlin.reflect.KClass
  */
 abstract class FragmentKey {
 
-    open val fragmentTag: String
-        get() = hashCode().toString()
-
     fun newInstance(data: Any? = null) = createFragment(data).apply {
         if (this@FragmentKey is Parcelable) {
             if (arguments != null) {

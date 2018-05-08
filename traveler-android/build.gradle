@@ -27,7 +27,6 @@ dependencies {
 
     // Traveler
     api project(':traveler')
-    api project(':traveler-android')
 }
 
 // build a jar with source files
