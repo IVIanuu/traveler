@@ -25,7 +25,7 @@ import com.ivianuu.traveler.commands.Replace
 /**
  * Navigator for activities and controllers
  */
-abstract class ConductorAppNavigator(
+abstract class ControllerAppNavigator(
     private val activity: Activity,
     router: Router
 ) : ControllerNavigator(router), AppNavigatorHelper.Callback {
