@@ -33,23 +33,27 @@ abstract class BaseNavigator : Navigator {
             is BackTo -> backTo(command)
             is Forward -> forward(command)
             is Replace -> replace(command)
+            else -> throwUnsupportedCommand(command)
         }
     }
 
     protected open fun forward(command: Forward) {
-        throw IllegalArgumentException("unsupported command $command")
+        throwUnsupportedCommand(command)
     }
 
     protected open fun replace(command: Replace) {
-        throw IllegalArgumentException("unsupported command $command")
+        throwUnsupportedCommand(command)
     }
 
     protected open fun back(command: Back) {
-        throw IllegalArgumentException("unsupported command $command")
+        throwUnsupportedCommand(command)
     }
 
     protected open fun backTo(command: BackTo) {
-        throw IllegalArgumentException("unsupported command $command")
+        throwUnsupportedCommand(command)
     }
 
+    private fun throwUnsupportedCommand(command: Command) {
+        throw IllegalArgumentException("unsupported command $command")
+    }
 }

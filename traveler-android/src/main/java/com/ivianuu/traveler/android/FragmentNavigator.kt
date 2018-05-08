@@ -193,7 +193,7 @@ abstract class FragmentNavigator(
     }
 
     protected open fun unknownScreen(command: Command) {
-        throw RuntimeException("unknown screen $command")
+        throw IllegalArgumentException("unknown screen $command")
     }
 
     protected open fun getFragmentTag(key: Any): String? {

@@ -35,7 +35,6 @@ abstract class ControllerNavigator(private val router: Router): BaseNavigator() 
             return
         }
 
-
         val tag = getControllerTag(command.key)
 
         if (tag == null) {
@@ -112,7 +111,7 @@ abstract class ControllerNavigator(private val router: Router): BaseNavigator() 
     }
 
     protected open fun unknownScreen(command: Command) {
-        throw RuntimeException("unknown screen $command")
+        throw IllegalArgumentException("unknown screen $command")
     }
 
     protected open fun getControllerTag(key: Any): String? {
