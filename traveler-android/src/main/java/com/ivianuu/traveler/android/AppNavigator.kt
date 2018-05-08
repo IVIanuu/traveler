@@ -21,7 +21,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
-import android.widget.Toast
 import com.ivianuu.traveler.commands.Command
 import com.ivianuu.traveler.commands.Forward
 import com.ivianuu.traveler.commands.Replace
@@ -62,14 +61,6 @@ abstract class AppNavigator(
 
     override fun exit() {
         activity.finish()
-    }
-
-    override fun showSystemMessage(message: String) {
-        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun showSystemMessage(messageRes: Int, vararg args: Any) {
-        Toast.makeText(activity, activity.getString(messageRes, *args), Toast.LENGTH_SHORT).show()
     }
 
     protected open fun createStartActivityOptions(command: Command, activityIntent: Intent): Bundle? {

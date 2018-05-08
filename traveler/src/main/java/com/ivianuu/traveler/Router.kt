@@ -97,28 +97,4 @@ open class Router : BaseRouter() {
         exit()
         sendResult(resultCode, result)
     }
-
-    open fun exitWithMessage(message: String) {
-        executeCommands(
-            Back(),
-            SystemMessage(message)
-        )
-    }
-
-    @JvmOverloads
-    open fun exitWithMessage(messageRes: Int, vararg args: Any = emptyArray()) {
-        executeCommands(
-            Back(),
-            SystemMessageRes(messageRes, *args)
-        )
-    }
-
-    open fun showSystemMessage(message: String) {
-        executeCommands(SystemMessage(message))
-    }
-
-    @JvmOverloads
-    open fun showSystemMessage(messageRes: Int, vararg args: Any = emptyArray()) {
-        executeCommands(SystemMessageRes(messageRes, *args))
-    }
 }

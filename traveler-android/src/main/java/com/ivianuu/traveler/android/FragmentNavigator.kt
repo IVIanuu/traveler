@@ -53,8 +53,6 @@ abstract class FragmentNavigator(
             is Back -> back()
             is Replace -> replace(command)
             is BackTo -> backTo(command)
-            is SystemMessage -> showSystemMessage(command.message)
-            is SystemMessageRes -> showSystemMessage(command.messageRes, *command.args)
         }
     }
 
@@ -208,10 +206,6 @@ abstract class FragmentNavigator(
     protected abstract fun exit()
 
     protected abstract fun createFragment(key: Any, data: Any?): Fragment?
-
-    protected abstract fun showSystemMessage(messageRes: Int, vararg args: Any)
-
-    protected abstract fun showSystemMessage(message: String)
 
     private fun copyStackToLocal() {
         localStackCopy.clear()

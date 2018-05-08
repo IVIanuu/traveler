@@ -44,13 +44,3 @@ class Forward(val key: Any, val data: Any?) : Command
  * Replaces the current screen.
  */
 class Replace(val key: Any, val data: Any?) : Command
-
-/**
- * Shows a system message.
- */
-class SystemMessage(val message: String) : Command
-
-/**
- * Shows a system message
- */
-class SystemMessageRes(val messageRes: Int, vararg val args: Any) : Command

@@ -55,7 +55,6 @@ class CounterFragment : Fragment() {
 
         add.setOnClickListener { router.navigateTo(CounterKey(key.count + 1)) }
         remove.setOnClickListener { router.exit() }
-        show_message.setOnClickListener { router.showSystemMessage(R.string.test_string, key.count) }
         show_dialog.setOnClickListener { router.navigateTo(CountDialogKey(key.count)) }
         new_activity.setOnClickListener { router.navigateTo(MainKey) }
         root.setOnClickListener { router.backToRoot() }
