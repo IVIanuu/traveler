@@ -14,21 +14,23 @@
  * limitations under the License.
  */
 
-package com.ivianuu.traveler.conductor
+package com.ivianuu.traveler.fragments
 
 import android.app.Activity
-import com.bluelinelabs.conductor.Router
+import android.support.v4.app.FragmentManager
 import com.ivianuu.traveler.android.AppNavigatorHelper
 import com.ivianuu.traveler.commands.Forward
 import com.ivianuu.traveler.commands.Replace
 
 /**
- * Navigator for activities and controllers
+ * Navigator for fragments and activities
  */
-abstract class ConductorAppNavigator(
+abstract class FragmentAppNavigator(
     private val activity: Activity,
-    router: Router
-) : ControllerNavigator(router), AppNavigatorHelper.Callback {
+    fragmentManager: FragmentManager,
+    containerId: Int
+) : FragmentNavigator(fragmentManager, containerId),
+    AppNavigatorHelper.Callback {
 
     private val appNavigatorHelper = AppNavigatorHelper(this, activity)
 

@@ -19,7 +19,8 @@ android {
 }
 
 dependencies {
-    api project(':traveler')
+    api Deps.supportFragments
+    api project(':traveler-android')
 }
 
 // build a jar with source files

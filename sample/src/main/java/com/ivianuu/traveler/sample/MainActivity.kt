@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     private val navigator by lazy(LazyThreadSafetyMode.NONE) {
-        object : AppNavigator(this, supportFragmentManager, -1) {
+        object : AppNavigator(this) {
 
             override fun createActivityIntent(context: Context, key: Any, data: Any?): Intent? {
                 return when(key as MainScreens) {
@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            override fun createFragment(key: Any, data: Any?) = null
         }
     }
 

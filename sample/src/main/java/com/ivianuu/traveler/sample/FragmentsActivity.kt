@@ -19,7 +19,7 @@ package com.ivianuu.traveler.sample
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import com.ivianuu.traveler.android.FragmentNavigator
+import com.ivianuu.traveler.fragments.FragmentNavigator
 
 class FragmentsActivity : AppCompatActivity() {
 

@@ -19,12 +19,7 @@ android {
 }
 
 dependencies {
-    api Deps.supportFragments
-
-    api Deps.kotlinStdLib
-
-    api project(':traveler')
-    api project(':traveler-android')
+    api project(':traveler-fragments')
 }
 
 // build a jar with source files

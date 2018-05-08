@@ -16,69 +16,27 @@
 
 package com.ivianuu.traveler.android
 
-import android.content.Context
-import android.content.Intent
-import android.os.Bundle
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentManager
-import com.ivianuu.traveler.commands.Command
+import android.app.Activity
+import com.ivianuu.traveler.BaseNavigator
 import com.ivianuu.traveler.commands.Forward
 import com.ivianuu.traveler.commands.Replace
 
 /**
- * Navigator for activities and fragments
+ * Navigator for activities
  */
-abstract class AppNavigator(
-    private val activity: FragmentActivity,
-    fragmentManager: FragmentManager,
-    containerId: Int
-) : FragmentNavigator(fragmentManager, containerId) {
+abstract class AppNavigator(activity: Activity) : BaseNavigator(), AppNavigatorHelper.Callback {
+
+    private val appNavigatorHelper = AppNavigatorHelper(this, activity)
 
     override fun forward(command: Forward) {
-        val activityIntent =
-            createActivityIntent(activity, command.key, command.data)
-
-        if (activityIntent != null) {
-            val options = createStartActivityOptions(command, activityIntent)
-            checkAndStartActivity(command.key, activityIntent, options)
-        } else {
+        if (!appNavigatorHelper.forward(command)) {
             super.forward(command)
         }
     }
 
     override fun replace(command: Replace) {
-        val activityIntent =
-            createActivityIntent(activity, command.key, command.data)
-
-        if (activityIntent != null) {
-            val options = createStartActivityOptions(command, activityIntent)
-            checkAndStartActivity(command.key, activityIntent, options)
-            activity.finish()
-        } else {
+        if (!appNavigatorHelper.replace(command)) {
             super.replace(command)
-        }
-    }
-
-    override fun exit() {
-        activity.finish()
-    }
-
-    protected open fun createStartActivityOptions(command: Command, activityIntent: Intent): Bundle? {
-        return null
-    }
-
-    protected abstract fun createActivityIntent(context: Context, key: Any, data: Any?): Intent?
-
-    protected open fun unexistingActivity(key: Any, activityIntent: Intent) {
-        // Do nothing by default
-    }
-
-    private fun checkAndStartActivity(key: Any, activityIntent: Intent, options: Bundle?) {
-        // Check if we can start activity
-        if (activityIntent.resolveActivity(activity.packageManager) != null) {
-            activity.startActivity(activityIntent, options)
-        } else {
-            unexistingActivity(key, activityIntent)
         }
     }
 

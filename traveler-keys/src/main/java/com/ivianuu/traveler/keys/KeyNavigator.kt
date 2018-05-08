@@ -23,10 +23,10 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
-import com.ivianuu.traveler.android.AppNavigator
 import com.ivianuu.traveler.commands.Command
 import com.ivianuu.traveler.commands.Forward
 import com.ivianuu.traveler.commands.Replace
+import com.ivianuu.traveler.fragments.FragmentAppNavigator
 
 /**
  * Navigator for key based navigation
@@ -35,7 +35,7 @@ open class KeyNavigator(
     activity: FragmentActivity,
     fragmentManager: FragmentManager,
     containerId: Int
-): AppNavigator(activity, fragmentManager, containerId) {
+): FragmentAppNavigator(activity, fragmentManager, containerId) {
 
     override fun createActivityIntent(context: Context, key: Any, data: Any?): Intent? {
         return if (key is ActivityKey) {
