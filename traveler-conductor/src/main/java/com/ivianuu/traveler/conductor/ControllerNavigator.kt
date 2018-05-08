@@ -37,11 +37,6 @@ abstract class ControllerNavigator(private val router: Router): BaseNavigator() 
 
         val tag = getControllerTag(command.key)
 
-        if (tag == null) {
-            unknownScreen(command)
-            return
-        }
-
         val transaction = RouterTransaction.with(controller)
         transaction.tag(tag)
 
@@ -59,11 +54,6 @@ abstract class ControllerNavigator(private val router: Router): BaseNavigator() 
         }
 
         val tag = getControllerTag(command.key)
-
-        if (tag == null) {
-            unknownScreen(command)
-            return
-        }
 
         val transaction = RouterTransaction.with(controller)
         transaction.tag(tag)
@@ -87,11 +77,6 @@ abstract class ControllerNavigator(private val router: Router): BaseNavigator() 
         } else {
             val tag = getControllerTag(key)
 
-            if (tag == null) {
-                unknownScreen(command)
-                return
-            }
-
             if (router.getControllerWithTag(tag) == null) {
                 backToUnexisting(command.key!!)
             } else {
@@ -114,7 +99,7 @@ abstract class ControllerNavigator(private val router: Router): BaseNavigator() 
         throw IllegalArgumentException("unknown screen $command")
     }
 
-    protected open fun getControllerTag(key: Any): String? {
+    protected open fun getControllerTag(key: Any): String {
         return key.toString()
     }
 

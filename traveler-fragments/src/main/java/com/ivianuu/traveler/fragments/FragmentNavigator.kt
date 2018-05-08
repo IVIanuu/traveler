@@ -57,11 +57,6 @@ abstract class FragmentNavigator(
 
         val tag = getFragmentTag(command.key)
 
-        if (tag == null) {
-            unknownScreen(command)
-            return
-        }
-
         val transaction = fragmentManager.beginTransaction()
 
         setupFragmentTransaction(
@@ -93,11 +88,6 @@ abstract class FragmentNavigator(
         }
 
         val tag = getFragmentTag(command.key)
-
-        if (tag == null) {
-            unknownScreen(command)
-            return
-        }
 
         if (localStackCopy.size > 0) {
             fragmentManager.popBackStack()
@@ -161,11 +151,6 @@ abstract class FragmentNavigator(
         } else {
             val tag = getFragmentTag(key)
 
-            if (tag == null) {
-                unknownScreen(command)
-                return
-            }
-
             val index = localStackCopy.indexOf(tag)
             val size = localStackCopy.size
 
@@ -196,7 +181,7 @@ abstract class FragmentNavigator(
         throw IllegalArgumentException("unknown screen $command")
     }
 
-    protected open fun getFragmentTag(key: Any): String? {
+    protected open fun getFragmentTag(key: Any): String {
         return key.toString()
     }
 

@@ -13,14 +13,12 @@ class MainActivity : AppCompatActivity() {
 
     private val navigator by lazy(LazyThreadSafetyMode.NONE) {
         object : AppNavigator(this) {
-
             override fun createActivityIntent(context: Context, key: Any, data: Any?): Intent? {
                 return when(key as MainScreens) {
                     CONDUCTOR -> Intent(context, ConductorActivity::class.java)
                     FRAGMENTS -> Intent(context, FragmentsActivity::class.java)
                 }
             }
-
         }
     }
 
