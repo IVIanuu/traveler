@@ -1,26 +1,21 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: "kotlin-android-extensions"
 apply plugin: 'com.github.dcendents.android-maven'
 
 group='com.github.ivianuu'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdkVersion Versions.compileSdk
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-    }
-
-    androidExtensions {
-        experimental = true
+        minSdkVersion Versions.minSdk
+        targetSdkVersion Versions.targetSdk
     }
 }
 
 dependencies {
     // Kotlin
-    api rootProject.ext.kotlinStdlib
+    api Deps.kotlinStdLib
 }
 
 // build a jar with source files

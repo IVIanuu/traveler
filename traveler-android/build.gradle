@@ -6,11 +6,11 @@ apply plugin: 'com.github.dcendents.android-maven'
 group='com.github.ivianuu'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdkVersion Versions.compileSdk
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
+        minSdkVersion Versions.minSdk
+        targetSdkVersion Versions.targetSdk
     }
 
     androidExtensions {
@@ -20,10 +20,10 @@ android {
 
 dependencies {
     // Android Support
-    api rootProject.ext.supportFragments
+    api Deps.supportFragments
 
     // Kotlin
-    api rootProject.ext.kotlinStdlib
+    api Deps.kotlinStdLib
 
     // Traveler
     api project(':traveler')

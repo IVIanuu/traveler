@@ -16,31 +16,14 @@
 
 buildscript {
 
-    ext {
-        androidPlugin = 'com.android.tools.build:gradle:3.1.2'
-        minSdkVersion = 16
-        compileSdkVersion = 27
-        targetSdkVersion = 27
-
-        kotlinVersion = '1.2.41'
-        kotlinPlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        kotlinStdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
-
-        mavenPlugin = 'com.github.dcendents:android-maven-gradle-plugin:2.0'
-
-        supportVersion = '27.1.1'
-        supportAppCompat = "com.android.support:appcompat-v7:$supportVersion"
-        supportFragments = "com.android.support:support-fragment:$supportVersion"
-    }
-
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath rootProject.ext.androidPlugin
-        classpath rootProject.ext.kotlinPlugin
-        classpath rootProject.ext.mavenPlugin
+        classpath Deps.androidGradlePlugin
+        classpath Deps.kotlinGradlePlugin
+        classpath Deps.mavenGradlePlugin
     }
 }
 

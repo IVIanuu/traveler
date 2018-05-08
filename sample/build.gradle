@@ -20,18 +20,14 @@ apply plugin: "kotlin-android-extensions"
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion Versions.compileSdk
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
     defaultConfig {
         applicationId "com.ivianuu.traveler.sample"
-        minSdkVersion 21
-        targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion Versions.minSdk
+        targetSdkVersion Versions.targetSdk
+        versionCode Versions.versionCode
+        versionName Versions.versionName
     }
     androidExtensions {
         experimental = true
@@ -40,10 +36,10 @@ android {
 
 dependencies {
     // Android Support
-    implementation rootProject.ext.supportAppCompat
+    implementation Deps.supportAppCompat
 
     // Kotlin
-    implementation rootProject.ext.kotlinStdlib
+    implementation Deps.kotlinStdLib
 
     // Traveler
     implementation project(':traveler')
