@@ -16,79 +16,39 @@
 
 package com.ivianuu.traveler.conductor
 
-import com.bluelinelabs.conductor.Controller
 import com.bluelinelabs.conductor.Router
-import com.bluelinelabs.conductor.RouterTransaction
 import com.ivianuu.traveler.BaseNavigator
 import com.ivianuu.traveler.commands.*
 
 /**
  * Navigator for controllers only
  */
-abstract class ControllerNavigator(private val router: Router): BaseNavigator() {
+abstract class ControllerNavigator(private val router: Router): BaseNavigator(), ControllerNavigatorHelper.Callback {
+
+    private val controllerNavigatorHelper = ControllerNavigatorHelper(this, router)
 
     override fun forward(command: Forward) {
-        val controller = createController(command.key, command.data)
-
-        if (controller == null) {
+        if (!controllerNavigatorHelper.forward(command)) {
             unknownScreen(command)
-            return
         }
-
-        val tag = getControllerTag(command.key)
-
-        val transaction = RouterTransaction.with(controller)
-        transaction.tag(tag)
-
-        setupRouterTransaction(command, transaction)
-
-        router.pushController(transaction)
     }
 
     override fun replace(command: Replace) {
-        val controller = createController(command.key, command.data)
-
-        if (controller == null) {
+        if (!controllerNavigatorHelper.replace(command)) {
             unknownScreen(command)
-            return
         }
-
-        val tag = getControllerTag(command.key)
-
-        val transaction = RouterTransaction.with(controller)
-        transaction.tag(tag)
-
-        setupRouterTransaction(command, transaction)
-
-        router.replaceTopController(transaction)
     }
 
     override fun back(command: Back) {
-        if (!router.popCurrentController()) {
+        if (!controllerNavigatorHelper.back(command)) {
             exit()
         }
     }
 
     override fun backTo(command: BackTo) {
-        val key = command.key
-
-        if (key == null) {
-            router.popToRoot()
-        } else {
-            val tag = getControllerTag(key)
-
-            if (router.getControllerWithTag(tag) == null) {
-                backToUnexisting(command.key!!)
-            } else {
-                router.popToTag(tag)
-            }
+        if (!controllerNavigatorHelper.backTo(command)) {
+            backToUnexisting(command.key!!)
         }
-    }
-
-    open fun setupRouterTransaction(
-        command: Command,
-        transaction: RouterTransaction
-    ) {
     }
 
     protected open fun backToUnexisting(key: Any) {
@@ -99,11 +59,6 @@ abstract class ControllerNavigator(private val router: Router): BaseNavigator() 
         throw IllegalArgumentException("unknown screen $command")
     }
 
-    protected open fun getControllerTag(key: Any): String {
-        return key.toString()
-    }
-
-    protected abstract fun createController(key: Any, data: Any?): Controller?
 
     protected abstract fun exit()
 

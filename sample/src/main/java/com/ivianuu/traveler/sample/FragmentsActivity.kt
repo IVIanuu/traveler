@@ -27,7 +27,6 @@ class FragmentsActivity : AppCompatActivity() {
 
     private val fragmentNavigator by lazy(LazyThreadSafetyMode.NONE) {
         object : FragmentNavigator(supportFragmentManager, android.R.id.content) {
-
             override fun createFragment(key: Any, data: Any?): Fragment? {
                 return CounterFragment().apply {
                     arguments = Bundle().apply {

@@ -31,7 +31,6 @@ class ConductorActivity : AppCompatActivity() {
 
     private val controllerNavigator by lazy(LazyThreadSafetyMode.NONE) {
         object : ControllerNavigator(router) {
-
             override fun createController(key: Any, data: Any?): Controller? {
                 return CounterController(
                     Bundle().apply {
