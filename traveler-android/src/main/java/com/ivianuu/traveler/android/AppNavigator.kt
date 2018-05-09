@@ -18,6 +18,7 @@ package com.ivianuu.traveler.android
 
 import android.app.Activity
 import com.ivianuu.traveler.BaseNavigator
+import com.ivianuu.traveler.commands.Command
 import com.ivianuu.traveler.commands.Forward
 import com.ivianuu.traveler.commands.Replace
 
@@ -30,14 +31,17 @@ abstract class AppNavigator(activity: Activity) : BaseNavigator(), AppNavigatorH
 
     override fun forward(command: Forward) {
         if (!appNavigatorHelper.forward(command)) {
-            super.forward(command)
+            unknownScreen(command)
         }
     }
 
     override fun replace(command: Replace) {
         if (!appNavigatorHelper.replace(command)) {
-            super.replace(command)
+            unknownScreen(command)
         }
     }
 
+    protected open fun unknownScreen(command: Command) {
+        throw IllegalArgumentException("unknown screen $command")
+    }
 }

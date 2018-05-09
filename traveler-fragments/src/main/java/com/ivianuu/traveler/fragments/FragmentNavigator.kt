@@ -64,5 +64,4 @@ abstract class FragmentNavigator(
         throw IllegalArgumentException("unknown screen $command")
     }
 
-
 }

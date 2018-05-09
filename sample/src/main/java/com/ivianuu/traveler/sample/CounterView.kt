@@ -24,8 +24,7 @@ import com.ivianuu.traveler.Router
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.synthetic.main.view_counter.view.*
 
-@Parcelize
-data class CounterKey(val count: Int) : Parcelable
+@Parcelize data class CounterKey(val count: Int) : Parcelable
 
 class CounterView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
