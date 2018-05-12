@@ -42,5 +42,5 @@ dependencies {
     implementation project(':traveler')
     implementation project(':traveler-android')
     implementation project(':traveler-conductor')
-    implementation project(':traveler-keys')
+    implementation project(':traveler-fragments')
 }
