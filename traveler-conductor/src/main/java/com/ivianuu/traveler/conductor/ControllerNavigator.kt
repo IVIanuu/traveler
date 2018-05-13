@@ -16,7 +16,7 @@
 
 package com.ivianuu.traveler.conductor
 
-import com.bluelinelabs.conductor.Router
+import com.ivianuu.conductor.Router
 import com.ivianuu.traveler.BaseNavigator
 import com.ivianuu.traveler.commands.*
 

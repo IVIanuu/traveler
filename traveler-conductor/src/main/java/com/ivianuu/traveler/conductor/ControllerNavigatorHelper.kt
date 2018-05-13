@@ -16,13 +16,13 @@
 
 package com.ivianuu.traveler.conductor
 
-import com.bluelinelabs.conductor.Controller
-import com.bluelinelabs.conductor.Router
-import com.bluelinelabs.conductor.RouterTransaction
+import com.ivianuu.conductor.Controller
+import com.ivianuu.conductor.Router
+import com.ivianuu.conductor.RouterTransaction
 import com.ivianuu.traveler.commands.*
 
 /**
- * @author Manuel Wrage (IVIanuu)
+ * Helper for implementing a navigator for controllers
  */
 class ControllerNavigatorHelper(private val callback: Callback, private val router: Router) {
 

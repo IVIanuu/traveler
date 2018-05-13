@@ -17,7 +17,7 @@
 package com.ivianuu.traveler.conductor
 
 import android.app.Activity
-import com.bluelinelabs.conductor.Router
+import com.ivianuu.conductor.Router
 import com.ivianuu.traveler.android.AppNavigatorHelper
 import com.ivianuu.traveler.commands.Forward
 import com.ivianuu.traveler.commands.Replace

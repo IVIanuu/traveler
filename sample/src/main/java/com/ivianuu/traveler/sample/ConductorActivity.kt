@@ -18,9 +18,12 @@ package com.ivianuu.traveler.sample
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.bluelinelabs.conductor.Conductor
-import com.bluelinelabs.conductor.Controller
-import com.bluelinelabs.conductor.Router
+import com.ivianuu.conductor.Conductor
+import com.ivianuu.conductor.Controller
+import com.ivianuu.conductor.Router
+import com.ivianuu.conductor.RouterTransaction
+import com.ivianuu.conductor.changehandler.VerticalChangeHandler
+import com.ivianuu.traveler.commands.Command
 import com.ivianuu.traveler.conductor.ControllerNavigator
 
 class ConductorActivity : AppCompatActivity() {
@@ -41,6 +44,10 @@ class ConductorActivity : AppCompatActivity() {
 
             override fun exit() {
                 finish()
+            }
+
+            override fun setupRouterTransaction(command: Command, transaction: RouterTransaction) {
+                transaction.pushChangeHandler(VerticalChangeHandler())
             }
         }
     }
