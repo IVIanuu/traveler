@@ -24,7 +24,7 @@ import com.ivianuu.conductor.Router
 import com.ivianuu.conductor.RouterTransaction
 import com.ivianuu.conductor.changehandler.VerticalChangeHandler
 import com.ivianuu.traveler.commands.Command
-import com.ivianuu.traveler.conductor.ControllerNavigator
+import com.ivianuu.traveler.conductorfork.ControllerNavigator
 
 class ConductorActivity : AppCompatActivity() {
 

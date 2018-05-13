@@ -14,4 +14,5 @@
   ~ limitations under the License.
   -->
 
-<manifest package="com.ivianuu.traveler.conductorfork" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ivianuu.traveler.conductorfork.fork" />

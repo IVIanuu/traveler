@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ivianuu.traveler.conductor
+package com.ivianuu.traveler.conductorfork
 
 import android.app.Activity
 import com.ivianuu.conductor.Router

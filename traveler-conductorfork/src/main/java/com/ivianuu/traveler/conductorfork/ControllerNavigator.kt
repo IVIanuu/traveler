@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ivianuu.traveler.conductor
+package com.ivianuu.traveler.conductorfork
 
 import com.ivianuu.conductor.Router
 import com.ivianuu.traveler.BaseNavigator
