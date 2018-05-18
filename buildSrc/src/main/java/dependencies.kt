@@ -11,7 +11,7 @@ object Versions {
     const val androidGradlePlugin = "3.1.2"
 
     const val conductor = "2.1.4"
-    const val conductorFork = "47093e8fe2"
+    const val conductorFork = "756066a981"
 
     const val kotlin = "1.2.41"
     const val mavenGradlePlugin = "2.1"
