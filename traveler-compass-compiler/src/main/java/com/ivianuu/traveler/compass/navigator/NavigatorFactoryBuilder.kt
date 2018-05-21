@@ -37,19 +37,19 @@ object NavigatorFactoryBuilder {
         environment: ProcessingEnvironment,
         builder: FileSpec.Builder
     ) {
-        val activityNavigatorFunction = buildNavigatorFunction(
+        /*val activityNavigatorFunction = buildNavigatorFunction(
             CLASS_FRAGMENT_ACTIVITY, "this", "supportFragmentManager"
         )
-        builder.addFunction(activityNavigatorFunction)
+        builder.addFunction(activityNavigatorFunction)*/
 
         val activityNavigatorBuilderFunction = buildNavigatorBuilderFunction(
             CLASS_FRAGMENT_ACTIVITY, "this", "supportFragmentManager"
         )
         builder.addFunction(activityNavigatorBuilderFunction)
 
-        val fragmentNavigatorFunction = buildNavigatorFunction(
+        /*val fragmentNavigatorFunction = buildNavigatorFunction(
             CLASS_FRAGMENT, "requireActivity()", "childFragmentManager")
-        builder.addFunction(fragmentNavigatorFunction)
+        builder.addFunction(fragmentNavigatorFunction)*/
 
         val fragmentNavigatorBuilderFunction = buildNavigatorBuilderFunction(
             CLASS_FRAGMENT, "requireActivity()", "childFragmentManager")

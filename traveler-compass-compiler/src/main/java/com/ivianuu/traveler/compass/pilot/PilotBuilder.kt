@@ -27,7 +27,7 @@ object PilotBuilder {
             .superclass(ClassName("com.ivianuu.traveler.compass", "OpenDetourPilot"))
 
         val initBlock = CodeBlock.builder()
-        elements.asSequence()
+        elements
             .forEach { element ->
                 fileSpec.addAliasedImport(element.asClassName(), element.asClassName().simpleName())
                 initBlock.addStatement("" +
