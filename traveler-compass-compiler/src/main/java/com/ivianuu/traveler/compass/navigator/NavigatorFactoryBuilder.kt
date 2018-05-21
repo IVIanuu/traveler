@@ -92,10 +92,10 @@ object NavigatorFactoryBuilder {
             .addCode(
                 CodeBlock.builder()
                     .addStatement(
-                        "return %T.builder($activity, $fm, containerId)" +
-                                ".autoMap()" +
-                                ".autoCrane()" +
-                                ".autoPilot()",
+                        "return %T.builder($activity, $fm, containerId)",
+                            //    ".autoMap()" +
+                            //    ".autoCrane()" +
+                            //    ".autoPilot()",
                         CLASS_COMPASS_NAVIGATOR
                     )
                     .build()
