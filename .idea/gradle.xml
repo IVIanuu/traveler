@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/traveler-compass-compiler" />
             <option value="$PROJECT_DIR$/traveler-conductor" />
             <option value="$PROJECT_DIR$/traveler-fragments" />
+            <option value="$PROJECT_DIR$/traveler-lifecycleobserver" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

@@ -20,6 +20,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import com.ivianuu.traveler.fragments.FragmentNavigator
+import com.ivianuu.traveler.lifecycleobserver.NavigatorLifecycleObserver
 import com.ivianuu.traveler.sample.getTraveler
 import com.ivianuu.traveler.sample.widget.CounterKey
 
@@ -46,18 +47,11 @@ class FragmentsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        NavigatorLifecycleObserver
+            .start(this, fragmentNavigator, traveler.navigatorHolder)
+
         if (savedInstanceState == null) {
             traveler.router.newRootScreen(CounterKey(1))
         }
-    }
-
-    override fun onResumeFragments() {
-        super.onResumeFragments()
-        traveler.navigatorHolder.setNavigator(fragmentNavigator)
-    }
-
-    override fun onPause() {
-        traveler.navigatorHolder.removeNavigator()
-        super.onPause()
     }
 }

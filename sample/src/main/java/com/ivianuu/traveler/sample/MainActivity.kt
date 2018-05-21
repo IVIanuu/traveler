@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.ivianuu.traveler.android.AppNavigator
 import com.ivianuu.traveler.compass.Destination
+import com.ivianuu.traveler.lifecycleobserver.NavigatorLifecycleObserver
 import com.ivianuu.traveler.sample.MainScreens.*
 import com.ivianuu.traveler.sample.compass.CompassActivity
 import com.ivianuu.traveler.sample.conductor.ConductorActivity
@@ -35,20 +36,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        NavigatorLifecycleObserver.start(this, navigator, traveler.navigatorHolder)
 
         conductor.setOnClickListener { traveler.router.navigateTo(CONDUCTOR) }
         compass.setOnClickListener { traveler.router.navigateTo(COMPASS) }
         fragments.setOnClickListener { traveler.router.navigateTo(FRAGMENTS) }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        traveler.navigatorHolder.setNavigator(navigator)
-    }
-
-    override fun onPause() {
-        traveler.navigatorHolder.removeNavigator()
-        super.onPause()
     }
 }
 

@@ -25,6 +25,7 @@ import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.VerticalChangeHandler
 import com.ivianuu.traveler.commands.Command
 import com.ivianuu.traveler.conductorfork.ControllerNavigator
+import com.ivianuu.traveler.lifecycleobserver.NavigatorLifecycleObserver
 import com.ivianuu.traveler.sample.getTraveler
 import com.ivianuu.traveler.sample.widget.CounterKey
 
@@ -60,19 +61,12 @@ class ConductorActivity : AppCompatActivity() {
         router = Conductor.attachRouter(this,
             findViewById(android.R.id.content), savedInstanceState)
 
+        NavigatorLifecycleObserver
+            .start(this, controllerNavigator, traveler.navigatorHolder)
+
         if (savedInstanceState == null) {
             traveler.router.newRootScreen(CounterKey(1))
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        traveler.navigatorHolder.setNavigator(controllerNavigator)
-    }
-
-    override fun onPause() {
-        traveler.navigatorHolder.removeNavigator()
-        super.onPause()
     }
 
     override fun onBackPressed() {

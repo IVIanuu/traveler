@@ -12,6 +12,7 @@
       <module fileurl="file://$PROJECT_DIR$/traveler-compass-compiler/traveler-compass-compiler.iml" filepath="$PROJECT_DIR$/traveler-compass-compiler/traveler-compass-compiler.iml" />
       <module fileurl="file://$PROJECT_DIR$/traveler-conductor/traveler-conductor.iml" filepath="$PROJECT_DIR$/traveler-conductor/traveler-conductor.iml" />
       <module fileurl="file://$PROJECT_DIR$/traveler-fragments/traveler-fragments.iml" filepath="$PROJECT_DIR$/traveler-fragments/traveler-fragments.iml" />
+      <module fileurl="file://$PROJECT_DIR$/traveler-lifecycleobserver/traveler-lifecycleobserver.iml" filepath="$PROJECT_DIR$/traveler-lifecycleobserver/traveler-lifecycleobserver.iml" />
     </modules>
   </component>
 </project>

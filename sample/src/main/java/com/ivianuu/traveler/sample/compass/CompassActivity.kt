@@ -19,6 +19,7 @@ package com.ivianuu.traveler.sample.compass
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.ivianuu.traveler.compass.compassNavigator
+import com.ivianuu.traveler.lifecycleobserver.NavigatorLifecycleObserver
 import com.ivianuu.traveler.sample.getTraveler
 
 /**
@@ -30,22 +31,16 @@ class CompassActivity : AppCompatActivity() {
         compassNavigator(android.R.id.content)
     }
 
+    private val traveler get() = getTraveler("compass")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        NavigatorLifecycleObserver.start(this, navigator, traveler.navigatorHolder)
+
         if (savedInstanceState == null) {
-            getTraveler("compass").router.newRootScreen(CounterDestination(1))
+            traveler.router.newRootScreen(CounterDestination(1))
         }
-    }
-
-    override fun onResumeFragments() {
-        super.onResumeFragments()
-        getTraveler("compass").navigatorHolder.setNavigator(navigator)
-    }
-
-    override fun onPause() {
-        getTraveler("compass").navigatorHolder.removeNavigator()
-        super.onPause()
     }
 
 }
