@@ -14,30 +14,32 @@
  * limitations under the License.
  */
 
-package com.ivianuu.traveler.sample
+package com.ivianuu.traveler.sample.conductor
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.view_counter.*
+import com.bluelinelabs.conductor.Controller
+import com.ivianuu.traveler.sample.R
+import com.ivianuu.traveler.sample.getTraveler
+import com.ivianuu.traveler.sample.widget.CounterKey
+import kotlinx.android.synthetic.main.view_counter.view.*
 
-class CounterFragment : Fragment() {
+class CounterController : Controller {
+
+    constructor() : super()
+
+    constructor(args: Bundle) : super(args)
 
     override fun onCreateView(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.view_counter, container, false)
+        container: ViewGroup
+    ): View {
+        return inflater.inflate(R.layout.view_counter, container, false).apply {
+            val key = args.getParcelable<CounterKey>("key")
+            counter_view.init(key, activity!!.getTraveler("conductor").router)
+        }
     }
 
-    @SuppressLint("SetTextI18n")
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val key = arguments!!.getParcelable<CounterKey>("key")
-        counter_view.init(key, requireActivity().getTraveler("fragments").router)
-    }
 }

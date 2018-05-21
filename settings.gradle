@@ -1,1 +1,1 @@
-include ':sample', ':traveler', ':traveler-android', ':traveler-conductor', ':traveler-fragments'
+include ':sample', ':traveler', ':traveler-android', ':traveler-conductor', ':traveler-fragments', ':traveler-compass', ':traveler-compass-annotations', ':traveler-compass-compiler'

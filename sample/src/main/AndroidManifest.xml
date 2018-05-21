@@ -18,9 +18,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ConductorActivity"/>
+        <activity android:name=".conductor.ConductorActivity"/>
 
-        <activity android:name=".FragmentsActivity"/>
+        <activity android:name=".compass.CompassActivity"/>
+
+        <activity android:name=".fragment.FragmentsActivity"/>
     </application>
 
 </manifest>

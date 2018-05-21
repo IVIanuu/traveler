@@ -12,6 +12,9 @@
             <option value="$PROJECT_DIR$/sample" />
             <option value="$PROJECT_DIR$/traveler" />
             <option value="$PROJECT_DIR$/traveler-android" />
+            <option value="$PROJECT_DIR$/traveler-compass" />
+            <option value="$PROJECT_DIR$/traveler-compass-annotations" />
+            <option value="$PROJECT_DIR$/traveler-compass-compiler" />
             <option value="$PROJECT_DIR$/traveler-conductor" />
             <option value="$PROJECT_DIR$/traveler-fragments" />
           </set>

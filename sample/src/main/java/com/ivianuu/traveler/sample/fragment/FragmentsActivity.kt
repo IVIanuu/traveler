@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
-package com.ivianuu.traveler.sample
+package com.ivianuu.traveler.sample.fragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import com.ivianuu.traveler.fragments.FragmentNavigator
+import com.ivianuu.traveler.sample.getTraveler
+import com.ivianuu.traveler.sample.widget.CounterKey
 
 class FragmentsActivity : AppCompatActivity() {
 

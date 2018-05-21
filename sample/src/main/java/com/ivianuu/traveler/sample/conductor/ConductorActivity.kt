@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ivianuu.traveler.sample
+package com.ivianuu.traveler.sample.conductor
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -25,6 +25,8 @@ import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.VerticalChangeHandler
 import com.ivianuu.traveler.commands.Command
 import com.ivianuu.traveler.conductorfork.ControllerNavigator
+import com.ivianuu.traveler.sample.getTraveler
+import com.ivianuu.traveler.sample.widget.CounterKey
 
 class ConductorActivity : AppCompatActivity() {
 

@@ -5,9 +5,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.ivianuu.traveler.android.AppNavigator
-import com.ivianuu.traveler.sample.MainScreens.CONDUCTOR
-import com.ivianuu.traveler.sample.MainScreens.FRAGMENTS
+import com.ivianuu.traveler.compass.Destination
+import com.ivianuu.traveler.sample.MainScreens.*
+import com.ivianuu.traveler.sample.compass.CompassActivity
+import com.ivianuu.traveler.sample.conductor.ConductorActivity
+import com.ivianuu.traveler.sample.fragment.FragmentsActivity
 import kotlinx.android.synthetic.main.activity_main.*
+
+@Destination(MainActivity::class)
+class MainDestination
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,6 +22,7 @@ class MainActivity : AppCompatActivity() {
             override fun createActivityIntent(context: Context, key: Any, data: Any?): Intent? {
                 return when(key as MainScreens) {
                     CONDUCTOR -> Intent(context, ConductorActivity::class.java)
+                    COMPASS -> Intent(context, CompassActivity::class.java)
                     FRAGMENTS -> Intent(context, FragmentsActivity::class.java)
                 }
             }
@@ -28,7 +35,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
         conductor.setOnClickListener { traveler.router.navigateTo(CONDUCTOR) }
+        compass.setOnClickListener { traveler.router.navigateTo(COMPASS) }
         fragments.setOnClickListener { traveler.router.navigateTo(FRAGMENTS) }
     }
 
@@ -44,5 +53,5 @@ class MainActivity : AppCompatActivity() {
 }
 
 enum class MainScreens {
-    CONDUCTOR, FRAGMENTS
+    CONDUCTOR, COMPASS, FRAGMENTS
 }
