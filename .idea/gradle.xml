@@ -13,7 +13,6 @@
             <option value="$PROJECT_DIR$/traveler" />
             <option value="$PROJECT_DIR$/traveler-android" />
             <option value="$PROJECT_DIR$/traveler-conductor" />
-            <option value="$PROJECT_DIR$/traveler-conductorfork" />
             <option value="$PROJECT_DIR$/traveler-fragments" />
           </set>
         </option>

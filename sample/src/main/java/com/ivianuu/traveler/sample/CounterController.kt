@@ -20,7 +20,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ivianuu.conductor.Controller
+import com.bluelinelabs.conductor.Controller
 import kotlinx.android.synthetic.main.view_counter.view.*
 
 class CounterController : Controller {
@@ -31,8 +31,7 @@ class CounterController : Controller {
 
     override fun onCreateView(
         inflater: LayoutInflater,
-        container: ViewGroup,
-        savedViewState: Bundle?
+        container: ViewGroup
     ): View {
         return inflater.inflate(R.layout.view_counter, container, false).apply {
             val key = args.getParcelable<CounterKey>("key")
