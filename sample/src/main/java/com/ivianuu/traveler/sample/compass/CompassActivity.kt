@@ -18,12 +18,8 @@ package com.ivianuu.traveler.sample.compass
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.ivianuu.traveler.compass.autoCrane
-import com.ivianuu.traveler.compass.autoMap
-import com.ivianuu.traveler.compass.autoPilot
-import com.ivianuu.traveler.compass.compassNavigatorBuilder
 import com.ivianuu.traveler.lifecycleobserver.NavigatorLifecycleObserver
-import com.ivianuu.traveler.sample.getTraveler
+import com.ivianuu.traveler.sample.*
 
 /**
  * @author Manuel Wrage (IVIanuu)
@@ -32,8 +28,8 @@ class CompassActivity : AppCompatActivity() {
 
     private val navigator by lazy(LazyThreadSafetyMode.NONE) {
         compassNavigatorBuilder(android.R.id.content)
-            .autoCrane()
             .autoMap()
+            .autoCrane()
             .autoPilot()
             .build()
     }

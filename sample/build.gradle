@@ -28,7 +28,15 @@ android {
         targetSdkVersion Versions.targetSdk
         versionCode Versions.versionCode
         versionName Versions.versionName
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                className 'com.ivianuu.traveler.compass.CompassProcessor'
+                arguments = [ 'ext_package' : 'com.ivianuu.traveler.sample' ]
+            }
+        }
     }
+
     androidExtensions {
         experimental = true
     }

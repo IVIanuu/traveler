@@ -24,6 +24,12 @@ import javax.lang.model.element.TypeElement
 object MapBuilder {
 
     fun buildMapType(environment: ProcessingEnvironment, fileSpec: FileSpec.Builder, elements: List<TypeElement>) {
+        fileSpec.addStaticImport("com.ivianuu.traveler.compass", "asRoute")
+        fileSpec.addAliasedImport(
+            ClassName.bestGuess("com.ivianuu.traveler.compass.CompassNavigator"),
+            ClassName.bestGuess("com.ivianuu.traveler.compass.CompassNavigator").simpleName()
+        )
+
         val classBuilder = TypeSpec.classBuilder("AutoMap")
             .addSuperinterface(ClassName("com.ivianuu.traveler.compass", "CompassMap"))
 
@@ -33,7 +39,8 @@ object MapBuilder {
             .returns(ClassName("com.ivianuu.traveler.compass", "CompassRoute"))
 
         getFunction.beginControlFlow("return when(destination)")
-        elements.asSequence()
+
+        elements
             .mapNotNull { element -> element.destinationTarget?.let { element to it } }
             .forEach { (element, target) ->
                 val targetElement = environment.typeUtils.asElement(target) as TypeElement

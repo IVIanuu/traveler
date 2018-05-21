@@ -23,6 +23,12 @@ import javax.lang.model.element.TypeElement
 object PilotBuilder {
 
     fun buildPilotType(environment: ProcessingEnvironment, fileSpec: FileSpec.Builder, elements: List<TypeElement>) {
+        fileSpec.addStaticImport("com.ivianuu.traveler.compass", "registerDetour")
+        fileSpec.addAliasedImport(
+            ClassName.bestGuess("com.ivianuu.traveler.compass.CompassNavigator"),
+            ClassName.bestGuess("com.ivianuu.traveler.compass.CompassNavigator").simpleName()
+        )
+
         val classBuilder = TypeSpec.classBuilder("AutoDetourPilot")
             .superclass(ClassName("com.ivianuu.traveler.compass", "OpenDetourPilot"))
 

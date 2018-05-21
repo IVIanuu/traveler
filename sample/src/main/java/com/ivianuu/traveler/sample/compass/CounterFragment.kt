@@ -21,7 +21,6 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.transition.Slide
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -29,7 +28,6 @@ import android.view.ViewGroup
 import com.ivianuu.traveler.compass.CompassDetour
 import com.ivianuu.traveler.compass.Destination
 import com.ivianuu.traveler.compass.Detour
-import com.ivianuu.traveler.compass.counterDestination
 import com.ivianuu.traveler.sample.R
 import com.ivianuu.traveler.sample.getTraveler
 import kotlinx.android.synthetic.main.view_counter.*
@@ -50,7 +48,6 @@ class TestDetour : CompassDetour<Any, Fragment, Fragment> {
         nextFragment: Fragment,
         transaction: FragmentTransaction
     ) {
-        Log.d("testtt", "hello")
         currentFragment?.exitTransition = Slide(Gravity.START)
         nextFragment.enterTransition = Slide(Gravity.END)
     }

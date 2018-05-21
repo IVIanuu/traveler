@@ -25,6 +25,11 @@ import javax.lang.model.element.TypeElement
 object CraneBuilder {
 
     fun buildAutoCrane(environment: ProcessingEnvironment, fileSpec: FileSpec.Builder, elements: List<TypeElement>) {
+        fileSpec.addAliasedImport(
+            ClassName.bestGuess("com.ivianuu.traveler.compass.CompassNavigator"),
+            ClassName.bestGuess("com.ivianuu.traveler.compass.CompassNavigator").simpleName()
+        )
+
         val classBuilder = TypeSpec.classBuilder("AutoCrane")
             .addSuperinterface(ClassName("com.ivianuu.traveler.compass", "CompassCrane"))
 
