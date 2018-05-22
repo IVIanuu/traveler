@@ -93,6 +93,7 @@ class CompassProcessor : AbstractProcessor() {
 
         ExtensionBuilder
             .buildSerializerFunctions(processingEnv, fileSpec, base)
+
         fileSpec.build().writeTo(File(fileUri))
     }
 
