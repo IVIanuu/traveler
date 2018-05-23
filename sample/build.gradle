@@ -28,13 +28,6 @@ android {
         targetSdkVersion Versions.targetSdk
         versionCode Versions.versionCode
         versionName Versions.versionName
-
-        javaCompileOptions {
-            annotationProcessorOptions {
-                className 'com.ivianuu.traveler.compass.CompassProcessor'
-                arguments = [ 'ext_package' : 'com.ivianuu.traveler.sample' ]
-            }
-        }
     }
 
     androidExtensions {
@@ -52,8 +45,6 @@ dependencies {
 
     implementation project(':traveler')
     implementation project(':traveler-android')
-    implementation project(':traveler-compass')
-    kapt project(':traveler-compass-compiler')
     implementation project(':traveler-conductor')
     implementation project(':traveler-fragments')
     implementation project(':traveler-lifecycleobserver')

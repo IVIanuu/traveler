@@ -7,9 +7,6 @@
       <module fileurl="file://$PROJECT_DIR$/sample/sample.iml" filepath="$PROJECT_DIR$/sample/sample.iml" />
       <module fileurl="file://$PROJECT_DIR$/traveler/traveler.iml" filepath="$PROJECT_DIR$/traveler/traveler.iml" />
       <module fileurl="file://$PROJECT_DIR$/traveler-android/traveler-android.iml" filepath="$PROJECT_DIR$/traveler-android/traveler-android.iml" />
-      <module fileurl="file://$PROJECT_DIR$/traveler-compass/traveler-compass.iml" filepath="$PROJECT_DIR$/traveler-compass/traveler-compass.iml" />
-      <module fileurl="file://$PROJECT_DIR$/traveler-compass-annotations/traveler-compass-annotations.iml" filepath="$PROJECT_DIR$/traveler-compass-annotations/traveler-compass-annotations.iml" />
-      <module fileurl="file://$PROJECT_DIR$/traveler-compass-compiler/traveler-compass-compiler.iml" filepath="$PROJECT_DIR$/traveler-compass-compiler/traveler-compass-compiler.iml" />
       <module fileurl="file://$PROJECT_DIR$/traveler-conductor/traveler-conductor.iml" filepath="$PROJECT_DIR$/traveler-conductor/traveler-conductor.iml" />
       <module fileurl="file://$PROJECT_DIR$/traveler-fragments/traveler-fragments.iml" filepath="$PROJECT_DIR$/traveler-fragments/traveler-fragments.iml" />
       <module fileurl="file://$PROJECT_DIR$/traveler-lifecycleobserver/traveler-lifecycleobserver.iml" filepath="$PROJECT_DIR$/traveler-lifecycleobserver/traveler-lifecycleobserver.iml" />
