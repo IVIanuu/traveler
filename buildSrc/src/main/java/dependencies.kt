@@ -12,12 +12,7 @@ object Versions {
 
     const val archLifecycle = "1.1.1"
 
-    const val autoCommon = "0.8"
-    const val autoService = "1.0-rc3"
-
     const val conductor = "2.1.4"
-
-    const val kotlinPoet = "0.7.0"
 
     const val kotlin = "1.2.41"
     const val mavenGradlePlugin = "2.1"
@@ -30,16 +25,10 @@ object Deps {
     const val archLifecycleExtensions = "android.arch.lifecycle:extensions:${Versions.archLifecycle}"
     const val archLifecycleCompiler = "android.arch.lifecycle:compiler:${Versions.archLifecycle}"
 
-    const val autoCommon = "com.google.auto:auto-common:${Versions.autoCommon}"
-
-    const val autoService = "com.google.auto.service:auto-service:${Versions.autoService}"
-
     const val conductor = "com.bluelinelabs:conductor:${Versions.conductor}"
 
     const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
     const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jre7:${Versions.kotlin}"
-
-    const val kotlinPoet = "com.squareup:kotlinpoet:${Versions.kotlinPoet}"
 
     const val mavenGradlePlugin = "com.github.dcendents:android-maven-gradle-plugin:${Versions.mavenGradlePlugin}"
 
