@@ -172,8 +172,10 @@ class FragmentNavigatorHelper(
     private fun copyStackToLocal() {
         localStackCopy.clear()
 
-        val stackSize = fragmentManager.backStackEntryCount
-        (0 until stackSize).mapTo(localStackCopy) { fragmentManager.getBackStackEntryAt(it).name }
+        (0 until fragmentManager.backStackEntryCount)
+            .map(fragmentManager::getBackStackEntryAt)
+            .mapNotNull(FragmentManager.BackStackEntry::getName)
+            .forEach { localStackCopy.add(it) }
     }
 
     fun backToRoot() {
