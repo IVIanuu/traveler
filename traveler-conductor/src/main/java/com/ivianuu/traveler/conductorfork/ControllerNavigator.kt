@@ -18,7 +18,10 @@ package com.ivianuu.traveler.conductorfork
 
 import com.bluelinelabs.conductor.Router
 import com.ivianuu.traveler.BaseNavigator
-import com.ivianuu.traveler.commands.*
+import com.ivianuu.traveler.commands.Back
+import com.ivianuu.traveler.commands.BackTo
+import com.ivianuu.traveler.commands.Forward
+import com.ivianuu.traveler.commands.Replace
 
 /**
  * Navigator for controllers only
@@ -51,14 +54,9 @@ abstract class ControllerNavigator(private val router: Router): BaseNavigator(),
         }
     }
 
-    protected open fun backToUnexisting(key: Any) {
+    override fun backToUnexisting(key: Any) {
         router.popToRoot()
     }
-
-    protected open fun unknownScreen(command: Command) {
-        throw IllegalArgumentException("unknown screen $command")
-    }
-
 
     protected abstract fun exit()
 

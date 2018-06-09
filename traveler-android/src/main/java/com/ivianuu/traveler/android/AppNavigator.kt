@@ -41,7 +41,7 @@ abstract class AppNavigator(activity: Activity) : BaseNavigator(), AppNavigatorH
         }
     }
 
-    protected open fun unknownScreen(command: Command) {
+    override fun unknownScreen(command: Command) {
         throw IllegalArgumentException("unknown screen $command")
     }
 }

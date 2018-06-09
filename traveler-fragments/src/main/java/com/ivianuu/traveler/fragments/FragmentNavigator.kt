@@ -18,7 +18,10 @@ package com.ivianuu.traveler.fragments
 
 import android.support.v4.app.FragmentManager
 import com.ivianuu.traveler.BaseNavigator
-import com.ivianuu.traveler.commands.*
+import com.ivianuu.traveler.commands.Back
+import com.ivianuu.traveler.commands.BackTo
+import com.ivianuu.traveler.commands.Forward
+import com.ivianuu.traveler.commands.Replace
 
 /**
  * Navigator for fragments only
@@ -56,12 +59,8 @@ abstract class FragmentNavigator(
 
     protected abstract fun exit()
 
-    protected open fun backToUnexisting(key: Any) {
+    override fun backToUnexisting(key: Any) {
         fragmentNavigatorHelper.backToRoot()
-    }
-
-    protected open fun unknownScreen(command: Command) {
-        throw IllegalArgumentException("unknown screen $command")
     }
 
 }
