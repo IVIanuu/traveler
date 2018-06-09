@@ -16,16 +16,20 @@
 
 package com.ivianuu.traveler
 
-/**
- * Navigator holder interface.
- * Use it to connect a [Navigator] to the [Traveler].
- */
-interface NavigatorHolder {
+import com.ivianuu.traveler.commands.Command
 
-    val hasNavigator: Boolean
+fun NavigatorHolder.setNavigator(applyCommands: (commands: Array<Command>) -> Unit): Navigator {
+    val navigator = object : Navigator {
+        override fun applyCommands(commands: Array<Command>) {
+            applyCommands.invoke(commands)
+        }
+    }
 
-    fun setNavigator(navigator: Navigator)
+    setNavigator(navigator)
 
-    fun removeNavigator()
+    return navigator
+}
 
+fun Router.customCommands(commands: Collection<Command>) {
+    customCommands(*commands.toTypedArray())
 }
