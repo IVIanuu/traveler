@@ -85,7 +85,7 @@ open class Router : BaseRouter() {
     }
 
     open fun sendResult(resultCode: Int, result: Any): Boolean {
-        val listeners = resultListeners[resultCode]
+        val listeners = resultListeners[resultCode]?.toList()
         if (listeners != null) {
             listeners.forEach { it.onResult(result) }
             return true
