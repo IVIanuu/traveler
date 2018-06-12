@@ -33,3 +33,43 @@ fun NavigatorHolder.setNavigator(applyCommands: (commands: Array<Command>) -> Un
 fun Router.customCommands(commands: Collection<Command>) {
     customCommands(*commands.toTypedArray())
 }
+
+fun Router.onCommandsApplied(onCommandsApplied: (Array<out Command>) -> Unit): NavigationListener {
+    return addNavigationListener(onCommandsApplied = onCommandsApplied)
+}
+
+fun Router.onCommandApplied(onCommandApplied: (Command) -> Unit): NavigationListener {
+    return addNavigationListener(onCommandApplied = onCommandApplied)
+}
+
+fun Router.addNavigationListener(
+    onCommandsApplied: ((Array<out Command>) -> Unit)? = null,
+    onCommandApplied: ((Command) -> Unit)? = null
+): NavigationListener {
+    val listener = object : NavigationListener {
+        override fun onCommandsApplied(commands: Array<out Command>) {
+            super.onCommandsApplied(commands)
+            onCommandsApplied?.invoke(commands)
+        }
+
+        override fun onCommandApplied(command: Command) {
+            onCommandApplied?.invoke(command)
+        }
+    }
+
+    addNavigationListener(listener)
+
+    return listener
+}
+
+fun Router.addResultListener(resultCode: Int, onResult: (Any) -> Unit): ResultListener {
+    val listener = object : ResultListener {
+        override fun onResult(result: Any) {
+            onResult.invoke(result)
+        }
+    }
+
+    addResultListener(resultCode, listener)
+
+    return listener
+}

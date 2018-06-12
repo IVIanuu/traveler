@@ -19,12 +19,13 @@ package com.ivianuu.traveler
 import com.ivianuu.traveler.commands.Command
 
 /**
- * Base router
+ * Listener when ever a navigation command will be applied
  */
-abstract class BaseRouter {
-    internal val commandBuffer = CommandBuffer()
+interface NavigationListener {
+    fun onCommandsApplied(commands: Array<out Command>) {
+        commands.forEach(this::onCommandApplied)
+    }
 
-    protected open fun executeCommands(vararg commands: Command) {
-        commandBuffer.executeCommands(arrayOf(*commands))
+    fun onCommandApplied(command: Command) {
     }
 }

@@ -187,9 +187,7 @@ class FragmentNavigatorHelper(
 
         fun createFragment(key: Any, data: Any?): Fragment?
 
-        fun getFragmentTag(key: Any): String {
-           return key.toString()
-        }
+        fun getFragmentTag(key: Any) = key.toString()
 
         fun setupFragmentTransaction(
             command: Command,

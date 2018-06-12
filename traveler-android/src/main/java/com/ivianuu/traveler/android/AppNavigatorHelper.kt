@@ -69,9 +69,7 @@ class AppNavigatorHelper(private val callback: Callback, private val activity: A
 
         fun createActivityIntent(context: Context, key: Any, data: Any?): Intent?
 
-        fun createStartActivityOptions(command: Command, activityIntent: Intent): Bundle? {
-            return null
-        }
+        fun createStartActivityOptions(command: Command, activityIntent: Intent): Bundle? = null
 
         fun unexistingActivity(key: Any, activityIntent: Intent) {
             // Do nothing by default

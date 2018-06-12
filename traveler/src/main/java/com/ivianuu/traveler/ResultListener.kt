@@ -14,13 +14,11 @@
  * limitations under the License.
  */
 
-package com.ivianuu.traveler.result
+package com.ivianuu.traveler
 
 /**
  * Listener for results
  */
 interface ResultListener {
-
     fun onResult(result: Any)
-
 }

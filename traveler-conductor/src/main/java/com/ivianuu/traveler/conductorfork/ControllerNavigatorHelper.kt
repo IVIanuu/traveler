@@ -83,9 +83,7 @@ class ControllerNavigatorHelper(private val callback: Callback, private val rout
 
         fun createController(key: Any, data: Any?): Controller?
 
-        fun getControllerTag(key: Any): String {
-            return key.toString()
-        }
+        fun getControllerTag(key: Any) = key.toString()
 
         fun setupRouterTransaction(
             command: Command,

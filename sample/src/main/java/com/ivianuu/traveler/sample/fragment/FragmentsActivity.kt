@@ -19,8 +19,10 @@ package com.ivianuu.traveler.sample.fragment
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import com.ivianuu.traveler.fragments.FragmentNavigator
 import com.ivianuu.traveler.lifecycleobserver.NavigatorLifecycleObserver
+import com.ivianuu.traveler.onCommandApplied
 import com.ivianuu.traveler.sample.getTraveler
 import com.ivianuu.traveler.sample.widget.CounterKey
 
@@ -49,6 +51,10 @@ class FragmentsActivity : AppCompatActivity() {
 
         NavigatorLifecycleObserver
             .start(this, fragmentNavigator, traveler.navigatorHolder)
+
+        traveler.router.onCommandApplied {
+            Log.d("testt", "on command applied $it")
+        }
 
         if (savedInstanceState == null) {
             traveler.router.newRootScreen(CounterKey(1))

@@ -17,14 +17,14 @@
 package com.ivianuu.traveler
 
 import com.ivianuu.traveler.commands.*
-import com.ivianuu.traveler.result.ResultListener
 
 /**
  * Router
  */
 open class Router : BaseRouter() {
 
-    private val resultListeners = mutableMapOf<Int, ResultListener>()
+    private val navigationListeners = mutableSetOf<NavigationListener>()
+    private val resultListeners = mutableMapOf<Int, MutableSet<ResultListener>>()
 
     @JvmOverloads
     open fun navigateTo(key: Any, data: Any? = null) {
@@ -75,18 +75,19 @@ open class Router : BaseRouter() {
         executeCommands(*commands)
     }
 
-    open fun setResultListener(resultCode: Int, listener: ResultListener) {
-        resultListeners[resultCode] = listener
+    open fun addResultListener(resultCode: Int, listener: ResultListener) {
+        val listeners = resultListeners.getOrPut(resultCode) { mutableSetOf() }
+        listeners.add(listener)
     }
 
-    open fun removeResultListener(resultCode: Int) {
-        resultListeners.remove(resultCode)
+    open fun removeResultListener(resultCode: Int, listener: ResultListener) {
+        resultListeners[resultCode]?.remove(listener)
     }
 
     open fun sendResult(resultCode: Int, result: Any): Boolean {
-        val resultListener = resultListeners[resultCode]
-        if (resultListener != null) {
-            resultListener.onResult(result)
+        val listeners = resultListeners[resultCode]
+        if (listeners != null) {
+            listeners.forEach { it.onResult(result) }
             return true
         }
 
@@ -96,5 +97,18 @@ open class Router : BaseRouter() {
     open fun exitWithResult(resultCode: Int, result: Any) {
         exit()
         sendResult(resultCode, result)
+    }
+
+    fun addNavigationListener(listener: NavigationListener) {
+        navigationListeners.add(listener)
+    }
+
+    fun removeNavigationListener(listener: NavigationListener) {
+        navigationListeners.remove(listener)
+    }
+
+    override fun executeCommands(vararg commands: Command) {
+        super.executeCommands(*commands)
+        navigationListeners.forEach { it.onCommandsApplied(commands) }
     }
 }

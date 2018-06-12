@@ -60,7 +60,7 @@ abstract class BaseNavigator : Navigator {
         throw IllegalArgumentException("unknown screen $command")
     }
 
-    private fun throwUnsupportedCommand(command: Command) {
+    protected open fun throwUnsupportedCommand(command: Command) {
         throw IllegalArgumentException("unsupported command $command")
     }
 }
