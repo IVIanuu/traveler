@@ -73,3 +73,65 @@ fun Router.addResultListener(resultCode: Int, onResult: (Any) -> Unit): ResultLi
 
     return listener
 }
+
+inline fun <reified T : Any> Router.addResultListenerFor(resultCode: Int, noinline onResult: (T) -> Unit) =
+    addResultListenerFor(T::class.java, resultCode, onResult)
+
+fun <T : Any> Router.addResultListenerFor(clazz: Class<T>, resultCode: Int, onResult: (T) -> Unit): ResultListener {
+    val listener = object : ResultListener {
+        override fun onResult(result: Any) {
+            if (clazz.isAssignableFrom(result::class.java)) {
+                onResult.invoke(clazz.cast(result))
+            }
+        }
+    }
+
+    addResultListener(resultCode, listener)
+
+    return listener
+}
+
+fun Router.navigateToForResult(key: Any, resultCode: Int, onResult: (Any) -> Unit): ResultListener {
+    val listener = object : ResultListener {
+        override fun onResult(result: Any) {
+            onResult.invoke(result)
+        }
+    }
+
+    navigateToForResult(key, resultCode, listener)
+
+    return listener
+}
+
+fun Router.navigateToForResult(key: Any, data: Any?, resultCode: Int, onResult: (Any) -> Unit): ResultListener {
+    val listener = object : ResultListener {
+        override fun onResult(result: Any) {
+            onResult.invoke(result)
+        }
+    }
+
+    navigateToForResult(key, data, resultCode, listener)
+    return listener
+}
+
+inline fun <reified T : Any> Router.navigateToForResultOf(key: Any, resultCode: Int, noinline onResult: (T) -> Unit) =
+    navigateToForResultOf(T::class.java, key, resultCode, onResult)
+
+inline fun <reified T : Any> Router.navigateToForResultOf(key: Any, data: Any?, resultCode: Int, noinline onResult: (T) -> Unit) =
+        navigateToForResultOf(T::class.java, key, data, resultCode, onResult)
+
+fun <T : Any> Router.navigateToForResultOf(clazz: Class<T>, key: Any, resultCode: Int, onResult: (T) -> Unit) =
+        navigateToForResultOf(clazz, key, null, resultCode, onResult)
+
+fun <T : Any> Router.navigateToForResultOf(clazz: Class<T>, key: Any, data: Any?, resultCode: Int, onResult: (T) -> Unit): ResultListener {
+    val listener = object : ResultListener {
+        override fun onResult(result: Any) {
+            if (clazz.isAssignableFrom(result::class.java)) {
+                onResult.invoke(clazz.cast(result))
+            }
+        }
+    }
+
+    navigateToForResult(key, data, resultCode, listener)
+    return listener
+}

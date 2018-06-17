@@ -84,6 +84,15 @@ open class Router : BaseRouter() {
         resultListeners[resultCode]?.remove(listener)
     }
 
+    open fun navigateToForResult(key: Any, resultCode: Int, listener: ResultListener) {
+        navigateToForResult(key, null, resultCode, listener)
+    }
+
+    open fun navigateToForResult(key: Any, data: Any?, resultCode: Int, listener: ResultListener) {
+        addResultListener(resultCode, listener)
+        navigateTo(key, data)
+    }
+
     open fun sendResult(resultCode: Int, result: Any): Boolean {
         val listeners = resultListeners[resultCode]?.toList()
         if (listeners != null) {
