@@ -29,13 +29,9 @@ class Traveler<T : BaseRouter> private constructor(val router: T) {
     companion object {
 
         @JvmStatic
-        fun create(): Traveler<Router> {
-            return create(Router())
-        }
+        fun create() = create(Router())
 
         @JvmStatic
-        fun <T : BaseRouter> create(router: T): Traveler<T> {
-            return Traveler(router)
-        }
+        fun <T : BaseRouter> create(router: T) = Traveler(router)
     }
 }

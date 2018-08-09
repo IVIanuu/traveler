@@ -100,9 +100,8 @@ class NavigatorLifecycleObserver private constructor(
 
         fun start(lifecycleOwner: LifecycleOwner,
                   navigator: Navigator,
-                  navigatorHolder: NavigatorHolder): NavigatorLifecycleObserver {
-            return NavigatorLifecycleObserver(lifecycleOwner, navigator, navigatorHolder)
-        }
+                  navigatorHolder: NavigatorHolder): NavigatorLifecycleObserver =
+            NavigatorLifecycleObserver(lifecycleOwner, navigator, navigatorHolder)
 
     }
 }
