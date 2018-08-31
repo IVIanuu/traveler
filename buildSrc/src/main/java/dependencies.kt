@@ -12,9 +12,9 @@ object Versions {
 
     const val archLifecycle = "1.1.1"
 
-    const val conductor = "2.1.4"
+    const val conductor = "2.1.5"
 
-    const val kotlin = "1.2.51"
+    const val kotlin = "1.2.61"
     const val mavenGradlePlugin = "2.1"
     const val support = "28.0.0-alpha3"
 }

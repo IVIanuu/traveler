@@ -75,7 +75,8 @@ class NavigatorLifecycleObserver private constructor(
     class LifecycleProviderFragment : Fragment() {
 
         companion object {
-            private const val FRAGMENT_TAG = "com.ivianuu.traveler.lifecycleobserver.LifecycleProviderFragment"
+            private const val FRAGMENT_TAG =
+                "com.ivianuu.traveler.lifecycleobserver.LifecycleProviderFragment"
 
             fun get(activity: FragmentActivity): LifecycleProviderFragment {
                 var fragment =
@@ -98,10 +99,11 @@ class NavigatorLifecycleObserver private constructor(
 
     companion object {
 
-        fun start(lifecycleOwner: LifecycleOwner,
-                  navigator: Navigator,
-                  navigatorHolder: NavigatorHolder): NavigatorLifecycleObserver =
-            NavigatorLifecycleObserver(lifecycleOwner, navigator, navigatorHolder)
+        fun start(
+            lifecycleOwner: LifecycleOwner,
+            navigator: Navigator,
+            navigatorHolder: NavigatorHolder
+        ) = NavigatorLifecycleObserver(lifecycleOwner, navigator, navigatorHolder)
 
     }
 }
