@@ -23,59 +23,60 @@ import com.ivianuu.traveler.commands.*
  */
 open class Router : BaseRouter() {
 
+    private val navigationListeners = mutableSetOf<NavigationListener>()
     private val resultListeners = mutableMapOf<Int, MutableSet<ResultListener>>()
 
     open fun navigateTo(key: Any, data: Any? = null) {
         executeCommands(Forward(key, data))
     }
 
-    open fun newChain(key: Any, data: Any? = null) {
+    open fun newScreenChain(key: Any, data: Any? = null) {
         executeCommands(
             BackTo(null),
             Forward(key, data)
         )
     }
 
-    open fun newRoot(key: Any, data: Any? = null) {
+    open fun newRootScreen(key: Any, data: Any? = null) {
         executeCommands(
             BackTo(null),
             Replace(key, data)
         )
     }
 
-    open fun replaceTop(key: Any, data: Any? = null) {
+    open fun replaceScreen(key: Any, data: Any? = null) {
         executeCommands(Replace(key, data))
     }
 
-    open fun pop() {
-        executeCommands(Back)
-    }
-
-    open fun popTo(key: Any) {
+    open fun backTo(key: Any) {
         executeCommands(BackTo(key))
     }
 
-    open fun popToRoot() {
+    open fun backToRoot() {
         executeCommands(BackTo(null))
     }
 
-    open fun finish() {
+    open fun finishChain() {
         executeCommands(
             BackTo(null),
             Back
         )
     }
 
-    open fun custom(command: Command) {
-        executeCommand(command)
+    open fun exit() {
+        executeCommands(Back)
     }
 
-    open fun addResultListener(resultCode: Int, listener: ResultListener) {
+    open fun executeCustomCommands(vararg commands: Command) {
+        executeCommands(*commands)
+    }
+
+    fun addResultListener(resultCode: Int, listener: ResultListener) {
         val listeners = resultListeners.getOrPut(resultCode) { mutableSetOf() }
         listeners.add(listener)
     }
 
-    open fun removeResultListener(resultCode: Int, listener: ResultListener) {
+    fun removeResultListener(resultCode: Int, listener: ResultListener) {
         resultListeners[resultCode]?.remove(listener)
     }
 
@@ -89,8 +90,21 @@ open class Router : BaseRouter() {
         return false
     }
 
-    open fun popWithResult(resultCode: Int, result: Any) {
-        pop()
+    open fun exitWithResult(resultCode: Int, result: Any) {
+        exit()
         sendResult(resultCode, result)
+    }
+
+    fun addNavigationListener(listener: NavigationListener) {
+        navigationListeners.add(listener)
+    }
+
+    fun removeNavigationListener(listener: NavigationListener) {
+        navigationListeners.remove(listener)
+    }
+
+    override fun executeCommands(vararg commands: Command) {
+        super.executeCommands(*commands)
+        navigationListeners.forEach { it.onApplyCommands(commands) }
     }
 }

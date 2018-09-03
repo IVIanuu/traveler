@@ -14,10 +14,13 @@
  * limitations under the License.
  */
 
-package com.ivianuu.traveler
+package com.ivianuu.traveler.internal
 
+import android.os.Handler
+import android.os.Looper
+import com.ivianuu.traveler.Navigator
+import com.ivianuu.traveler.NavigatorHolder
 import com.ivianuu.traveler.commands.Command
-import com.ivianuu.traveler.internal.mainThread
 import java.util.*
 
 /**
@@ -30,12 +33,16 @@ internal class CommandBuffer : NavigatorHolder {
         get() = navigator != null
 
     private var navigator: Navigator? = null
-    private val pendingCommands = LinkedList<Command>()
+    private val pendingCommands = LinkedList<Array<out Command>>()
+
+    private val handler = Handler(Looper.getMainLooper())
+
+    private val isMainThread get() = Looper.myLooper() == Looper.getMainLooper()
 
     override fun setNavigator(navigator: Navigator) {
         this.navigator = navigator
         while (!pendingCommands.isEmpty()) {
-            executeCommand(pendingCommands.poll())
+            executeCommands(pendingCommands.poll())
         }
     }
 
@@ -43,12 +50,19 @@ internal class CommandBuffer : NavigatorHolder {
         this.navigator = null
     }
 
-    fun executeCommand(command: Command) = mainThread {
+    fun executeCommands(commands: Array<out Command>) = mainThread {
         val navigator = navigator
         if (navigator != null) {
-            navigator.applyCommand(command)
+            navigator.applyCommands(commands)
         } else {
-            pendingCommands.add(command)
+            pendingCommands.add(commands)
+        }
+    }
+
+    private fun mainThread(action: () -> Unit) {
+        when {
+            isMainThread -> action()
+            else -> handler.post(action)
         }
     }
 }

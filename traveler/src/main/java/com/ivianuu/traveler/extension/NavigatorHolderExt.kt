@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-package com.ivianuu.traveler
+package com.ivianuu.traveler.extension
 
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.LifecycleOwner
+import com.ivianuu.traveler.Navigator
+import com.ivianuu.traveler.NavigatorHolder
 import com.ivianuu.traveler.commands.Command
 import com.ivianuu.traveler.internal.NavigatorLifecycleObserver
 
@@ -47,15 +49,3 @@ fun NavigatorHolder.setNavigator(
             applyCommand.invoke(command)
         }
     })
-
-fun Router.addResultListener(resultCode: Int, onResult: (Any) -> Unit): ResultListener {
-    val listener = object : ResultListener {
-        override fun onResult(result: Any) {
-            onResult.invoke(result)
-        }
-    }
-
-    addResultListener(resultCode, listener)
-
-    return listener
-}

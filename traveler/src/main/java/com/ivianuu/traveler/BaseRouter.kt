@@ -17,6 +17,7 @@
 package com.ivianuu.traveler
 
 import com.ivianuu.traveler.commands.Command
+import com.ivianuu.traveler.internal.CommandBuffer
 
 /**
  * Base router
@@ -26,11 +27,7 @@ abstract class BaseRouter {
     internal val commandBuffer = CommandBuffer()
 
     protected open fun executeCommands(vararg commands: Command) {
-        commands.forEach { executeCommand(it) }
-    }
-
-    protected open fun executeCommand(command: Command) {
-        commandBuffer.executeCommand(command)
+        commandBuffer.executeCommands(commands)
     }
 
 }

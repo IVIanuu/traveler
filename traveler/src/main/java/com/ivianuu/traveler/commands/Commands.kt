@@ -27,7 +27,9 @@ interface Command
 /**
  * Rolls back the last transition from the screens chain.
  */
-object Back : Command
+object Back : Command {
+    override fun toString() = "Back"
+}
 
 /**
  * Goes back to the screen with [key]

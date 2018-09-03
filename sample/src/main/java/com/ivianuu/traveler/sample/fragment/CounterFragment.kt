@@ -40,7 +40,7 @@ class CounterFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val key = arguments!!.getParcelable<CounterKey>("key")
+        val key = arguments!!.getParcelable<CounterKey>("key")!!
         counter_view.init(key, requireActivity().getTraveler("fragments").router)
     }
 }
