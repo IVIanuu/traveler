@@ -27,7 +27,7 @@ abstract class BaseNavigator : Navigator {
         commands.forEach { applyCommand(it) }
     }
 
-    protected fun applyCommand(command: Command) {
+    protected open fun applyCommand(command: Command) {
         when(command) {
             is Back -> back(command)
             is BackTo -> backTo(command)
