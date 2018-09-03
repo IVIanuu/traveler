@@ -57,10 +57,9 @@ abstract class FragmentNavigator(
         }
     }
 
-    protected abstract fun exit()
-
     override fun backToUnexisting(key: Any) {
         fragmentNavigatorHelper.backToRoot()
     }
 
+    protected abstract fun exit()
 }

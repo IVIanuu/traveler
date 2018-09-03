@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ivianuu.traveler
+package com.ivianuu.traveler.internal
 
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
@@ -22,6 +22,8 @@ import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.OnLifecycleEvent
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
+import com.ivianuu.traveler.Navigator
+import com.ivianuu.traveler.NavigatorHolder
 
 /**
  * A [LifecycleObserver] which automatically sets and removes the navigator on the corresponding lifecycle events

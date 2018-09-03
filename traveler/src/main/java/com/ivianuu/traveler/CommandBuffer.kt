@@ -17,6 +17,7 @@
 package com.ivianuu.traveler
 
 import com.ivianuu.traveler.commands.Command
+import com.ivianuu.traveler.internal.mainThread
 import java.util.*
 
 /**
@@ -42,7 +43,7 @@ internal class CommandBuffer : NavigatorHolder {
         this.navigator = null
     }
 
-    fun executeCommand(command: Command) {
+    fun executeCommand(command: Command) = mainThread {
         val navigator = navigator
         if (navigator != null) {
             navigator.applyCommand(command)

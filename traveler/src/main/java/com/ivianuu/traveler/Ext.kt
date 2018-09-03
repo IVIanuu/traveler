@@ -19,6 +19,7 @@ package com.ivianuu.traveler
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.LifecycleOwner
 import com.ivianuu.traveler.commands.Command
+import com.ivianuu.traveler.internal.NavigatorLifecycleObserver
 
 fun NavigatorHolder.setNavigator(applyCommand: (command: Command) -> Unit): Navigator {
     val navigator = object : Navigator {
