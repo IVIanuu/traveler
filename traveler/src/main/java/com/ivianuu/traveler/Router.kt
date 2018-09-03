@@ -51,12 +51,12 @@ open class Router : BaseRouter() {
     open fun finish() {
         executeCommands(
             BackTo(null),
-            Back()
+            Back
         )
     }
 
     open fun pop() {
-        executeCommands(Back())
+        executeCommands(Back)
     }
 
     open fun custom(command: Command) {
