@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.ivianuu.traveler.android.AppNavigator
-import com.ivianuu.traveler.lifecycleobserver.NavigatorLifecycleObserver
+import com.ivianuu.traveler.lifecycleobserver.setNavigator
 import com.ivianuu.traveler.sample.MainScreens.CONDUCTOR
 import com.ivianuu.traveler.sample.MainScreens.FRAGMENTS
 import com.ivianuu.traveler.sample.conductor.ConductorActivity
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        NavigatorLifecycleObserver.start(this, navigator, traveler.navigatorHolder)
+        traveler.navigatorHolder.setNavigator(this, navigator)
 
         conductor.setOnClickListener { traveler.router.navigateTo(CONDUCTOR) }
         fragments.setOnClickListener { traveler.router.navigateTo(FRAGMENTS) }

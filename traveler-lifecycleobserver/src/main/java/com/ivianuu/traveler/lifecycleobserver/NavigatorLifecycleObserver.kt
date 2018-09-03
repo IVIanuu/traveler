@@ -30,8 +30,8 @@ import com.ivianuu.traveler.NavigatorHolder
  */
 class NavigatorLifecycleObserver private constructor(
     lifecycleOwner: LifecycleOwner,
-    private val navigator: Navigator,
-    private val navigatorHolder: NavigatorHolder
+    private val navigatorHolder: NavigatorHolder,
+    private val navigator: Navigator
 ) : LifecycleObserver {
 
     init {
@@ -48,7 +48,7 @@ class NavigatorLifecycleObserver private constructor(
         lifecycle.addObserver(this)
 
         // update navigator state based on the current lifecycle state
-        updateState(lifecycleOwner.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED))
+        updateState(lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED))
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
@@ -101,9 +101,10 @@ class NavigatorLifecycleObserver private constructor(
 
         fun start(
             lifecycleOwner: LifecycleOwner,
-            navigator: Navigator,
-            navigatorHolder: NavigatorHolder
-        ) = NavigatorLifecycleObserver(lifecycleOwner, navigator, navigatorHolder)
+            navigatorHolder: NavigatorHolder,
+            navigator: Navigator
+        ): LifecycleObserver =
+            NavigatorLifecycleObserver(lifecycleOwner, navigatorHolder, navigator)
 
     }
 }

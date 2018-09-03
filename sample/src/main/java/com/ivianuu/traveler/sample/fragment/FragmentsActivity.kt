@@ -20,7 +20,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import com.ivianuu.traveler.fragments.FragmentNavigator
-import com.ivianuu.traveler.lifecycleobserver.NavigatorLifecycleObserver
+import com.ivianuu.traveler.lifecycleobserver.setNavigator
 import com.ivianuu.traveler.sample.getTraveler
 import com.ivianuu.traveler.sample.widget.CounterKey
 
@@ -47,8 +47,7 @@ class FragmentsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        NavigatorLifecycleObserver
-            .start(this, fragmentNavigator, traveler.navigatorHolder)
+        traveler.navigatorHolder.setNavigator(this, fragmentNavigator)
 
         if (savedInstanceState == null) {
             traveler.router.newRootScreen(CounterKey(1))

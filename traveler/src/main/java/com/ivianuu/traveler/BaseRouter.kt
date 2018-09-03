@@ -28,4 +28,5 @@ abstract class BaseRouter {
     protected open fun executeCommands(vararg commands: Command) {
         commandBuffer.executeCommands(arrayOf(*commands))
     }
+
 }
