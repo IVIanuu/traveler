@@ -26,7 +26,11 @@ abstract class BaseRouter {
     internal val commandBuffer = CommandBuffer()
 
     protected open fun executeCommands(vararg commands: Command) {
-        commandBuffer.executeCommands(arrayOf(*commands))
+        commands.forEach { executeCommand(it) }
+    }
+
+    protected open fun executeCommand(command: Command) {
+        commandBuffer.executeCommand(command)
     }
 
 }

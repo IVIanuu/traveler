@@ -59,8 +59,8 @@ open class Router : BaseRouter() {
         executeCommands(Back())
     }
 
-    open fun customCommands(vararg commands: Command) {
-        executeCommands(*commands)
+    open fun custom(command: Command) {
+        executeCommand(command)
     }
 
     open fun addResultListener(resultCode: Int, listener: ResultListener) {

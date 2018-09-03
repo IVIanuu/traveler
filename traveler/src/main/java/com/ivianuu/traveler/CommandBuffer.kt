@@ -29,12 +29,12 @@ internal class CommandBuffer : NavigatorHolder {
         get() = navigator != null
 
     private var navigator: Navigator? = null
-    private val pendingCommands = LinkedList<Array<Command>>()
+    private val pendingCommands = LinkedList<Command>()
 
     override fun setNavigator(navigator: Navigator) {
         this.navigator = navigator
         while (!pendingCommands.isEmpty()) {
-            executeCommands(pendingCommands.poll())
+            executeCommand(pendingCommands.poll())
         }
     }
 
@@ -42,12 +42,12 @@ internal class CommandBuffer : NavigatorHolder {
         this.navigator = null
     }
 
-    fun executeCommands(commands: Array<Command>) {
+    fun executeCommand(command: Command) {
         val navigator = navigator
         if (navigator != null) {
-            navigator.applyCommands(commands)
+            navigator.applyCommand(command)
         } else {
-            pendingCommands.add(commands)
+            pendingCommands.add(command)
         }
     }
 }

@@ -23,11 +23,7 @@ import com.ivianuu.traveler.commands.*
  */
 abstract class BaseNavigator : Navigator {
 
-    override fun applyCommands(commands: Array<Command>) {
-        commands.forEach(this::applyCommand)
-    }
-
-    protected open fun applyCommand(command: Command) {
+    override fun applyCommand(command: Command) {
         when(command) {
             is Back -> back(command)
             is BackTo -> backTo(command)

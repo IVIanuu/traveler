@@ -23,7 +23,7 @@ import com.ivianuu.traveler.commands.Command
  */
 interface Navigator {
 
-    fun applyCommands(commands: Array<Command>)
+    fun applyCommand(command: Command)
 
 }
 

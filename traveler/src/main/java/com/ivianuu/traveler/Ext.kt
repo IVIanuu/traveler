@@ -18,20 +18,16 @@ package com.ivianuu.traveler
 
 import com.ivianuu.traveler.commands.Command
 
-fun NavigatorHolder.setNavigator(applyCommands: (commands: Array<Command>) -> Unit): Navigator {
+fun NavigatorHolder.setNavigator(applyCommand: (command: Command) -> Unit): Navigator {
     val navigator = object : Navigator {
-        override fun applyCommands(commands: Array<Command>) {
-            applyCommands.invoke(commands)
+        override fun applyCommand(command: Command) {
+            applyCommand.invoke(command)
         }
     }
 
     setNavigator(navigator)
 
     return navigator
-}
-
-fun Router.customCommands(commands: Collection<Command>) {
-    customCommands(*commands.toTypedArray())
 }
 
 fun Router.addResultListener(resultCode: Int, onResult: (Any) -> Unit): ResultListener {
