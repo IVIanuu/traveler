@@ -37,7 +37,7 @@ class CounterView @JvmOverloads constructor(
 
         add.setOnClickListener { router.navigateTo(CounterKey(key.count + 1)) }
         remove.setOnClickListener { router.finish() }
-        root.setOnClickListener { router.backToRoot() }
+        root.setOnClickListener { router.popToRoot() }
         quit.setOnClickListener { router.finish() }
     }
 

@@ -29,7 +29,14 @@ open class Router : BaseRouter() {
         executeCommands(Forward(key, data))
     }
 
-    open fun setRoot(key: Any, data: Any? = null) {
+    open fun newChain(key: Any, data: Any? = null) {
+        executeCommands(
+            BackTo(null),
+            Forward(key, data)
+        )
+    }
+
+    open fun newRoot(key: Any, data: Any? = null) {
         executeCommands(
             BackTo(null),
             Replace(key, data)
@@ -40,11 +47,15 @@ open class Router : BaseRouter() {
         executeCommands(Replace(key, data))
     }
 
-    open fun backTo(key: Any) {
+    open fun pop() {
+        executeCommands(Back)
+    }
+
+    open fun popTo(key: Any) {
         executeCommands(BackTo(key))
     }
 
-    open fun backToRoot() {
+    open fun popToRoot() {
         executeCommands(BackTo(null))
     }
 
@@ -53,10 +64,6 @@ open class Router : BaseRouter() {
             BackTo(null),
             Back
         )
-    }
-
-    open fun pop() {
-        executeCommands(Back)
     }
 
     open fun custom(command: Command) {
