@@ -26,7 +26,7 @@ import android.support.v4.app.FragmentActivity
 /**
  * A [LifecycleObserver] which automatically sets and removes the navigator on the corresponding lifecycle events
  */
-class NavigatorLifecycleObserver private constructor(
+internal class NavigatorLifecycleObserver private constructor(
     lifecycleOwner: LifecycleOwner,
     private val navigatorHolder: NavigatorHolder,
     private val navigator: Navigator
