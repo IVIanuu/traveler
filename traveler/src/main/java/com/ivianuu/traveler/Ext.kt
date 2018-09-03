@@ -32,11 +32,10 @@ fun NavigatorHolder.setNavigator(applyCommand: (command: Command) -> Unit): Navi
     return navigator
 }
 
-inline fun NavigatorHolder.setNavigator(
+fun NavigatorHolder.setNavigator(
     lifecycleOwner: LifecycleOwner,
     navigator: Navigator
-): LifecycleObserver =
-    NavigatorLifecycleObserver.start(lifecycleOwner, this, navigator)
+): LifecycleObserver = NavigatorLifecycleObserver.start(lifecycleOwner, this, navigator)
 
 fun NavigatorHolder.setNavigator(
     lifecycleOwner: LifecycleOwner,
