@@ -16,6 +16,7 @@
 
 package com.ivianuu.traveler.sample.fragment
 
+import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
@@ -50,7 +51,7 @@ class FragmentsActivity : AppCompatActivity() {
         traveler.navigatorHolder.setNavigator(this, fragmentNavigator)
 
         if (savedInstanceState == null) {
-            traveler.router.newRootScreen(CounterKey(1))
+            AsyncTask.execute { traveler.router.newRootScreen(CounterKey(1)) }
         }
     }
 }

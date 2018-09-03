@@ -23,10 +23,10 @@ import com.ivianuu.traveler.NavigatorHolder
 import com.ivianuu.traveler.commands.Command
 import com.ivianuu.traveler.internal.NavigatorLifecycleObserver
 
-fun NavigatorHolder.setNavigator(applyCommand: (command: Command) -> Unit): Navigator {
+fun NavigatorHolder.setNavigator(applyCommands: (Array<out Command>) -> Unit): Navigator {
     val navigator = object : Navigator {
-        override fun applyCommand(command: Command) {
-            applyCommand.invoke(command)
+        override fun applyCommands(commands: Array<out Command>) {
+            applyCommands.invoke(commands)
         }
     }
 
@@ -42,10 +42,10 @@ fun NavigatorHolder.setNavigator(
 
 fun NavigatorHolder.setNavigator(
     lifecycleOwner: LifecycleOwner,
-    applyCommand: (Command) -> Unit
+    applyCommands: (Array<out Command>) -> Unit
 ): LifecycleObserver =
     NavigatorLifecycleObserver.start(lifecycleOwner, this, object : Navigator {
-        override fun applyCommand(command: Command) {
-            applyCommand.invoke(command)
+        override fun applyCommands(commands: Array<out Command>) {
+            applyCommands.invoke(commands)
         }
     })
