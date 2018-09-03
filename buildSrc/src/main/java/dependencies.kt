@@ -12,8 +12,6 @@ object Versions {
 
     const val archLifecycle = "1.1.1"
 
-    const val conductor = "2.1.5"
-
     const val kotlin = "1.2.61"
     const val mavenGradlePlugin = "2.1"
     const val support = "28.0.0-alpha3"
@@ -24,8 +22,6 @@ object Deps {
 
     const val archLifecycleExtensions = "android.arch.lifecycle:extensions:${Versions.archLifecycle}"
     const val archLifecycleCompiler = "android.arch.lifecycle:compiler:${Versions.archLifecycle}"
-
-    const val conductor = "com.bluelinelabs:conductor:${Versions.conductor}"
 
     const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
     const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jre7:${Versions.kotlin}"

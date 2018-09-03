@@ -27,20 +27,20 @@ interface Command
 /**
  * Rolls back the last transition from the screens chain.
  */
-class Back : Command
+object Back : Command
 
 /**
  * Goes back to the screen with [key]
  * Or to the root if [null]
  */
-class BackTo(val key: Any?) : Command
+data class BackTo(val key: Any?) : Command
 
 /**
  * Opens a new screen.
  */
-class Forward(val key: Any, val data: Any?) : Command
+data class Forward(val key: Any, val data: Any?) : Command
 
 /**
  * Replaces the current screen.
  */
-class Replace(val key: Any, val data: Any?) : Command
+data class Replace(val key: Any, val data: Any?) : Command

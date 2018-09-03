@@ -16,6 +16,8 @@
 
 package com.ivianuu.traveler
 
+import android.arch.lifecycle.LifecycleObserver
+import android.arch.lifecycle.LifecycleOwner
 import com.ivianuu.traveler.commands.Command
 
 fun NavigatorHolder.setNavigator(applyCommand: (command: Command) -> Unit): Navigator {
@@ -29,6 +31,22 @@ fun NavigatorHolder.setNavigator(applyCommand: (command: Command) -> Unit): Navi
 
     return navigator
 }
+
+inline fun NavigatorHolder.setNavigator(
+    lifecycleOwner: LifecycleOwner,
+    navigator: Navigator
+): LifecycleObserver =
+    NavigatorLifecycleObserver.start(lifecycleOwner, this, navigator)
+
+fun NavigatorHolder.setNavigator(
+    lifecycleOwner: LifecycleOwner,
+    applyCommand: (Command) -> Unit
+): LifecycleObserver =
+    NavigatorLifecycleObserver.start(lifecycleOwner, this, object : Navigator {
+        override fun applyCommand(command: Command) {
+            applyCommand.invoke(command)
+        }
+    })
 
 fun Router.addResultListener(resultCode: Int, onResult: (Any) -> Unit): ResultListener {
     val listener = object : ResultListener {

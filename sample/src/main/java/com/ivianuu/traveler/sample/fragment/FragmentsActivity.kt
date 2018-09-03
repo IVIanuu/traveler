@@ -19,10 +19,10 @@ package com.ivianuu.traveler.sample.fragment
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import com.ivianuu.traveler.fragments.FragmentNavigator
-import com.ivianuu.traveler.lifecycleobserver.setNavigator
+import com.ivianuu.traveler.android.FragmentNavigator
 import com.ivianuu.traveler.sample.getTraveler
 import com.ivianuu.traveler.sample.widget.CounterKey
+import com.ivianuu.traveler.setNavigator
 
 class FragmentsActivity : AppCompatActivity() {
 

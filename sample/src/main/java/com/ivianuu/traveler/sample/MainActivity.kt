@@ -5,11 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.ivianuu.traveler.android.AppNavigator
-import com.ivianuu.traveler.lifecycleobserver.setNavigator
-import com.ivianuu.traveler.sample.MainScreens.CONDUCTOR
 import com.ivianuu.traveler.sample.MainScreens.FRAGMENTS
-import com.ivianuu.traveler.sample.conductor.ConductorActivity
 import com.ivianuu.traveler.sample.fragment.FragmentsActivity
+import com.ivianuu.traveler.setNavigator
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -18,7 +16,6 @@ class MainActivity : AppCompatActivity() {
         object : AppNavigator(this) {
             override fun createActivityIntent(context: Context, key: Any, data: Any?): Intent? {
                 return when(key as MainScreens) {
-                    CONDUCTOR -> Intent(context, ConductorActivity::class.java)
                     FRAGMENTS -> Intent(context, FragmentsActivity::class.java)
                 }
             }
@@ -33,11 +30,10 @@ class MainActivity : AppCompatActivity() {
 
         traveler.navigatorHolder.setNavigator(this, navigator)
 
-        conductor.setOnClickListener { traveler.router.navigateTo(CONDUCTOR) }
         fragments.setOnClickListener { traveler.router.navigateTo(FRAGMENTS) }
     }
 }
 
 enum class MainScreens {
-    CONDUCTOR, FRAGMENTS
+    FRAGMENTS
 }

@@ -27,16 +27,4 @@
         android:layout_height="wrap_content"
         android:text="Fragments"/>
 
-    <Button
-        android:id="@+id/conductor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Conductor"/>
-
-    <Button
-        android:id="@+id/compass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Compass"/>
-
 </LinearLayout>

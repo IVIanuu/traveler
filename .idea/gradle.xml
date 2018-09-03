@@ -11,10 +11,6 @@
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/sample" />
             <option value="$PROJECT_DIR$/traveler" />
-            <option value="$PROJECT_DIR$/traveler-android" />
-            <option value="$PROJECT_DIR$/traveler-conductor" />
-            <option value="$PROJECT_DIR$/traveler-fragments" />
-            <option value="$PROJECT_DIR$/traveler-lifecycleobserver" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
