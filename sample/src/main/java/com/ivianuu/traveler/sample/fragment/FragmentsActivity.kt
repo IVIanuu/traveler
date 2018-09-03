@@ -50,7 +50,7 @@ class FragmentsActivity : AppCompatActivity() {
         traveler.navigatorHolder.setNavigator(this, fragmentNavigator)
 
         if (savedInstanceState == null) {
-            traveler.router.newRootScreen(CounterKey(1))
+            traveler.router.setRoot(CounterKey(1))
         }
     }
 }

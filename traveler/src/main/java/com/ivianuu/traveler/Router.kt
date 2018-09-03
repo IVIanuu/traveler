@@ -29,21 +29,14 @@ open class Router : BaseRouter() {
         executeCommands(Forward(key, data))
     }
 
-    open fun newScreenChain(key: Any, data: Any? = null) {
-        executeCommands(
-            BackTo(null),
-            Forward(key, data)
-        )
-    }
-
-    open fun newRootScreen(key: Any, data: Any? = null) {
+    open fun setRoot(key: Any, data: Any? = null) {
         executeCommands(
             BackTo(null),
             Replace(key, data)
         )
     }
 
-    open fun replaceScreen(key: Any, data: Any? = null) {
+    open fun replaceTop(key: Any, data: Any? = null) {
         executeCommands(Replace(key, data))
     }
 
@@ -55,14 +48,14 @@ open class Router : BaseRouter() {
         executeCommands(BackTo(null))
     }
 
-    open fun finishChain() {
+    open fun finish() {
         executeCommands(
             BackTo(null),
             Back()
         )
     }
 
-    open fun exit() {
+    open fun pop() {
         executeCommands(Back())
     }
 
@@ -89,8 +82,8 @@ open class Router : BaseRouter() {
         return false
     }
 
-    open fun exitWithResult(resultCode: Int, result: Any) {
-        exit()
+    open fun popWithResult(resultCode: Int, result: Any) {
+        pop()
         sendResult(resultCode, result)
     }
 }

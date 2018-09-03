@@ -64,7 +64,7 @@ class ConductorActivity : AppCompatActivity() {
         traveler.navigatorHolder.setNavigator(this, controllerNavigator)
 
         if (savedInstanceState == null) {
-            traveler.router.newRootScreen(CounterKey(1))
+            traveler.router.setRoot(CounterKey(1))
         }
     }
 
