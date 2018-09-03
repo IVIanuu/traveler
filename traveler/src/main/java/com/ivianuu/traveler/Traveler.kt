@@ -27,11 +27,8 @@ class Traveler<T : BaseRouter> private constructor(val router: T) {
         get() = router.commandBuffer
 
     companion object {
-
-        @JvmStatic
         fun create() = create(Router())
 
-        @JvmStatic
         fun <T : BaseRouter> create(router: T) = Traveler(router)
     }
 }

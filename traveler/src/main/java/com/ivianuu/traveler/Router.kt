@@ -23,15 +23,12 @@ import com.ivianuu.traveler.commands.*
  */
 open class Router : BaseRouter() {
 
-    private val navigationListeners = mutableSetOf<NavigationListener>()
     private val resultListeners = mutableMapOf<Int, MutableSet<ResultListener>>()
 
-    @JvmOverloads
     open fun navigateTo(key: Any, data: Any? = null) {
         executeCommands(Forward(key, data))
     }
 
-    @JvmOverloads
     open fun newScreenChain(key: Any, data: Any? = null) {
         executeCommands(
             BackTo(null),
@@ -39,7 +36,6 @@ open class Router : BaseRouter() {
         )
     }
 
-    @JvmOverloads
     open fun newRootScreen(key: Any, data: Any? = null) {
         executeCommands(
             BackTo(null),
@@ -47,7 +43,6 @@ open class Router : BaseRouter() {
         )
     }
 
-    @JvmOverloads
     open fun replaceScreen(key: Any, data: Any? = null) {
         executeCommands(Replace(key, data))
     }
@@ -97,18 +92,5 @@ open class Router : BaseRouter() {
     open fun exitWithResult(resultCode: Int, result: Any) {
         exit()
         sendResult(resultCode, result)
-    }
-
-    fun addNavigationListener(listener: NavigationListener) {
-        navigationListeners.add(listener)
-    }
-
-    fun removeNavigationListener(listener: NavigationListener) {
-        navigationListeners.remove(listener)
-    }
-
-    override fun executeCommands(vararg commands: Command) {
-        super.executeCommands(*commands)
-        navigationListeners.forEach { it.onCommandsApplied(commands) }
     }
 }
