@@ -26,4 +26,3 @@ interface Navigator {
     fun applyCommand(command: Command)
 
 }
-
