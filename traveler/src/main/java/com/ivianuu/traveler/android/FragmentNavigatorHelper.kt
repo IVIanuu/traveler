@@ -20,7 +20,7 @@ import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
-import com.ivianuu.traveler.commands.*
+import com.ivianuu.traveler.command.*
 import java.util.*
 
 /**
@@ -76,7 +76,7 @@ class FragmentNavigatorHelper(
 
         if (localStackCopy.size > 0) {
             fragmentManager.popBackStack()
-            localStackCopy.pop()
+            localStackCopy.removeLast()
 
             val transaction = fragmentManager.beginTransaction()
 
@@ -127,7 +127,7 @@ class FragmentNavigatorHelper(
 
         return if (localStackCopy.size > 0) {
             fragmentManager.popBackStack()
-            localStackCopy.pop()
+            localStackCopy.removeLast()
             true
         } else {
             false
@@ -151,7 +151,7 @@ class FragmentNavigatorHelper(
 
             if (index != -1) {
                 for (i in 1 until size - index) {
-                    localStackCopy.pop()
+                    localStackCopy.removeLast()
                 }
                 fragmentManager.popBackStack(tag, 0)
                 true

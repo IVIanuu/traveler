@@ -18,8 +18,8 @@ package com.ivianuu.traveler.android
 
 import android.app.Activity
 import android.support.v4.app.FragmentManager
-import com.ivianuu.traveler.commands.Forward
-import com.ivianuu.traveler.commands.Replace
+import com.ivianuu.traveler.command.Forward
+import com.ivianuu.traveler.command.Replace
 
 /**
  * Navigator for fragments and activities

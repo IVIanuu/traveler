@@ -20,7 +20,7 @@ import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.LifecycleOwner
 import com.ivianuu.traveler.Navigator
 import com.ivianuu.traveler.NavigatorHolder
-import com.ivianuu.traveler.commands.Command
+import com.ivianuu.traveler.command.Command
 import com.ivianuu.traveler.internal.NavigatorLifecycleObserver
 
 fun NavigatorHolder.setNavigator(applyCommands: (Array<out Command>) -> Unit): Navigator {

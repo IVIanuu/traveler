@@ -18,10 +18,10 @@ package com.ivianuu.traveler.android
 
 import android.support.v4.app.FragmentManager
 import com.ivianuu.traveler.BaseNavigator
-import com.ivianuu.traveler.commands.Back
-import com.ivianuu.traveler.commands.BackTo
-import com.ivianuu.traveler.commands.Forward
-import com.ivianuu.traveler.commands.Replace
+import com.ivianuu.traveler.command.Back
+import com.ivianuu.traveler.command.BackTo
+import com.ivianuu.traveler.command.Forward
+import com.ivianuu.traveler.command.Replace
 
 /**
  * Navigator for fragments only

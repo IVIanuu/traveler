@@ -20,7 +20,7 @@ import android.os.Handler
 import android.os.Looper
 import com.ivianuu.traveler.Navigator
 import com.ivianuu.traveler.NavigatorHolder
-import com.ivianuu.traveler.commands.Command
+import com.ivianuu.traveler.command.Command
 import java.util.*
 
 /**

@@ -16,7 +16,7 @@
 
 package com.ivianuu.traveler
 
-import com.ivianuu.traveler.commands.Command
+import com.ivianuu.traveler.command.Command
 import com.ivianuu.traveler.internal.CommandBuffer
 
 /**

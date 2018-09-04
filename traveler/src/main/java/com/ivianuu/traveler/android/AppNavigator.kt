@@ -18,9 +18,8 @@ package com.ivianuu.traveler.android
 
 import android.app.Activity
 import com.ivianuu.traveler.BaseNavigator
-import com.ivianuu.traveler.commands.Command
-import com.ivianuu.traveler.commands.Forward
-import com.ivianuu.traveler.commands.Replace
+import com.ivianuu.traveler.command.Forward
+import com.ivianuu.traveler.command.Replace
 
 /**
  * Navigator for activities
@@ -42,7 +41,4 @@ abstract class AppNavigator(activity: Activity) : BaseNavigator(),
         }
     }
 
-    override fun unknownScreen(command: Command) {
-        throw IllegalArgumentException("unknown screen $command")
-    }
 }

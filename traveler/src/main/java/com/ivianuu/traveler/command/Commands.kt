@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ivianuu.traveler.commands
+package com.ivianuu.traveler.command
 
 import com.ivianuu.traveler.Navigator
 

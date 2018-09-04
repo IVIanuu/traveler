@@ -16,7 +16,7 @@
 
 package com.ivianuu.traveler
 
-import com.ivianuu.traveler.commands.*
+import com.ivianuu.traveler.command.*
 
 /**
  * Base navigator which processes commands and maps them to functions
