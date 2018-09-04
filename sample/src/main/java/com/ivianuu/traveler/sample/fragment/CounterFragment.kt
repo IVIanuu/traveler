@@ -18,10 +18,10 @@ package com.ivianuu.traveler.sample.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.ivianuu.traveler.sample.R
 import com.ivianuu.traveler.sample.getTraveler
 import com.ivianuu.traveler.sample.widget.CounterKey

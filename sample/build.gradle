@@ -39,7 +39,7 @@ android {
 }
 
 dependencies {
-    implementation Deps.supportAppCompat
+    implementation Deps.androidxAppCompat
 
     implementation Deps.kotlinStdLib
 

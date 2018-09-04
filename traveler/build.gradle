@@ -14,9 +14,9 @@ android {
 }
 
 dependencies {
-    api Deps.kotlinStdLib
+    api Deps.androidxFragment
 
-    api Deps.supportFragments
+    api Deps.kotlinStdLib
 }
 
 // build a jar with source files

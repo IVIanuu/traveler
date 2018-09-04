@@ -17,7 +17,7 @@
 package com.ivianuu.traveler.android
 
 import android.app.Activity
-import android.support.v4.app.FragmentManager
+import androidx.fragment.app.FragmentManager
 import com.ivianuu.traveler.command.Forward
 import com.ivianuu.traveler.command.Replace
 

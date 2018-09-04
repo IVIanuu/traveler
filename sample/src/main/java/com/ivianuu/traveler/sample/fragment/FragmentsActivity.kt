@@ -18,8 +18,8 @@ package com.ivianuu.traveler.sample.fragment
 
 import android.os.AsyncTask
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.ivianuu.traveler.android.FragmentNavigator
 import com.ivianuu.traveler.extension.setNavigator
 import com.ivianuu.traveler.sample.getTraveler

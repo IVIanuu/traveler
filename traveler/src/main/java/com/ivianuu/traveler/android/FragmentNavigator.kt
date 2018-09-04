@@ -16,7 +16,7 @@
 
 package com.ivianuu.traveler.android
 
-import android.support.v4.app.FragmentManager
+import androidx.fragment.app.FragmentManager
 import com.ivianuu.traveler.BaseNavigator
 import com.ivianuu.traveler.command.Back
 import com.ivianuu.traveler.command.BackTo
