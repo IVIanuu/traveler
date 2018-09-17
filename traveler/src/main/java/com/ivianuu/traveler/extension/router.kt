@@ -1,10 +1,12 @@
 package com.ivianuu.traveler.extension
 
+import com.ivianuu.traveler.ResultListener
 import com.ivianuu.traveler.Router
 import com.ivianuu.traveler.command.Back
 import com.ivianuu.traveler.command.BackTo
 import com.ivianuu.traveler.command.Forward
 import com.ivianuu.traveler.command.Replace
+import com.ivianuu.traveler.internal.Results
 
 fun Router.navigateTo(key: Any, data: Any? = null) {
     executeCommands(Forward(key, data))
@@ -47,6 +49,10 @@ fun Router.exit() {
     executeCommands(Back)
 }
 
+fun Router.addResultListener(resultCode: Int, listener: ResultListener) {
+    Results.addResultListener(resultCode, listener)
+}
+
 @JvmName("addResultListenerTyped")
 inline fun <reified T> Router.addResultListener(
     resultCode: Int,
@@ -56,6 +62,13 @@ inline fun <reified T> Router.addResultListener(
     addResultListener(resultCode, listener)
     return listener
 }
+
+fun Router.removeResultListener(resultCode: Int, listener: ResultListener) {
+    Results.removeResultListener(resultCode, listener)
+}
+
+fun Router.sendResult(resultCode: Int, result: Any) =
+    Results.sendResult(resultCode, result)
 
 fun Router.exitWithResult(resultCode: Int, result: Any) {
     exit()

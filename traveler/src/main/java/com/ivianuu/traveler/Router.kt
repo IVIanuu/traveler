@@ -27,30 +27,6 @@ open class Router {
     internal val commandBuffer = CommandBuffer()
 
     private val navigationListeners = mutableSetOf<NavigatorListener>()
-    private val resultListeners = mutableMapOf<Int, MutableSet<ResultListener>>()
-
-    fun addResultListener(resultCode: Int, listener: ResultListener) {
-        val listeners = resultListeners.getOrPut(resultCode) { mutableSetOf() }
-        listeners.add(listener)
-    }
-
-    fun removeResultListener(resultCode: Int, listener: ResultListener) {
-        val listeners = resultListeners[resultCode] ?: return
-        listeners.remove(listener)
-        if (listeners.isEmpty()) {
-            resultListeners.remove(resultCode)
-        }
-    }
-
-    open fun sendResult(resultCode: Int, result: Any): Boolean {
-        val listeners = resultListeners[resultCode]?.toList()
-        if (listeners != null) {
-            listeners.forEach { it(result) }
-            return true
-        }
-
-        return false
-    }
 
     fun addNavigationListener(listener: NavigatorListener) {
         navigationListeners.add(listener)
