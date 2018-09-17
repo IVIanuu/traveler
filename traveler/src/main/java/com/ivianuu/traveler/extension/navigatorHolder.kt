@@ -14,20 +14,15 @@
  * limitations under the License.
  */
 
-package com.ivianuu.traveler
+package com.ivianuu.traveler.extension
 
-import com.ivianuu.traveler.command.Command
-import com.ivianuu.traveler.internal.CommandBuffer
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import com.ivianuu.traveler.Navigator
+import com.ivianuu.traveler.NavigatorHolder
+import com.ivianuu.traveler.internal.NavigatorLifecycleObserver
 
-/**
- * Base router
- */
-open class BaseRouter {
-
-    internal val commandBuffer = CommandBuffer()
-
-    open fun executeCommands(vararg commands: Command) {
-        commandBuffer.executeCommands(commands)
-    }
-
-}
+fun NavigatorHolder.setNavigator(
+    lifecycleOwner: LifecycleOwner,
+    navigator: Navigator
+): LifecycleObserver = NavigatorLifecycleObserver.start(lifecycleOwner, this, navigator)

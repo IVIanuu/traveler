@@ -53,7 +53,7 @@ internal class CommandBuffer : NavigatorHolder {
     fun executeCommands(commands: Array<out Command>) = mainThread {
         val navigator = navigator
         if (navigator != null) {
-            navigator.applyCommands(commands)
+            navigator(commands)
         } else {
             pendingCommands.add(commands)
         }

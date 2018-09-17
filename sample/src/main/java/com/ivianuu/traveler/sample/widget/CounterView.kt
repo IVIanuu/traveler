@@ -21,6 +21,10 @@ import android.os.Parcelable
 import android.util.AttributeSet
 import android.widget.LinearLayout
 import com.ivianuu.traveler.Router
+import com.ivianuu.traveler.extension.backToRoot
+import com.ivianuu.traveler.extension.exit
+import com.ivianuu.traveler.extension.finishChain
+import com.ivianuu.traveler.extension.navigateTo
 
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.synthetic.main.view_counter.view.*

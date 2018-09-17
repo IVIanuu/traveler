@@ -21,8 +21,14 @@ import com.ivianuu.traveler.command.Command
 /**
  * The navigator executes the [Command]'s
  */
-interface Navigator {
+typealias Navigator = (commands: Array<out Command>) -> Unit
 
-    fun applyCommands(commands: Array<out Command>)
+/**
+ * Listener for [Command]'s
+ */
+typealias NavigatorListener = (commands: Array<out Command>) -> Unit
 
-}
+/**
+ * Listener for results
+ */
+typealias ResultListener = (result: Any) -> Unit

@@ -16,14 +16,18 @@
 
 package com.ivianuu.traveler
 
-import com.ivianuu.traveler.command.*
+import com.ivianuu.traveler.command.Back
+import com.ivianuu.traveler.command.BackTo
+import com.ivianuu.traveler.command.Command
+import com.ivianuu.traveler.command.Forward
+import com.ivianuu.traveler.command.Replace
 
 /**
  * Base navigator which processes commands and maps them to functions
  */
 abstract class BaseNavigator : Navigator {
 
-    override fun applyCommands(commands: Array<out Command>) {
+    override fun invoke(commands: Array<out Command>) {
         commands.forEach { applyCommand(it) }
     }
 
