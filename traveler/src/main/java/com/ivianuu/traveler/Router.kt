@@ -16,15 +16,19 @@
 
 package com.ivianuu.traveler
 
-import com.ivianuu.traveler.command.*
+import com.ivianuu.traveler.command.Back
+import com.ivianuu.traveler.command.BackTo
+import com.ivianuu.traveler.command.Command
+import com.ivianuu.traveler.command.Forward
+import com.ivianuu.traveler.command.Replace
 
 /**
  * Router
  */
 open class Router : BaseRouter() {
 
-    private val navigationListeners = mutableSetOf<NavigationListener>()
-    private val resultListeners = mutableMapOf<Int, MutableSet<ResultListener>>()
+    private val navigationListeners = mutableSetOf<(Array<out Command>) -> Unit>()
+    private val resultListeners = mutableMapOf<Int, MutableSet<((Any) -> Unit)>>()
 
     open fun navigateTo(key: Any, data: Any? = null) {
         executeCommands(Forward(key, data))
@@ -67,16 +71,12 @@ open class Router : BaseRouter() {
         executeCommands(Back)
     }
 
-    open fun executeCustomCommands(vararg commands: Command) {
-        executeCommands(*commands)
-    }
-
-    fun addResultListener(resultCode: Int, listener: ResultListener) {
+    fun addResultListener(resultCode: Int, listener: (Any) -> Unit) {
         val listeners = resultListeners.getOrPut(resultCode) { mutableSetOf() }
         listeners.add(listener)
     }
 
-    fun removeResultListener(resultCode: Int, listener: ResultListener) {
+    fun removeResultListener(resultCode: Int, listener: (Any) -> Unit) {
         val listeners = resultListeners[resultCode] ?: return
         listeners.remove(listener)
         if (listeners.isEmpty()) {
@@ -87,7 +87,7 @@ open class Router : BaseRouter() {
     open fun sendResult(resultCode: Int, result: Any): Boolean {
         val listeners = resultListeners[resultCode]?.toList()
         if (listeners != null) {
-            listeners.forEach { it.onResult(result) }
+            listeners.forEach { it(result) }
             return true
         }
 
@@ -99,16 +99,16 @@ open class Router : BaseRouter() {
         sendResult(resultCode, result)
     }
 
-    fun addNavigationListener(listener: NavigationListener) {
+    fun addNavigationListener(listener: (Array<out Command>) -> Unit) {
         navigationListeners.add(listener)
     }
 
-    fun removeNavigationListener(listener: NavigationListener) {
+    fun removeNavigationListener(listener: (Array<out Command>) -> Unit) {
         navigationListeners.remove(listener)
     }
 
     override fun executeCommands(vararg commands: Command) {
         super.executeCommands(*commands)
-        navigationListeners.forEach { it.onApplyCommands(commands) }
+        navigationListeners.forEach { it(commands) }
     }
 }

@@ -20,7 +20,6 @@ import android.app.Application
 import android.util.Log
 import com.ivianuu.traveler.Router
 import com.ivianuu.traveler.Traveler
-import com.ivianuu.traveler.extension.addNavigationListener
 import java.util.*
 
 /**

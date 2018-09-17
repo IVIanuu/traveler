@@ -20,7 +20,11 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import com.ivianuu.traveler.command.*
+import com.ivianuu.traveler.command.Back
+import com.ivianuu.traveler.command.BackTo
+import com.ivianuu.traveler.command.Command
+import com.ivianuu.traveler.command.Forward
+import com.ivianuu.traveler.command.Replace
 import java.util.*
 
 /**
@@ -161,6 +165,11 @@ class FragmentNavigatorHelper(
         }
     }
 
+    fun backToRoot() {
+        fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        localStackCopy.clear()
+    }
+
     private fun executePendingTransactions() {
         try {
             fragmentManager.executePendingTransactions()
@@ -176,11 +185,6 @@ class FragmentNavigatorHelper(
             .map(fragmentManager::getBackStackEntryAt)
             .mapNotNull(FragmentManager.BackStackEntry::getName)
             .forEach { localStackCopy.add(it) }
-    }
-
-    fun backToRoot() {
-        fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-        localStackCopy.clear()
     }
 
     interface Callback {

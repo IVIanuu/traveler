@@ -22,11 +22,11 @@ import com.ivianuu.traveler.internal.CommandBuffer
 /**
  * Base router
  */
-abstract class BaseRouter {
+open class BaseRouter {
 
     internal val commandBuffer = CommandBuffer()
 
-    protected open fun executeCommands(vararg commands: Command) {
+    open fun executeCommands(vararg commands: Command) {
         commandBuffer.executeCommands(commands)
     }
 

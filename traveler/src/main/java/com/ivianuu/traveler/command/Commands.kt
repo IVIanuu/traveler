@@ -25,7 +25,7 @@ import com.ivianuu.traveler.Navigator
 interface Command
 
 /**
- * Rolls back the last transition from the screens chain.
+ * Goes back to the previous screen.
  */
 object Back : Command {
     override fun toString() = "Back"
