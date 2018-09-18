@@ -16,6 +16,10 @@
 
 package com.ivianuu.traveler
 
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import com.ivianuu.traveler.internal.NavigatorLifecycleObserver
+
 /**
  * Navigator holder interface.
  * Use it to connect a [Navigator] to the [Traveler].
@@ -38,3 +42,12 @@ interface NavigatorHolder {
     fun removeNavigator()
 
 }
+
+/**
+ * Automatically attaches and removes the navigator in ON_RESUME and in ON_PAUSE
+ * You should call this function only once for example in ON_CREATE
+ */
+fun NavigatorHolder.setNavigator(
+    lifecycleOwner: LifecycleOwner,
+    navigator: Navigator
+): LifecycleObserver = NavigatorLifecycleObserver.start(lifecycleOwner, this, navigator)

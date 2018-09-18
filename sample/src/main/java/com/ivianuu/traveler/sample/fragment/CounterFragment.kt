@@ -33,9 +33,7 @@ class CounterFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.view_counter, container, false)
-    }
+    ): View? = inflater.inflate(R.layout.view_counter, container, false)
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
