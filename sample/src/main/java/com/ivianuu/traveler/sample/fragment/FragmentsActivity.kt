@@ -21,10 +21,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.ivianuu.traveler.android.FragmentNavigator
-import com.ivianuu.traveler.newRootScreen
 import com.ivianuu.traveler.sample.getTraveler
 import com.ivianuu.traveler.sample.widget.CounterKey
 import com.ivianuu.traveler.setNavigator
+import com.ivianuu.traveler.setRoot
 
 class FragmentsActivity : AppCompatActivity() {
 
@@ -52,7 +52,7 @@ class FragmentsActivity : AppCompatActivity() {
         traveler.navigatorHolder.setNavigator(this, fragmentNavigator)
 
         if (savedInstanceState == null) {
-            AsyncTask.execute { traveler.router.newRootScreen(CounterKey(1)) }
+            AsyncTask.execute { traveler.router.setRoot(CounterKey(1)) }
         }
     }
 }

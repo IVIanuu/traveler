@@ -21,8 +21,7 @@ import androidx.lifecycle.LifecycleOwner
 import com.ivianuu.traveler.internal.NavigatorLifecycleObserver
 
 /**
- * Navigator holder interface.
- * Use it to connect a [Navigator] to the [Traveler].
+ * Holds a navigator.
  */
 interface NavigatorHolder {
 

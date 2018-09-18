@@ -55,24 +55,14 @@ open class Router {
 /**
  * Navigates forward to [key]
  */
-fun Router.navigateTo(key: Any, data: Any? = null) {
+fun Router.navigate(key: Any, data: Any? = null) {
     executeCommands(Forward(key, data))
-}
-
-/**
- * Pops back to root and goes forward to [key]
- */
-fun Router.newScreenChain(key: Any, data: Any? = null) {
-    executeCommands(
-        BackTo(null),
-        Forward(key, data)
-    )
 }
 
 /**
  * Clears all screen and opens [key]
  */
-fun Router.newRootScreen(key: Any, data: Any? = null) {
+fun Router.setRoot(key: Any, data: Any? = null) {
     executeCommands(
         BackTo(null),
         Replace(key, data)
@@ -82,39 +72,39 @@ fun Router.newRootScreen(key: Any, data: Any? = null) {
 /**
  * Replaces the top screen with [key]
  */
-fun Router.replaceScreen(key: Any, data: Any? = null) {
+fun Router.replaceTop(key: Any, data: Any? = null) {
     executeCommands(Replace(key, data))
 }
 
 /**
  * Goes back to [key]
  */
-fun Router.backTo(key: Any) {
+fun Router.popTo(key: Any) {
     executeCommands(BackTo(key))
 }
 
 /**
  * Goes back to the root screen
  */
-fun Router.backToRoot() {
+fun Router.popToRoot() {
     executeCommands(BackTo(null))
-}
-
-/**
- * Finishes the chain
- */
-fun Router.finishChain() {
-    executeCommands(
-        BackTo(null),
-        Back
-    )
 }
 
 /**
  * Goes back to the previous screen
  */
-fun Router.exit() {
+fun Router.goBack() {
     executeCommands(Back)
+}
+
+/**
+ * Finishes the chain
+ */
+fun Router.finish() {
+    executeCommands(
+        BackTo(null),
+        Back
+    )
 }
 
 /**
@@ -153,7 +143,7 @@ fun Router.sendResult(resultCode: Int, result: Any) =
 /**
  * Goes back to the previous screen and sends the [result] with the [resultCode]
  */
-fun Router.exitWithResult(resultCode: Int, result: Any) {
-    exit()
+fun Router.goBackWithResult(resultCode: Int, result: Any) {
+    goBack()
     sendResult(resultCode, result)
 }

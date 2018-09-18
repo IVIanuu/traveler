@@ -21,10 +21,10 @@ import android.os.Parcelable
 import android.util.AttributeSet
 import android.widget.LinearLayout
 import com.ivianuu.traveler.Router
-import com.ivianuu.traveler.backToRoot
-import com.ivianuu.traveler.exit
-import com.ivianuu.traveler.finishChain
-import com.ivianuu.traveler.navigateTo
+import com.ivianuu.traveler.finish
+import com.ivianuu.traveler.goBack
+import com.ivianuu.traveler.navigate
+import com.ivianuu.traveler.popToRoot
 
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.synthetic.main.view_counter.view.*
@@ -39,10 +39,10 @@ class CounterView @JvmOverloads constructor(
     fun init(key: CounterKey, router: Router) {
         title.text = "Count ${key.count}"
 
-        add.setOnClickListener { router.navigateTo(CounterKey(key.count + 1)) }
-        remove.setOnClickListener { router.exit() }
-        root.setOnClickListener { router.backToRoot() }
-        quit.setOnClickListener { router.finishChain() }
+        add.setOnClickListener { router.navigate(CounterKey(key.count + 1)) }
+        remove.setOnClickListener { router.goBack() }
+        root.setOnClickListener { router.popToRoot() }
+        quit.setOnClickListener { router.finish() }
     }
 
 }

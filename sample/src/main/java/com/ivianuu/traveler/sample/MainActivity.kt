@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.ivianuu.traveler.android.AppNavigator
-import com.ivianuu.traveler.navigateTo
+import com.ivianuu.traveler.navigate
 import com.ivianuu.traveler.sample.MainScreens.FRAGMENTS
 import com.ivianuu.traveler.sample.fragment.FragmentsActivity
 import com.ivianuu.traveler.setNavigator
@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         traveler.navigatorHolder.setNavigator(this, navigator)
 
-        fragments.setOnClickListener { traveler.router.navigateTo(FRAGMENTS) }
+        fragments.setOnClickListener { traveler.router.navigate(FRAGMENTS) }
     }
 }
 

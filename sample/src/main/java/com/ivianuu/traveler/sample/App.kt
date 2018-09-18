@@ -29,7 +29,7 @@ class App : Application() {
 
     private val travelers = mutableMapOf<String, Traveler<Router>>()
 
-    fun getTraveler(key: String)= travelers.getOrPut(key) { Traveler.create() }
+    fun getTraveler(key: String) = travelers.getOrPut(key) { Traveler() }
 
     override fun onCreate() {
         super.onCreate()
