@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-package com.ivianuu.traveler.command
-
-import com.ivianuu.traveler.Navigator
+package com.ivianuu.traveler
 
 /**
  * Navigation command describes screens transition.

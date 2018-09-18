@@ -22,10 +22,19 @@ package com.ivianuu.traveler
  */
 interface NavigatorHolder {
 
+    /**
+     * Whether or not a [Navigator] is currently set
+     */
     val hasNavigator: Boolean
 
+    /**
+     * Sets the navigator which will be used to navigate
+     */
     fun setNavigator(navigator: Navigator)
 
+    /**
+     * Removes the current [Navigator]
+     */
     fun removeNavigator()
 
 }

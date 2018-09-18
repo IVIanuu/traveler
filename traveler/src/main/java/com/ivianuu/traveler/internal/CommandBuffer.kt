@@ -18,9 +18,9 @@ package com.ivianuu.traveler.internal
 
 import android.os.Handler
 import android.os.Looper
+import com.ivianuu.traveler.Command
 import com.ivianuu.traveler.Navigator
 import com.ivianuu.traveler.NavigatorHolder
-import com.ivianuu.traveler.command.Command
 import java.util.*
 
 /**

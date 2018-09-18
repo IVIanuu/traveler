@@ -18,8 +18,8 @@ package com.ivianuu.traveler.android
 
 import android.app.Activity
 import com.ivianuu.traveler.BaseNavigator
-import com.ivianuu.traveler.command.Forward
-import com.ivianuu.traveler.command.Replace
+import com.ivianuu.traveler.Forward
+import com.ivianuu.traveler.Replace
 
 /**
  * Navigator for activities

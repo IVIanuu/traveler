@@ -16,7 +16,6 @@
 
 package com.ivianuu.traveler
 
-import com.ivianuu.traveler.command.Command
 import com.ivianuu.traveler.internal.CommandBuffer
 
 /**
@@ -28,14 +27,23 @@ open class Router {
 
     private val navigationListeners = mutableSetOf<NavigatorListener>()
 
+    /**
+     * Adds a listener which will be invoked after each call to [executeCommands]
+     */
     fun addNavigationListener(listener: NavigatorListener) {
         navigationListeners.add(listener)
     }
 
+    /**
+     * Removes the [listener]
+     */
     fun removeNavigationListener(listener: NavigatorListener) {
         navigationListeners.remove(listener)
     }
 
+    /**
+     * Executes the commands via the navigator or waits until one is set
+     */
     open fun executeCommands(vararg commands: Command) {
         commandBuffer.executeCommands(commands)
         navigationListeners.forEach { it(commands) }

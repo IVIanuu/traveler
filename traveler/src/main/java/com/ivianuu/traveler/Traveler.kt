@@ -18,17 +18,26 @@ package com.ivianuu.traveler
 
 /**
  * Traveler is the holder for other library components.
- * To use it, instantiate it using one of the [.create] methods.
- * When you need a [NavigatorHolder] or router, get it here.
  */
 class Traveler<T : Router> private constructor(val router: T) {
 
+    /**
+     * Returns the navigator holder
+     */
     val navigatorHolder: NavigatorHolder
         get() = router.commandBuffer
 
     companion object {
-        fun create() = create(Router())
 
-        fun <T : Router> create(router: T) = Traveler(router)
+        /**
+         * Returns a new [Traveler] with the default [Router]
+         */
+        operator fun invoke() = invoke(Router())
+
+        /**
+         * Returns a new [Traveler] with a custom [Router]
+         */
+        operator fun <T : Router> invoke(router: T) = Traveler(router)
+
     }
 }

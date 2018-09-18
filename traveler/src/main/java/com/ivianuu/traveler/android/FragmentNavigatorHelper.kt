@@ -20,11 +20,11 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import com.ivianuu.traveler.command.Back
-import com.ivianuu.traveler.command.BackTo
-import com.ivianuu.traveler.command.Command
-import com.ivianuu.traveler.command.Forward
-import com.ivianuu.traveler.command.Replace
+import com.ivianuu.traveler.Back
+import com.ivianuu.traveler.BackTo
+import com.ivianuu.traveler.Command
+import com.ivianuu.traveler.Forward
+import com.ivianuu.traveler.Replace
 import java.util.*
 
 /**

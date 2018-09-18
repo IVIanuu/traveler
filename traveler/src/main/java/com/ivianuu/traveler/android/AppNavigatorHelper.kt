@@ -20,9 +20,9 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.ivianuu.traveler.command.Command
-import com.ivianuu.traveler.command.Forward
-import com.ivianuu.traveler.command.Replace
+import com.ivianuu.traveler.Command
+import com.ivianuu.traveler.Forward
+import com.ivianuu.traveler.Replace
 
 /**
  * Helper for implementing a navigator for activities

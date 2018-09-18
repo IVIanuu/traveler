@@ -14,14 +14,16 @@
  * limitations under the License.
  */
 
-package com.ivianuu.traveler.extension
+package com.ivianuu.traveler
 
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import com.ivianuu.traveler.Navigator
-import com.ivianuu.traveler.NavigatorHolder
 import com.ivianuu.traveler.internal.NavigatorLifecycleObserver
 
+/**
+ * Automatically attaches and removes the navigator in ON_RESUME and in ON_PAUSE
+ * You should call this function only once for example in ON_CREATE
+ */
 fun NavigatorHolder.setNavigator(
     lifecycleOwner: LifecycleOwner,
     navigator: Navigator

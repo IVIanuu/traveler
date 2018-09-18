@@ -5,10 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.ivianuu.traveler.android.AppNavigator
-import com.ivianuu.traveler.extension.navigateTo
-import com.ivianuu.traveler.extension.setNavigator
+import com.ivianuu.traveler.navigateTo
 import com.ivianuu.traveler.sample.MainScreens.FRAGMENTS
 import com.ivianuu.traveler.sample.fragment.FragmentsActivity
+import com.ivianuu.traveler.setNavigator
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {

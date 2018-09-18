@@ -5,7 +5,7 @@ import com.ivianuu.traveler.ResultListener
 /**
  * @author Manuel Wrage (IVIanuu)
  */
-object Results {
+internal object Results {
 
     private val resultListeners = mutableMapOf<Int, MutableSet<ResultListener>>()
 
