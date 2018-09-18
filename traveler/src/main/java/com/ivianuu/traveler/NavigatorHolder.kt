@@ -39,7 +39,6 @@ interface NavigatorHolder {
      * Removes the current [Navigator]
      */
     fun removeNavigator()
-
 }
 
 /**

@@ -22,11 +22,6 @@ package com.ivianuu.traveler
 typealias Navigator = (commands: Array<out Command>) -> Unit
 
 /**
- * Listener for [Command]'s
- */
-typealias NavigatorListener = (commands: Array<out Command>) -> Unit
-
-/**
  * Listener for results
  */
 typealias ResultListener = (result: Any) -> Unit

@@ -17,10 +17,8 @@
 package com.ivianuu.traveler.sample
 
 import android.app.Application
-import android.util.Log
 import com.ivianuu.traveler.Router
 import com.ivianuu.traveler.Traveler
-import java.util.*
 
 /**
  * @author Manuel Wrage (IVIanuu)
@@ -31,15 +29,4 @@ class App : Application() {
 
     fun getTraveler(key: String) = travelers.getOrPut(key) { Traveler() }
 
-    override fun onCreate() {
-        super.onCreate()
-
-        getTraveler("fragments").router
-            .addNavigationListener {
-                Log.d(
-                    "testt",
-                    "on commands applied -> ${Arrays.toString(it)}"
-                )
-            }
-    }
 }

@@ -36,7 +36,6 @@ internal class CommandBuffer : NavigatorHolder {
     private val pendingCommands = LinkedList<Array<out Command>>()
 
     private val handler = Handler(Looper.getMainLooper())
-
     private val isMainThread get() = Looper.myLooper() == Looper.getMainLooper()
 
     override fun setNavigator(navigator: Navigator) {
