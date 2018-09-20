@@ -16,9 +16,6 @@
 
 package com.ivianuu.traveler
 
-import com.ivianuu.traveler.internal.CommandBuffer
-import com.ivianuu.traveler.internal.Results
-
 /**
  * Base router
  */

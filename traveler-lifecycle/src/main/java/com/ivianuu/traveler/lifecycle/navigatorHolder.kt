@@ -14,24 +14,18 @@
  * limitations under the License.
  */
 
-package com.ivianuu.traveler
+package com.ivianuu.traveler.lifecycle
+
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import com.ivianuu.traveler.Navigator
+import com.ivianuu.traveler.NavigatorHolder
 
 /**
- * Holds a navigator.
+ * Automatically attaches and removes the navigator in ON_RESUME and in ON_PAUSE
+ * You should call this function only once for example in ON_CREATE
  */
-interface NavigatorHolder {
-    /**
-     * Whether or not a [Navigator] is currently set
-     */
-    val hasNavigator: Boolean
-
-    /**
-     * Sets the navigator which will be used to navigate
-     */
-    fun setNavigator(navigator: Navigator)
-
-    /**
-     * Removes the current [Navigator]
-     */
-    fun removeNavigator()
-}
+fun NavigatorHolder.setNavigator(
+    lifecycleOwner: LifecycleOwner,
+    navigator: Navigator
+): LifecycleObserver = NavigatorLifecycleObserver.start(lifecycleOwner, this, navigator)

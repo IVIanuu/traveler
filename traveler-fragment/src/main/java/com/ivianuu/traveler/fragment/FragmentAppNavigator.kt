@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package com.ivianuu.traveler.android
+package com.ivianuu.traveler.fragment
 
 import android.app.Activity
 import androidx.fragment.app.FragmentManager
 import com.ivianuu.traveler.Forward
 import com.ivianuu.traveler.Replace
+import com.ivianuu.traveler.android.AppNavigatorHelper
 
 /**
  * Navigator for fragments and activities
@@ -28,8 +29,7 @@ abstract class FragmentAppNavigator(
     private val activity: Activity,
     fragmentManager: FragmentManager,
     containerId: Int
-) : FragmentNavigator(fragmentManager, containerId),
-    AppNavigatorHelper.Callback {
+) : FragmentNavigator(fragmentManager, containerId), AppNavigatorHelper.Callback {
 
     private val appNavigatorHelper = AppNavigatorHelper(this, activity)
 

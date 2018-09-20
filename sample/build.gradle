@@ -44,4 +44,7 @@ dependencies {
     implementation Deps.kotlinStdLib
 
     implementation project(':traveler')
+    implementation project(':traveler-android')
+    implementation project(':traveler-fragment')
+    implementation project(':traveler-lifecycle')
 }

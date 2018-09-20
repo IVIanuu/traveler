@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package com.ivianuu.traveler.internal
+package com.ivianuu.traveler.lifecycle
 
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.GenericLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.OnLifecycleEvent
 import com.ivianuu.traveler.Navigator
 import com.ivianuu.traveler.NavigatorHolder
 
@@ -32,7 +31,7 @@ internal class NavigatorLifecycleObserver private constructor(
     lifecycleOwner: LifecycleOwner,
     private val navigatorHolder: NavigatorHolder,
     private val navigator: Navigator
-) : LifecycleObserver {
+) : GenericLifecycleObserver {
 
     init {
         // if its a activity we must add a dummy fragment to make sure
@@ -53,54 +52,20 @@ internal class NavigatorLifecycleObserver private constructor(
         updateState(lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED))
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    fun onResume() {
-        updateState(true)
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    fun onPause() {
-        updateState(false)
+    override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
+        updateState(source.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED))
     }
 
     private fun updateState(shouldAttach: Boolean) {
         if (shouldAttach) {
-            navigatorHolder.setNavigator(navigator)
+            if (!navigatorHolder.hasNavigator) {
+                navigatorHolder.setNavigator(navigator)
+            }
         } else {
-            navigatorHolder.removeNavigator()
-        }
-    }
-
-    /**
-     * Used for activities because their on resume is called to early
-     */
-    class LifecycleProviderFragment : Fragment() {
-
-        companion object {
-            private const val FRAGMENT_TAG =
-                "com.ivianuu.traveler.lifecycleobserver.LifecycleProviderFragment"
-
-            fun get(activity: FragmentActivity): LifecycleProviderFragment {
-                var fragment =
-                    activity.supportFragmentManager.findFragmentByTag(FRAGMENT_TAG)
-                            as LifecycleProviderFragment?
-
-                if (fragment == null) {
-                    fragment =
-                            LifecycleProviderFragment()
-
-                    activity.supportFragmentManager.beginTransaction()
-                        .add(
-                            fragment,
-                            FRAGMENT_TAG
-                        )
-                        .commitNow()
-                }
-
-                return fragment
+            if (navigatorHolder.hasNavigator) {
+                navigatorHolder.removeNavigator()
             }
         }
-
     }
 
     companion object {

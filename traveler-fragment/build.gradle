@@ -14,7 +14,10 @@ android {
 }
 
 dependencies {
+    api Deps.androidxFragment
     api Deps.kotlinStdLib
+    api project(':traveler')
+    api project(':traveler-android')
 }
 
 // build a jar with source files

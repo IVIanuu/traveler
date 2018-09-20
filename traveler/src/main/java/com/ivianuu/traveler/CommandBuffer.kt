@@ -14,13 +14,10 @@
  * limitations under the License.
  */
 
-package com.ivianuu.traveler.internal
+package com.ivianuu.traveler
 
 import android.os.Handler
 import android.os.Looper
-import com.ivianuu.traveler.Command
-import com.ivianuu.traveler.Navigator
-import com.ivianuu.traveler.NavigatorHolder
 import java.util.*
 
 /**
