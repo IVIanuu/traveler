@@ -20,7 +20,7 @@ import com.ivianuu.traveler.Command
 import com.ivianuu.traveler.Navigator
 
 /**
- * A navigator which uses [NavigatorPlugin] to apply commands
+ * A navigator which uses [NavigatorPlugin]'s to apply commands
  */
 open class PluginNavigator(
     private val plugins: List<NavigatorPlugin>
