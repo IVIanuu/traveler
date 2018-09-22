@@ -20,10 +20,10 @@ import androidx.lifecycle.GenericLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import com.ivianuu.traveler.NavigationListener
-import com.ivianuu.traveler.ResultListener
 import com.ivianuu.traveler.Router
-import com.ivianuu.traveler.addResultListener
-import com.ivianuu.traveler.removeResultListener
+import com.ivianuu.traveler.result.ResultListener
+import com.ivianuu.traveler.result.addResultListener
+import com.ivianuu.traveler.result.removeResultListener
 
 /**
  * Adds the [listener] and removes him on

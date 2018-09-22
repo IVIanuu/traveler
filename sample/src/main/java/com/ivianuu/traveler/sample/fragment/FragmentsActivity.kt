@@ -28,7 +28,7 @@ import com.ivianuu.traveler.plugin.pluginNavigatorOf
 import com.ivianuu.traveler.sample.getTraveler
 import com.ivianuu.traveler.setRoot
 
-private class SampleFragmentNavigatorPlugin(
+private class CounterNavigatorPlugin(
     private val activity: Activity,
     fragmentManager: FragmentManager,
     containerId: Int
@@ -54,7 +54,7 @@ class FragmentsActivity : AppCompatActivity() {
 
     private val fragmentNavigator by lazy(LazyThreadSafetyMode.NONE) {
         pluginNavigatorOf(
-            SampleFragmentNavigatorPlugin(
+            CounterNavigatorPlugin(
                 this,
                 supportFragmentManager,
                 android.R.id.content

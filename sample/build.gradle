@@ -47,4 +47,6 @@ dependencies {
     implementation project(':traveler-android')
     implementation project(':traveler-fragment')
     implementation project(':traveler-lifecycle')
+    implementation project(':traveler-plugin')
+    implementation project(':traveler-result')
 }

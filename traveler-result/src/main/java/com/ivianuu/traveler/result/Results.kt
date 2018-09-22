@@ -14,11 +14,8 @@
  * limitations under the License.
  */
 
-package com.ivianuu.traveler
+package com.ivianuu.traveler.result
 
-/**
- * @author Manuel Wrage (IVIanuu)
- */
 internal object Results {
 
     private val resultListeners = mutableMapOf<Int, MutableSet<ResultListener>>()

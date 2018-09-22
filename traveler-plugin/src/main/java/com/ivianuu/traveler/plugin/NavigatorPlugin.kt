@@ -20,13 +20,23 @@ import com.ivianuu.traveler.Command
 import kotlin.reflect.KClass
 
 /**
- * @author Manuel Wrage (IVIanuu)
+ * A single component which is able to handle specific [Command]'s
  */
 interface NavigatorPlugin {
+    /**
+     * Returns whether or not the [command] can be handled
+     */
     fun handles(command: Command): Boolean
+
+    /**
+     * Applies the [command] this will be only called if [handles] returns true
+     */
     fun apply(command: Command)
 }
 
+/**
+ * A typed [NavigatorPlugin]
+ */
 abstract class TypedNavigatorPlugin<T : Command>(private val clazz: KClass<T>) : NavigatorPlugin {
     override fun handles(command: Command) = clazz.java.isAssignableFrom(command.javaClass)
     final override fun apply(command: Command) {

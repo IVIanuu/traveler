@@ -14,14 +14,9 @@
  * limitations under the License.
  */
 
-package com.ivianuu.traveler
+package com.ivianuu.traveler.result
 
 /**
- * The navigator executes the [Command]'s
+ * Listener for results
  */
-typealias Navigator = (commands: Array<out Command>) -> Unit
-
-/**
- * Listener for navigation
- */
-typealias NavigationListener = (commands: Array<out Command>) -> Unit
+typealias ResultListener = (result: Any) -> Unit

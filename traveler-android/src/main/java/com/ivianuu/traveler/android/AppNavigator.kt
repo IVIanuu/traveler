@@ -24,8 +24,7 @@ import com.ivianuu.traveler.SimpleNavigator
 /**
  * Navigator for activities
  */
-abstract class AppNavigator(activity: Activity) : SimpleNavigator(),
-    AppNavigatorHelper.Callback {
+abstract class AppNavigator(activity: Activity) : SimpleNavigator(), AppNavigatorHelper.Callback {
 
     private val appNavigatorHelper = AppNavigatorHelper(this, activity)
 

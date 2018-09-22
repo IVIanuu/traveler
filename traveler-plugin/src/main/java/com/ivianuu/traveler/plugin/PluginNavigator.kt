@@ -40,3 +40,9 @@ open class PluginNavigator(
  */
 fun pluginNavigatorOf(vararg plugins: NavigatorPlugin) =
     PluginNavigator(plugins.toList())
+
+/**
+ * Returns a new [PluginNavigator] with [plugins]
+ */
+fun pluginNavigatorOf(plugins: Collection<NavigatorPlugin>) =
+    PluginNavigator(plugins.toList())

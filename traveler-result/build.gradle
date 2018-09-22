@@ -14,10 +14,8 @@ android {
 }
 
 dependencies {
-    api Deps.archLifecycleExtensions
     api Deps.kotlinStdLib
     api project(':traveler')
-    api project(':traveler-result')
 }
 
 // build a jar with source files
