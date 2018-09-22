@@ -19,23 +19,46 @@ package com.ivianuu.traveler.lifecycle
 import androidx.lifecycle.GenericLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
-import com.ivianuu.traveler.Navigator
-import com.ivianuu.traveler.NavigatorHolder
+import com.ivianuu.traveler.NavigationListener
+import com.ivianuu.traveler.ResultListener
+import com.ivianuu.traveler.Router
+import com.ivianuu.traveler.addResultListener
+import com.ivianuu.traveler.removeResultListener
 
 /**
- * Sets the [navigator] and removes him on [event]
+ * Adds the [listener] and removes him on
  */
-fun NavigatorHolder.setNavigator(
+fun Router.addNavigationListener(
     owner: LifecycleOwner,
-    navigator: Navigator,
-    event: Lifecycle.Event = Lifecycle.Event.ON_PAUSE
+    event: Lifecycle.Event = Lifecycle.Event.ON_DESTROY,
+    listener: NavigationListener
 ) {
-    setNavigator(navigator)
+    addNavigationListener(listener)
     owner.lifecycle.addObserver(object : GenericLifecycleObserver {
         override fun onStateChanged(source: LifecycleOwner, e: Lifecycle.Event) {
             if (e == event) {
                 owner.lifecycle.removeObserver(this)
-                removeNavigator()
+                removeNavigationListener(listener)
+            }
+        }
+    })
+}
+
+/**
+ * Adds the [listener] and removes him on
+ */
+fun Router.addResultListener(
+    owner: LifecycleOwner,
+    resultCode: Int,
+    event: Lifecycle.Event = Lifecycle.Event.ON_DESTROY,
+    listener: ResultListener
+) {
+    addResultListener(resultCode, listener)
+    owner.lifecycle.addObserver(object : GenericLifecycleObserver {
+        override fun onStateChanged(source: LifecycleOwner, e: Lifecycle.Event) {
+            if (e == event) {
+                owner.lifecycle.removeObserver(this)
+                removeResultListener(resultCode, listener)
             }
         }
     })

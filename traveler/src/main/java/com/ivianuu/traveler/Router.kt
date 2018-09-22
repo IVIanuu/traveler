@@ -23,13 +23,29 @@ open class Router {
 
     internal val commandBuffer = CommandBuffer()
 
+    private val navigationListeners = mutableSetOf<NavigationListener>()
+
     /**
-     * Executes the commands via the navigator or waits until one is set
+     * Executes the [commands] via the navigator or waits until one is set
      */
     open fun executeCommands(vararg commands: Command) {
         commandBuffer.executeCommands(commands)
+        navigationListeners.toList().forEach { it(commands) }
     }
 
+    /**
+     * Notifies the [listener] on each [executeCommands] call
+     */
+    open fun addNavigationListener(listener: NavigationListener) {
+        navigationListeners.add(listener)
+    }
+
+    /**
+     * Removes the [listener]
+     */
+    open fun removeNavigationListener(listener: NavigationListener) {
+        navigationListeners.remove(listener)
+    }
 }
 
 /**

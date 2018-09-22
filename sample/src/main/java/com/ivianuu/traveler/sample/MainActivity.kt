@@ -28,9 +28,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        traveler.navigatorHolder.setNavigator(this, navigator)
-
         fragments.setOnClickListener { traveler.router.navigate(FRAGMENTS) }
+    }
+
+    override fun onResumeFragments() {
+        super.onResumeFragments()
+        traveler.navigatorHolder.setNavigator(this, navigator)
     }
 }
 

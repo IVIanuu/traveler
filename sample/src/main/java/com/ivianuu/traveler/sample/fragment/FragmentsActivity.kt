@@ -49,10 +49,13 @@ class FragmentsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        traveler.navigatorHolder.setNavigator(this, fragmentNavigator)
-
         if (savedInstanceState == null) {
             AsyncTask.execute { traveler.router.setRoot(CounterKey(1)) }
         }
+    }
+
+    override fun onResumeFragments() {
+        super.onResumeFragments()
+        traveler.navigatorHolder.setNavigator(this, fragmentNavigator)
     }
 }
