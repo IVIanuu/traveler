@@ -26,7 +26,6 @@ import com.ivianuu.traveler.fragment.FragmentNavigatorPlugin
 import com.ivianuu.traveler.lifecycle.setNavigator
 import com.ivianuu.traveler.plugin.pluginNavigatorOf
 import com.ivianuu.traveler.sample.getTraveler
-import com.ivianuu.traveler.sample.widget.CounterKey
 import com.ivianuu.traveler.setRoot
 
 private class SampleFragmentNavigatorPlugin(

@@ -18,14 +18,22 @@ package com.ivianuu.traveler.sample.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.ivianuu.traveler.finish
+import com.ivianuu.traveler.goBack
+import com.ivianuu.traveler.navigate
+import com.ivianuu.traveler.popToRoot
 import com.ivianuu.traveler.sample.R
 import com.ivianuu.traveler.sample.getTraveler
-import com.ivianuu.traveler.sample.widget.CounterKey
+import kotlinx.android.parcel.Parcelize
 import kotlinx.android.synthetic.main.view_counter.*
+
+@Parcelize
+data class CounterKey(val count: Int) : Parcelable
 
 class CounterFragment : Fragment() {
 
@@ -39,6 +47,14 @@ class CounterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val key = arguments!!.getParcelable<CounterKey>("key")!!
-        counter_view.init(key, requireActivity().getTraveler("fragments").router)
+
+        val router = requireActivity().getTraveler("fragments").router
+
+        title.text = "Count ${key.count}"
+
+        add.setOnClickListener { router.navigate(CounterKey(key.count + 1)) }
+        remove.setOnClickListener { router.goBack() }
+        root.setOnClickListener { router.popToRoot() }
+        quit.setOnClickListener { router.finish() }
     }
 }
