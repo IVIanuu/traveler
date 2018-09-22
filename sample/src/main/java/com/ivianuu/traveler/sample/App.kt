@@ -27,6 +27,6 @@ class App : Application() {
 
     private val travelers = mutableMapOf<String, Traveler<Router>>()
 
-    fun getTraveler(key: String) = travelers.getOrPut(key) { Traveler() }
+    fun traveler(key: String) = travelers.getOrPut(key) { Traveler() }
 
 }

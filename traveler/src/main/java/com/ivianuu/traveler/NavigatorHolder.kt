@@ -26,7 +26,7 @@ interface NavigatorHolder {
     val hasNavigator: Boolean
 
     /**
-     * Sets the navigator which will be used to navigate
+     * Sets the [navigator] which will be used to navigate
      */
     fun setNavigator(navigator: Navigator)
 

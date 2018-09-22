@@ -17,13 +17,13 @@
 package com.ivianuu.traveler
 
 /**
- * Navigation command describes screens transition.
- * that can be processed by [Navigator].
+ * Navigation command describes screens transition
+ * that can be processed by [Navigator]
  */
 interface Command
 
 /**
- * Goes back to the previous screen.
+ * Goes back to the previous screen
  */
 object Back : Command {
     override fun toString() = "Back"
@@ -31,16 +31,16 @@ object Back : Command {
 
 /**
  * Goes back to the screen with [key]
- * Or to the root if [null]
+ * Or to the root if null
  */
 data class BackTo(val key: Any?) : Command
 
 /**
- * Opens a new screen.
+ * Opens a new screen
  */
 data class Forward(val key: Any, val data: Any?) : Command
 
 /**
- * Replaces the current screen.
+ * Replaces the current screen
  */
 data class Replace(val key: Any, val data: Any?) : Command

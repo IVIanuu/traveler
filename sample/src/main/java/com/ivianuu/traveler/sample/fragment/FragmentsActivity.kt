@@ -25,7 +25,7 @@ import androidx.fragment.app.FragmentManager
 import com.ivianuu.traveler.fragment.FragmentNavigatorPlugin
 import com.ivianuu.traveler.lifecycle.setNavigator
 import com.ivianuu.traveler.plugin.pluginNavigatorOf
-import com.ivianuu.traveler.sample.getTraveler
+import com.ivianuu.traveler.sample.traveler
 import com.ivianuu.traveler.setRoot
 
 private class CounterNavigatorPlugin(
@@ -48,7 +48,7 @@ private class CounterNavigatorPlugin(
 
 class FragmentsActivity : AppCompatActivity() {
 
-    private val traveler get() = getTraveler("fragments")
+    private val traveler get() = traveler("fragments")
     private val navigatorHolder get() = traveler.navigatorHolder
     private val router get() = traveler.router
 

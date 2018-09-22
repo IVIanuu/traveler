@@ -26,7 +26,7 @@ import com.ivianuu.traveler.result.addResultListener
 import com.ivianuu.traveler.result.removeResultListener
 
 /**
- * Adds the [listener] and removes him on
+ * Adds the [listener] and removes him on [event]
  */
 fun Router.addNavigationListener(
     owner: LifecycleOwner,
@@ -45,7 +45,7 @@ fun Router.addNavigationListener(
 }
 
 /**
- * Adds the [listener] and removes him on
+ * Adds the [listener] and removes him on [event]
  */
 fun Router.addResultListener(
     owner: LifecycleOwner,

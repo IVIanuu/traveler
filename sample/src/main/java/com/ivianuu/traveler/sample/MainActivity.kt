@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val traveler get() = getTraveler("main")
+    private val traveler get() = traveler("main")
     private val navigatorHolder get() = traveler.navigatorHolder
     private val router get() = traveler.router
 

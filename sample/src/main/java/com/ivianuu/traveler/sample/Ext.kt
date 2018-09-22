@@ -18,5 +18,5 @@ package com.ivianuu.traveler.sample
 
 import android.content.Context
 
-fun Context.getTraveler(key: String) =
-    (applicationContext as App).getTraveler(key)
+fun Context.traveler(key: String) =
+    (applicationContext as App).traveler(key)

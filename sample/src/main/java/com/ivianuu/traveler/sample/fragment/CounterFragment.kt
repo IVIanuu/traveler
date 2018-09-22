@@ -28,7 +28,7 @@ import com.ivianuu.traveler.goBack
 import com.ivianuu.traveler.navigate
 import com.ivianuu.traveler.popToRoot
 import com.ivianuu.traveler.sample.R
-import com.ivianuu.traveler.sample.getTraveler
+import com.ivianuu.traveler.sample.traveler
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.synthetic.main.view_counter.*
 
@@ -48,7 +48,7 @@ class CounterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val key = arguments!!.getParcelable<CounterKey>("key")!!
 
-        val router = requireActivity().getTraveler("fragments").router
+        val router = requireActivity().traveler("fragments").router
 
         title.text = "Count ${key.count}"
 
