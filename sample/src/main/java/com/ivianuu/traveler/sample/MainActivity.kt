@@ -14,6 +14,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private val traveler get() = getTraveler("main")
+    private val navigatorHolder get() = traveler.navigatorHolder
+    private val router get() = traveler.router
+
     private val navigator by lazy(LazyThreadSafetyMode.NONE) {
         pluginNavigatorOf(
             object : AppNavigatorPlugin(this) {
@@ -27,18 +31,16 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    private val traveler get() = getTraveler("main")
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        fragments.setOnClickListener { traveler.router.navigate(FRAGMENTS) }
+        fragments.setOnClickListener { router.navigate(FRAGMENTS) }
     }
 
     override fun onResumeFragments() {
         super.onResumeFragments()
-        traveler.navigatorHolder.setNavigator(this, navigator)
+        navigatorHolder.setNavigator(this, navigator)
     }
 }
 

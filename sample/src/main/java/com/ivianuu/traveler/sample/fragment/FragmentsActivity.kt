@@ -49,6 +49,8 @@ private class SampleFragmentNavigatorPlugin(
 class FragmentsActivity : AppCompatActivity() {
 
     private val traveler get() = getTraveler("fragments")
+    private val navigatorHolder get() = traveler.navigatorHolder
+    private val router get() = traveler.router
 
     private val fragmentNavigator by lazy(LazyThreadSafetyMode.NONE) {
         pluginNavigatorOf(
@@ -64,12 +66,12 @@ class FragmentsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState == null) {
-            AsyncTask.execute { traveler.router.setRoot(CounterKey(1)) }
+            AsyncTask.execute { router.setRoot(CounterKey(1)) }
         }
     }
 
     override fun onResumeFragments() {
         super.onResumeFragments()
-        traveler.navigatorHolder.setNavigator(this, fragmentNavigator)
+        navigatorHolder.setNavigator(this, fragmentNavigator)
     }
 }
