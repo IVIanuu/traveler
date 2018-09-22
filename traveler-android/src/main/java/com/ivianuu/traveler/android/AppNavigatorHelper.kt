@@ -27,7 +27,7 @@ import com.ivianuu.traveler.Replace
 /**
  * Helper for implementing a navigator for activities
  */
-class ActivityNavigatorHelper(private val callback: Callback, private val context: Context) {
+class AppNavigatorHelper(private val callback: Callback, private val context: Context) {
 
     fun forward(command: Forward): Boolean {
         val activityIntent =

@@ -14,39 +14,31 @@
  * limitations under the License.
  */
 
-package com.ivianuu.traveler.fragment
+package com.ivianuu.traveler.android
 
 import android.app.Activity
-import androidx.fragment.app.FragmentManager
 import com.ivianuu.traveler.Forward
 import com.ivianuu.traveler.Replace
-import com.ivianuu.traveler.android.ActivityNavigatorHelper
+import com.ivianuu.traveler.SimpleNavigator
 
 /**
- * Navigator for fragments and activities
+ * Navigator for activities
  */
-abstract class FragmentActivityNavigator(
-    private val activity: Activity,
-    fragmentManager: FragmentManager,
-    containerId: Int
-) : FragmentNavigator(fragmentManager, containerId), ActivityNavigatorHelper.Callback {
+abstract class AppNavigator(activity: Activity) : SimpleNavigator(),
+    AppNavigatorHelper.Callback {
 
-    private val activityNavigatorHelper = ActivityNavigatorHelper(this, activity)
+    private val appNavigatorHelper = AppNavigatorHelper(this, activity)
 
     override fun forward(command: Forward) {
-        if (!activityNavigatorHelper.forward(command)) {
-            super.forward(command)
+        if (!appNavigatorHelper.forward(command)) {
+            unknownScreen(command)
         }
     }
 
     override fun replace(command: Replace) {
-        if (!activityNavigatorHelper.replace(command)) {
-            super.replace(command)
+        if (!appNavigatorHelper.replace(command)) {
+            unknownScreen(command)
         }
-    }
-
-    override fun exit() {
-        activity.finish()
     }
 
 }

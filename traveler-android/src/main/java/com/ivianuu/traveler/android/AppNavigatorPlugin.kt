@@ -14,45 +14,44 @@
  * limitations under the License.
  */
 
-package com.ivianuu.traveler.fragment
+package com.ivianuu.traveler.android
 
-import android.app.Activity
 import android.content.Context
-import androidx.fragment.app.FragmentManager
 import com.ivianuu.traveler.Command
 import com.ivianuu.traveler.Forward
 import com.ivianuu.traveler.Replace
-import com.ivianuu.traveler.android.ActivityNavigatorHelper
+import com.ivianuu.traveler.plugin.NavigatorPlugin
 
 /**
- * An plugin for fragments and activities
+ * Plugin for starting and replacing activities
  */
-abstract class FragmentActivityPlugin(
-    private val context: Context,
-    fragmentManager: FragmentManager,
-    containerId: Int
-) : FragmentPlugin(fragmentManager, containerId), ActivityNavigatorHelper.Callback {
+abstract class AppNavigatorPlugin(context: Context) : NavigatorPlugin,
+    AppNavigatorHelper.Callback {
 
-    private val activityNavigatorHelper = ActivityNavigatorHelper(this, context)
+    private val activityNavigatorHelper = AppNavigatorHelper(this, context)
+
+    override fun handles(command: Command) =
+        command is Forward || command is Replace
 
     override fun apply(command: Command) {
         when (command) {
             is Forward -> {
                 if (!activityNavigatorHelper.forward(command)) {
-                    super.apply(command)
+                    unknownScreen(command)
                 }
             }
             is Replace -> {
                 if (!activityNavigatorHelper.replace(command)) {
-                    super.apply(command)
+                    unknownScreen(command)
                 }
             }
-            else -> super.apply(command)
         }
     }
 
-    override fun exit() {
-        (context as? Activity ?: throw IllegalStateException("context must be an activity"))
-            .finish()
+    /**
+     * Will be called when a unknown screen was requested
+     */
+    protected open fun unknownScreen(command: Command) {
+        throw IllegalArgumentException("unknown screen $command")
     }
 }

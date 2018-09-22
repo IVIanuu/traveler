@@ -14,34 +14,49 @@
  * limitations under the License.
  */
 
-package com.ivianuu.traveler.android
+package com.ivianuu.traveler.fragment
 
-import android.content.Context
+import androidx.fragment.app.FragmentManager
+import com.ivianuu.traveler.Back
+import com.ivianuu.traveler.BackTo
 import com.ivianuu.traveler.Command
 import com.ivianuu.traveler.Forward
 import com.ivianuu.traveler.Replace
 import com.ivianuu.traveler.plugin.NavigatorPlugin
 
 /**
- * Plugin for starting and replacing activities
+ * A plugin for implementing [Fragment] navigation
  */
-abstract class ActivityPlugin(context: Context) : NavigatorPlugin,
-    ActivityNavigatorHelper.Callback {
+abstract class FragmentNavigatorPlugin(
+    fragmentManager: FragmentManager,
+    containerId: Int
+) : NavigatorPlugin, FragmentNavigatorHelper.Callback {
 
-    private val activityNavigatorHelper = ActivityNavigatorHelper(this, context)
+    private val fragmentNavigatorHelper =
+        FragmentNavigatorHelper(this, fragmentManager, containerId)
 
     override fun handles(command: Command) =
-        command is Forward || command is Replace
+        command is Back || command is BackTo || command is Forward || command is Replace
 
     override fun apply(command: Command) {
         when (command) {
+            is Back -> {
+                if (!fragmentNavigatorHelper.back(command)) {
+                    exit()
+                }
+            }
+            is BackTo -> {
+                if (!fragmentNavigatorHelper.backTo(command)) {
+                    backToUnexisting(command.key!!)
+                }
+            }
             is Forward -> {
-                if (!activityNavigatorHelper.forward(command)) {
+                if (!fragmentNavigatorHelper.forward(command)) {
                     unknownScreen(command)
                 }
             }
             is Replace -> {
-                if (!activityNavigatorHelper.replace(command)) {
+                if (!fragmentNavigatorHelper.replace(command)) {
                     unknownScreen(command)
                 }
             }
@@ -54,4 +69,15 @@ abstract class ActivityPlugin(context: Context) : NavigatorPlugin,
     protected open fun unknownScreen(command: Command) {
         throw IllegalArgumentException("unknown screen $command")
     }
+
+    /**
+     * Will be called when [backTo] was called with an unknown screen
+     */
+    protected open fun backToUnexisting(key: Any) {
+    }
+
+    /**
+     * Exits this screen chain
+     */
+    protected abstract fun exit()
 }

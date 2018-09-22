@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.ivianuu.traveler.android.ActivityPlugin
+import com.ivianuu.traveler.android.AppNavigatorPlugin
 import com.ivianuu.traveler.lifecycle.setNavigator
 import com.ivianuu.traveler.navigate
 import com.ivianuu.traveler.plugin.pluginNavigatorOf
@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
 
     private val navigator by lazy(LazyThreadSafetyMode.NONE) {
         pluginNavigatorOf(
-            object : ActivityPlugin(this) {
+            object : AppNavigatorPlugin(this) {
                 override fun createActivityIntent(context: Context, key: Any, data: Any?): Intent? {
                     return when (key as MainScreens) {
                         FRAGMENTS -> Intent(context, FragmentsActivity::class.java)
