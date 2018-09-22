@@ -27,11 +27,11 @@ import com.ivianuu.traveler.Replace
 /**
  * Helper for implementing a navigator for activities
  */
-class AppNavigatorHelper(private val callback: Callback, private val activity: Activity) {
+class ActivityNavigatorHelper(private val callback: Callback, private val context: Context) {
 
     fun forward(command: Forward): Boolean {
         val activityIntent =
-            callback.createActivityIntent(activity, command.key, command.data)
+            callback.createActivityIntent(context, command.key, command.data)
 
         return if (activityIntent != null) {
             val options = callback.createStartActivityOptions(command, activityIntent)
@@ -44,12 +44,13 @@ class AppNavigatorHelper(private val callback: Callback, private val activity: A
 
     fun replace(command: Replace): Boolean {
         val activityIntent =
-            callback.createActivityIntent(activity, command.key, command.data)
+            callback.createActivityIntent(context, command.key, command.data)
 
         return if (activityIntent != null) {
             val options = callback.createStartActivityOptions(command, activityIntent)
             checkAndStartActivity(command.key, activityIntent, options)
-            activity.finish()
+            (context as? Activity
+                ?: throw IllegalStateException("context must be an activity")).finish()
             true
         } else {
             false
@@ -58,8 +59,8 @@ class AppNavigatorHelper(private val callback: Callback, private val activity: A
 
     private fun checkAndStartActivity(key: Any, activityIntent: Intent, options: Bundle?) {
         // Check if we can start activity
-        if (activityIntent.resolveActivity(activity.packageManager) != null) {
-            activity.startActivity(activityIntent, options)
+        if (activityIntent.resolveActivity(context.packageManager) != null) {
+            context.startActivity(activityIntent, options)
         } else {
             callback.unexistingActivity(key, activityIntent)
         }
@@ -75,5 +76,4 @@ class AppNavigatorHelper(private val callback: Callback, private val activity: A
             // Do nothing by default
         }
     }
-
 }

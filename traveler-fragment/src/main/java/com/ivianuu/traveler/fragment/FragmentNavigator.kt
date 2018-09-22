@@ -19,9 +19,9 @@ package com.ivianuu.traveler.fragment
 import androidx.fragment.app.FragmentManager
 import com.ivianuu.traveler.Back
 import com.ivianuu.traveler.BackTo
-import com.ivianuu.traveler.BaseNavigator
 import com.ivianuu.traveler.Forward
 import com.ivianuu.traveler.Replace
+import com.ivianuu.traveler.SimpleNavigator
 
 /**
  * Navigator for fragments only
@@ -29,7 +29,7 @@ import com.ivianuu.traveler.Replace
 abstract class FragmentNavigator(
     fragmentManager: FragmentManager,
     containerId: Int
-): BaseNavigator(), FragmentNavigatorHelper.Callback {
+) : SimpleNavigator(), FragmentNavigatorHelper.Callback {
 
     private val fragmentNavigatorHelper = FragmentNavigatorHelper(this, fragmentManager, containerId)
 

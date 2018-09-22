@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/traveler-android/traveler-android.iml" filepath="$PROJECT_DIR$/traveler-android/traveler-android.iml" />
       <module fileurl="file://$PROJECT_DIR$/traveler-fragment/traveler-fragment.iml" filepath="$PROJECT_DIR$/traveler-fragment/traveler-fragment.iml" />
       <module fileurl="file://$PROJECT_DIR$/traveler-lifecycle/traveler-lifecycle.iml" filepath="$PROJECT_DIR$/traveler-lifecycle/traveler-lifecycle.iml" />
+      <module fileurl="file://$PROJECT_DIR$/traveler-plugin/traveler-plugin.iml" filepath="$PROJECT_DIR$/traveler-plugin/traveler-plugin.iml" />
     </modules>
   </component>
 </project>

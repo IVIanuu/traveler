@@ -16,34 +16,43 @@
 
 package com.ivianuu.traveler.sample.fragment
 
+import android.app.Activity
 import android.os.AsyncTask
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.ivianuu.traveler.fragment.FragmentNavigator
+import androidx.fragment.app.FragmentManager
+import com.ivianuu.traveler.fragment.FragmentPlugin
 import com.ivianuu.traveler.lifecycle.setNavigator
+import com.ivianuu.traveler.plugin.pluginNavigatorOf
 import com.ivianuu.traveler.sample.getTraveler
 import com.ivianuu.traveler.sample.widget.CounterKey
 import com.ivianuu.traveler.setRoot
+
+private class SampleFragmentPlugin(
+    private val activity: Activity,
+    fragmentManager: FragmentManager,
+    containerId: Int
+) : FragmentPlugin(fragmentManager, containerId) {
+    override fun createFragment(key: Any, data: Any?): Fragment? {
+        return CounterFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable("key", key as CounterKey)
+            }
+        }
+    }
+
+    override fun exit() {
+        activity.finish()
+    }
+}
 
 class FragmentsActivity : AppCompatActivity() {
 
     private val traveler get() = getTraveler("fragments")
 
     private val fragmentNavigator by lazy(LazyThreadSafetyMode.NONE) {
-        object : FragmentNavigator(supportFragmentManager, android.R.id.content) {
-            override fun createFragment(key: Any, data: Any?): Fragment? {
-                return CounterFragment().apply {
-                    arguments = Bundle().apply {
-                        putParcelable("key", key as CounterKey)
-                    }
-                }
-            }
-
-            override fun exit() {
-                finish()
-            }
-        }
+        pluginNavigatorOf(SampleFragmentPlugin(this, supportFragmentManager, android.R.id.content))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

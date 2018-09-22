@@ -19,7 +19,7 @@ package com.ivianuu.traveler
 /**
  * Base navigator which processes commands and maps them to functions
  */
-abstract class BaseNavigator : Navigator {
+abstract class SimpleNavigator : Navigator {
 
     override fun invoke(commands: Array<out Command>) {
         commands.forEach { applyCommand(it) }
