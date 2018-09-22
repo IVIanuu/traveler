@@ -36,6 +36,12 @@ open class PluginNavigator(
 }
 
 /**
+ * Returns a new [PluginNavigator] with [plugin]
+ */
+fun pluginNavigatorOf(plugin: NavigatorPlugin) =
+    PluginNavigator(listOf(plugin))
+
+/**
  * Returns a new [PluginNavigator] with [plugins]
  */
 fun pluginNavigatorOf(vararg plugins: NavigatorPlugin) =

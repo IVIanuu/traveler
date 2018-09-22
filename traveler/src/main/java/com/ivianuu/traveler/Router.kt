@@ -26,7 +26,7 @@ open class Router {
     private val navigationListeners = mutableSetOf<NavigationListener>()
 
     /**
-     * Executes the [commands] via the navigator or waits until one is set
+     * Sends the [commands] to the [Navigator]
      */
     open fun executeCommands(vararg commands: Command) {
         commandBuffer.executeCommands(commands)
