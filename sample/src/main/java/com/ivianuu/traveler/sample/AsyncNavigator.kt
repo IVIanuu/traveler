@@ -21,9 +21,11 @@ import com.ivianuu.traveler.Navigator
 import java.util.*
 
 /**
- * @author Manuel Wrage (IVIanuu)
+ * A asynchronous navigator which waits while a command is being processed
  */
 abstract class AsyncNavigator : Navigator {
+
+    protected open val canApplyCommands = true
 
     private val pendingCommands = LinkedList<PendingCommand>()
 
@@ -40,7 +42,7 @@ abstract class AsyncNavigator : Navigator {
     }
 
     private fun applyCommandIfPossible() {
-        if (pendingCommands.isNotEmpty()) {
+        if (pendingCommands.isNotEmpty() && canApplyCommands) {
             val command = pendingCommands.first
             if (command.status == PendingCommand.Status.ENQUEUED) {
                 command.status = PendingCommand.Status.IN_PROGRESS
@@ -66,3 +68,13 @@ abstract class AsyncNavigator : Navigator {
         }
     }
 }
+
+/**
+ * Returns a new [AsyncNavigator] which uses [applyCommand]
+ */
+fun AsyncNavigator(applyCommand: (command: Command, onComplete: () -> Unit) -> Unit) =
+    object : AsyncNavigator() {
+        override fun applyCommand(command: Command, onComplete: () -> Unit) {
+            applyCommand.invoke(command, onComplete)
+        }
+    }

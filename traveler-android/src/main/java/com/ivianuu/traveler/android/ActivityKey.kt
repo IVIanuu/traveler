@@ -46,6 +46,6 @@ inline fun <reified T : Activity> ActivityKey() = ActivityKey(T::class)
 /**
  * Returns a new [ActivityKey]
  */
-fun IntentKey(intent: Intent): ActivityKey = object : ActivityKey {
+fun ActivityKey(intent: Intent): ActivityKey = object : ActivityKey {
     override fun createIntent(context: Context, data: Any?) = intent
 }

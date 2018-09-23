@@ -18,6 +18,8 @@ package com.ivianuu.traveler.result
 
 import com.ivianuu.traveler.Router
 import com.ivianuu.traveler.goBack
+import com.ivianuu.traveler.popTo
+import com.ivianuu.traveler.popToRoot
 
 /**
  * Adds the listener which will be invoked when [sendResult] was called with [resultCode].
@@ -57,5 +59,21 @@ fun Router.sendResult(resultCode: Int, result: Any) =
  */
 fun Router.goBackWithResult(resultCode: Int, result: Any) {
     goBack()
+    sendResult(resultCode, result)
+}
+
+/**
+ * Goes back to the [key] and sends the [result] with the [resultCode]
+ */
+fun Router.popToWithResult(key: Any, resultCode: Int, result: Any) {
+    popTo(key)
+    sendResult(resultCode, result)
+}
+
+/**
+ * Goes back to to the root and sends the [result] with the [resultCode]
+ */
+fun Router.popToRootWithResult(key: Any, resultCode: Int, result: Any) {
+    popToRoot()
     sendResult(resultCode, result)
 }
