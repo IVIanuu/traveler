@@ -28,10 +28,12 @@ open class PluginNavigator(
 
     override fun invoke(commands: Array<out Command>) {
         commands.forEach { command ->
-            if (!plugins.any { it(command) }) {
-                throw IllegalArgumentException("no plugin handles $command")
-            }
+            if (!plugins.any { it(command) }) unhandledCommand(command)
         }
+    }
+
+    protected open fun unhandledCommand(command: Command) {
+        throw IllegalArgumentException("no plugin handles $command")
     }
 }
 

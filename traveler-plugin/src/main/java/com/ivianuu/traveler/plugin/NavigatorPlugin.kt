@@ -25,6 +25,9 @@ import kotlin.reflect.KClass
  */
 typealias NavigatorPlugin = (command: Command) -> Boolean
 
+/**
+ * A typed [NavigatorPlugin]
+ */
 inline fun <reified T : Command> NavigatorPlugin(noinline block: (command: T) -> Boolean) =
     NavigatorPlugin(T::class, block)
 
