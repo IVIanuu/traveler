@@ -24,12 +24,9 @@ import com.ivianuu.traveler.plugin.NavigatorPlugin
 
 data class ShowToast(val msg: CharSequence) : Command
 
-class ToastPlugin(private val context: Context) : NavigatorPlugin {
-    override fun handles(command: Command) = command is ShowToast
-
-    override fun apply(command: Command) {
-        Toast.makeText(context, (command as ShowToast).msg, Toast.LENGTH_SHORT).show()
-    }
+fun ToastPlugin(context: Context) = NavigatorPlugin<ShowToast> {
+    Toast.makeText(context, it.msg, Toast.LENGTH_SHORT).show()
+    true
 }
 
 fun Router.showToast(msg: CharSequence) {

@@ -28,9 +28,9 @@ open class PluginNavigator(
 
     override fun invoke(commands: Array<out Command>) {
         commands.forEach { command ->
-            val plugin = plugins.firstOrNull { it.handles(command) }
-                ?: throw IllegalArgumentException("no plugin handles $command")
-            plugin.apply(command)
+            if (!plugins.any { it(command) }) {
+                throw IllegalArgumentException("no plugin handles $command")
+            }
         }
     }
 }

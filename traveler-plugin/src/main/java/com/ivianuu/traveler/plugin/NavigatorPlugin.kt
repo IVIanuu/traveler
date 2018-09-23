@@ -21,27 +21,24 @@ import kotlin.reflect.KClass
 
 /**
  * A single component which is able to handle specific [Command]'s
+ * Returns whether or not the [Command] was handled
  */
-interface NavigatorPlugin {
-    /**
-     * Returns whether or not the [command] can be handled
-     */
-    fun handles(command: Command): Boolean
+typealias NavigatorPlugin = (command: Command) -> Boolean
 
-    /**
-     * Applies the [command] this will be only called if [handles] returns true
-     */
-    fun apply(command: Command)
-}
+inline fun <reified T : Command> NavigatorPlugin(noinline block: (command: T) -> Boolean) =
+    NavigatorPlugin(T::class, block)
 
 /**
  * A typed [NavigatorPlugin]
  */
-abstract class TypedNavigatorPlugin<T : Command>(private val clazz: KClass<T>) : NavigatorPlugin {
-    override fun handles(command: Command) = clazz.java.isAssignableFrom(command.javaClass)
-    final override fun apply(command: Command) {
-        applyTyped(clazz.java.cast(command)!!)
+fun <T : Command> NavigatorPlugin(
+    clazz: KClass<T>,
+    block: (command: T) -> Boolean
+): NavigatorPlugin = {
+    if (clazz.java.isAssignableFrom(it.javaClass)) {
+        @Suppress("UNCHECKED_CAST")
+        block.invoke(it as T)
+    } else {
+        false
     }
-
-    abstract fun applyTyped(command: T)
 }

@@ -37,31 +37,33 @@ open class FragmentNavigatorPlugin(
     private val fragmentNavigatorHelper =
         FragmentNavigatorHelper(this, fragmentManager, containerId)
 
-    override fun handles(command: Command) =
-        command is Back || command is BackTo || command is Forward || command is Replace
-
-    override fun apply(command: Command) {
-        when (command) {
+    override fun invoke(command: Command): Boolean {
+        return when (command) {
             is Back -> {
                 if (!fragmentNavigatorHelper.back(command)) {
                     exit()
                 }
+                true
             }
             is BackTo -> {
                 if (!fragmentNavigatorHelper.backTo(command)) {
                     backToUnexisting(command.key!!)
                 }
+                true
             }
             is Forward -> {
                 if (!fragmentNavigatorHelper.forward(command)) {
                     unknownScreen(command)
                 }
+                true
             }
             is Replace -> {
                 if (!fragmentNavigatorHelper.replace(command)) {
                     unknownScreen(command)
                 }
+                true
             }
+            else -> false
         }
     }
 
