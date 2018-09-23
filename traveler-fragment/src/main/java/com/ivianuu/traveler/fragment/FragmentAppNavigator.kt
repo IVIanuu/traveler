@@ -17,6 +17,9 @@
 package com.ivianuu.traveler.fragment
 
 import android.app.Activity
+import android.content.Context
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.ivianuu.traveler.Forward
 import com.ivianuu.traveler.Replace
@@ -25,13 +28,13 @@ import com.ivianuu.traveler.android.AppNavigatorHelper
 /**
  * Navigator for fragments and activities
  */
-abstract class FragmentAppNavigator(
-    private val activity: Activity,
+open class FragmentAppNavigator(
+    private val context: Context,
     fragmentManager: FragmentManager,
     containerId: Int
 ) : FragmentNavigator(fragmentManager, containerId), AppNavigatorHelper.Callback {
 
-    private val activityNavigatorHelper = AppNavigatorHelper(this, activity)
+    private val activityNavigatorHelper = AppNavigatorHelper(this, context)
 
     override fun forward(command: Forward) {
         if (!activityNavigatorHelper.forward(command)) {
@@ -46,7 +49,20 @@ abstract class FragmentAppNavigator(
     }
 
     override fun exit() {
-        activity.finish()
+        (context as? Activity ?: throw IllegalStateException("context must be an activity"))
+            .finish()
     }
 
 }
+
+/**
+ * Returns a new [FragmentAppNavigator]
+ */
+fun FragmentActivity.FragmentAppNavigator(containerId: Int) =
+    FragmentAppNavigator(this, supportFragmentManager, containerId)
+
+/**
+ * Returns a new [FragmentAppNavigator]
+ */
+fun Fragment.FragmentAppNavigator(containerId: Int) =
+    FragmentAppNavigator(requireContext(), childFragmentManager, containerId)

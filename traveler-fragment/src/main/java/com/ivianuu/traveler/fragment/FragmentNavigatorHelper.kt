@@ -189,9 +189,17 @@ class FragmentNavigatorHelper(
 
     interface Callback {
 
-        fun createFragment(key: Any, data: Any?): Fragment?
+        fun createFragment(key: Any, data: Any?): Fragment? {
+            return when (key) {
+                is FragmentKey -> key.createFragment(data)
+                else -> null
+            }
+        }
 
-        fun getFragmentTag(key: Any) = key.toString()
+        fun getFragmentTag(key: Any) = when (key) {
+            is FragmentKey -> key.getFragmentTag()
+            else -> key.toString()
+        }
 
         fun setupFragmentTransaction(
             command: Command,
@@ -199,6 +207,13 @@ class FragmentNavigatorHelper(
             nextFragment: Fragment,
             transaction: FragmentTransaction
         ) {
+            val key = when (command) {
+                is Forward -> command.key
+                is Replace -> command.key
+                else -> null
+            } as? FragmentKey ?: return
+
+            key.setupFragmentTransaction(command, currentFragment, nextFragment, transaction)
         }
     }
 }

@@ -16,7 +16,7 @@
 
 package com.ivianuu.traveler.android
 
-import android.app.Activity
+import android.content.Context
 import com.ivianuu.traveler.Forward
 import com.ivianuu.traveler.Replace
 import com.ivianuu.traveler.SimpleNavigator
@@ -24,9 +24,9 @@ import com.ivianuu.traveler.SimpleNavigator
 /**
  * Navigator for activities
  */
-abstract class AppNavigator(activity: Activity) : SimpleNavigator(), AppNavigatorHelper.Callback {
+open class AppNavigator(context: Context) : SimpleNavigator(), AppNavigatorHelper.Callback {
 
-    private val appNavigatorHelper = AppNavigatorHelper(this, activity)
+    private val appNavigatorHelper = AppNavigatorHelper(this, context)
 
     override fun forward(command: Forward) {
         if (!appNavigatorHelper.forward(command)) {
@@ -41,3 +41,8 @@ abstract class AppNavigator(activity: Activity) : SimpleNavigator(), AppNavigato
     }
 
 }
+
+/**
+ * Returns a new [AppNavigator] instance
+ */
+fun Context.AppNavigator() = AppNavigator(this)

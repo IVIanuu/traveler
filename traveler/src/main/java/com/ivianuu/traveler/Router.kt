@@ -17,7 +17,7 @@
 package com.ivianuu.traveler
 
 /**
- * Base router
+ * Router
  */
 open class Router {
 
@@ -46,6 +46,13 @@ open class Router {
     open fun removeNavigationListener(listener: NavigationListener) {
         navigationListeners.remove(listener)
     }
+}
+
+/**
+ * Sends the [commands] to the [Navigator]
+ */
+fun Router.executeCommands(commands: Collection<Command>) {
+    executeCommands(*commands.toTypedArray())
 }
 
 /**

@@ -25,8 +25,7 @@ import com.ivianuu.traveler.plugin.NavigatorPlugin
 /**
  * Plugin for starting and replacing activities
  */
-abstract class AppNavigatorPlugin(context: Context) : NavigatorPlugin,
-    AppNavigatorHelper.Callback {
+open class AppNavigatorPlugin(context: Context) : NavigatorPlugin, AppNavigatorHelper.Callback {
 
     private val activityNavigatorHelper = AppNavigatorHelper(this, context)
 
@@ -55,3 +54,8 @@ abstract class AppNavigatorPlugin(context: Context) : NavigatorPlugin,
         throw IllegalArgumentException("unknown screen $command")
     }
 }
+
+/**
+ * Returns a new [AppNavigatorPlugin] instance
+ */
+fun Context.AppNavigatorPlugin() = AppNavigatorPlugin(this)

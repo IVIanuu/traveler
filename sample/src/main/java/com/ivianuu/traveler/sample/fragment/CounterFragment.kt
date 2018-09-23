@@ -26,11 +26,13 @@ import androidx.fragment.app.Fragment
 import com.ivianuu.traveler.finish
 import com.ivianuu.traveler.goBack
 import com.ivianuu.traveler.navigate
+import com.ivianuu.traveler.popTo
 import com.ivianuu.traveler.popToRoot
 import com.ivianuu.traveler.sample.R
+import com.ivianuu.traveler.sample.showToast
 import com.ivianuu.traveler.sample.traveler
 import kotlinx.android.parcel.Parcelize
-import kotlinx.android.synthetic.main.view_counter.*
+import kotlinx.android.synthetic.main.fragment_counter.*
 
 @Parcelize
 data class CounterKey(val count: Int) : Parcelable
@@ -41,7 +43,7 @@ class CounterFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.view_counter, container, false)
+    ): View? = inflater.inflate(R.layout.fragment_counter, container, false)
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,6 +57,8 @@ class CounterFragment : Fragment() {
         add.setOnClickListener { router.navigate(CounterKey(key.count + 1)) }
         remove.setOnClickListener { router.goBack() }
         root.setOnClickListener { router.popToRoot() }
+        pop_to_3.setOnClickListener { router.popTo(CounterKey(3)) }
         quit.setOnClickListener { router.finish() }
+        toast.setOnClickListener { router.showToast("Hello :)") }
     }
 }

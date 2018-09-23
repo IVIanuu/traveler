@@ -41,6 +41,12 @@
         android:text="Remove"/>
 
     <Button
+        android:id="@+id/pop_to_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pop to 3" />
+
+    <Button
         android:id="@+id/root"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -51,5 +57,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Quit"/>
+
+    <Button
+        android:id="@+id/toast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Toast" />
 
 </LinearLayout>

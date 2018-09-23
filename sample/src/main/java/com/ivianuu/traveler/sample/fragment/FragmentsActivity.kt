@@ -19,12 +19,17 @@ package com.ivianuu.traveler.sample.fragment
 import android.app.Activity
 import android.os.AsyncTask
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.ivianuu.traveler.fragment.FragmentNavigatorPlugin
+import com.ivianuu.traveler.goBack
+import com.ivianuu.traveler.lifecycle.addNavigationListener
 import com.ivianuu.traveler.lifecycle.setNavigator
 import com.ivianuu.traveler.plugin.pluginNavigatorOf
+import com.ivianuu.traveler.sample.Backstack
+import com.ivianuu.traveler.sample.ToastPlugin
 import com.ivianuu.traveler.sample.traveler
 import com.ivianuu.traveler.setRoot
 
@@ -58,12 +63,23 @@ class FragmentsActivity : AppCompatActivity() {
                 this,
                 supportFragmentManager,
                 android.R.id.content
-            )
+            ),
+            ToastPlugin(this)
         )
     }
 
+    private val backstack by lazy(LazyThreadSafetyMode.NONE) { Backstack(router) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        router.addNavigationListener(this) { commands ->
+            commands.forEach { Log.d("Router", "on command -> $it") }
+        }
+
+        backstack.addListener(this) { backstack ->
+            Log.d("Backstack", "backstack -> $backstack")
+        }
 
         if (savedInstanceState == null) {
             AsyncTask.execute { router.setRoot(CounterKey(1)) }
@@ -73,5 +89,9 @@ class FragmentsActivity : AppCompatActivity() {
     override fun onResumeFragments() {
         super.onResumeFragments()
         navigatorHolder.setNavigator(this, fragmentNavigator)
+    }
+
+    override fun onBackPressed() {
+        router.goBack()
     }
 }

@@ -16,6 +16,8 @@
 
 package com.ivianuu.traveler.fragment
 
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.ivianuu.traveler.Back
 import com.ivianuu.traveler.BackTo
@@ -27,7 +29,7 @@ import com.ivianuu.traveler.plugin.NavigatorPlugin
 /**
  * A plugin for implementing [Fragment] navigation
  */
-abstract class FragmentNavigatorPlugin(
+open class FragmentNavigatorPlugin(
     fragmentManager: FragmentManager,
     containerId: Int
 ) : NavigatorPlugin, FragmentNavigatorHelper.Callback {
@@ -74,10 +76,24 @@ abstract class FragmentNavigatorPlugin(
      * Will be called when [backTo] was called with an unknown screen
      */
     protected open fun backToUnexisting(key: Any) {
+        fragmentNavigatorHelper.backToRoot()
     }
 
     /**
      * Exits this screen chain
      */
-    protected abstract fun exit()
+    protected open fun exit() {
+    }
 }
+
+/**
+ * Returns a new [FragmentNavigatorPlugin]
+ */
+fun FragmentActivity.FragmentNavigatorPlugin(containerId: Int) =
+    FragmentNavigatorPlugin(supportFragmentManager, containerId)
+
+/**
+ * Returns a new [FragmentNavigatorPlugin]
+ */
+fun Fragment.FragmentNavigatorPlugin(containerId: Int) =
+    FragmentNavigatorPlugin(childFragmentManager, containerId)

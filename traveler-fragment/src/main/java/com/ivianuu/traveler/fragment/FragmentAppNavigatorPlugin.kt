@@ -18,6 +18,8 @@ package com.ivianuu.traveler.fragment
 
 import android.app.Activity
 import android.content.Context
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.ivianuu.traveler.Command
 import com.ivianuu.traveler.Forward
@@ -27,7 +29,7 @@ import com.ivianuu.traveler.android.AppNavigatorHelper
 /**
  * An plugin for fragments and activities
  */
-abstract class FragmentAppNavigatorPlugin(
+open class FragmentAppNavigatorPlugin(
     private val context: Context,
     fragmentManager: FragmentManager,
     containerId: Int
@@ -56,3 +58,15 @@ abstract class FragmentAppNavigatorPlugin(
             .finish()
     }
 }
+
+/**
+ * Returns a new [FragmentAppNavigatorPlugin]
+ */
+fun FragmentActivity.FragmentAppNavigatorPlugin(containerId: Int) =
+    FragmentAppNavigatorPlugin(this, supportFragmentManager, containerId)
+
+/**
+ * Returns a new [FragmentAppNavigatorPlugin]
+ */
+fun Fragment.FragmentAppNavigatorPlugin(containerId: Int) =
+    FragmentAppNavigatorPlugin(requireContext(), childFragmentManager, containerId)

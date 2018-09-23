@@ -16,6 +16,8 @@
 
 package com.ivianuu.traveler.fragment
 
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.ivianuu.traveler.Back
 import com.ivianuu.traveler.BackTo
@@ -26,7 +28,7 @@ import com.ivianuu.traveler.SimpleNavigator
 /**
  * Navigator for fragments only
  */
-abstract class FragmentNavigator(
+open class FragmentNavigator(
     fragmentManager: FragmentManager,
     containerId: Int
 ) : SimpleNavigator(), FragmentNavigatorHelper.Callback {
@@ -61,5 +63,18 @@ abstract class FragmentNavigator(
         fragmentNavigatorHelper.backToRoot()
     }
 
-    protected abstract fun exit()
+    protected open fun exit() {
+    }
 }
+
+/**
+ * Returns a new [FragmentNavigator]
+ */
+fun FragmentActivity.FragmentNavigator(containerId: Int) =
+    FragmentNavigator(supportFragmentManager, containerId)
+
+/**
+ * Returns a new [FragmentNavigator]
+ */
+fun Fragment.FragmentNavigator(containerId: Int) =
+    FragmentNavigator(childFragmentManager, containerId)

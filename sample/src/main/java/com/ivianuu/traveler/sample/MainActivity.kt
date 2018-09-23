@@ -1,14 +1,12 @@
 package com.ivianuu.traveler.sample
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.ivianuu.traveler.android.ActivityKey
 import com.ivianuu.traveler.android.AppNavigatorPlugin
 import com.ivianuu.traveler.lifecycle.setNavigator
 import com.ivianuu.traveler.navigate
 import com.ivianuu.traveler.plugin.pluginNavigatorOf
-import com.ivianuu.traveler.sample.MainScreens.FRAGMENTS
 import com.ivianuu.traveler.sample.fragment.FragmentsActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -19,31 +17,18 @@ class MainActivity : AppCompatActivity() {
     private val router get() = traveler.router
 
     private val navigator by lazy(LazyThreadSafetyMode.NONE) {
-        pluginNavigatorOf(
-            object : AppNavigatorPlugin(this) {
-                override fun createActivityIntent(context: Context, key: Any, data: Any?): Intent? {
-                    return when (key as MainScreens) {
-                        FRAGMENTS -> Intent(context, FragmentsActivity::class.java)
-                    }
-                }
-            },
-            ToastPlugin(this)
-        )
+        pluginNavigatorOf(AppNavigatorPlugin())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        fragments.setOnClickListener { router.navigate(FRAGMENTS) }
+        fragments.setOnClickListener { router.navigate(ActivityKey<FragmentsActivity>()) }
     }
 
     override fun onResumeFragments() {
         super.onResumeFragments()
         navigatorHolder.setNavigator(this, navigator)
     }
-}
-
-enum class MainScreens {
-    FRAGMENTS
 }
