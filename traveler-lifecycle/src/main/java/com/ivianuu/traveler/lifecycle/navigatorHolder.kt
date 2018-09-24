@@ -19,6 +19,7 @@ package com.ivianuu.traveler.lifecycle
 import androidx.lifecycle.GenericLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
+import com.ivianuu.traveler.Command
 import com.ivianuu.traveler.Navigator
 import com.ivianuu.traveler.NavigatorHolder
 
@@ -39,4 +40,15 @@ fun NavigatorHolder.setNavigator(
             }
         }
     })
+}
+
+/**
+ * Sets the [navigator] and removes him on [event]
+ */
+fun NavigatorHolder.setNavigator(
+    owner: LifecycleOwner,
+    event: Lifecycle.Event = Lifecycle.Event.ON_PAUSE,
+    block: (commands: Array<out Command>) -> Unit
+) {
+    setNavigator(owner, Navigator(block), event)
 }

@@ -26,9 +26,9 @@ open class PluginNavigator(
     private val plugins: List<NavigatorPlugin>
 ) : Navigator {
 
-    override fun invoke(commands: Array<out Command>) {
+    override fun applyCommands(commands: Array<out Command>) {
         commands.forEach { command ->
-            if (!plugins.any { it(command) }) unhandledCommand(command)
+            if (!plugins.any { it.applyCommand(command) }) unhandledCommand(command)
         }
     }
 

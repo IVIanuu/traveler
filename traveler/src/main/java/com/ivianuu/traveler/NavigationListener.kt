@@ -17,27 +17,6 @@
 package com.ivianuu.traveler
 
 /**
- * Holds a navigator.
+ * Listener for navigation
  */
-interface NavigatorHolder {
-    /**
-     * Whether or not a [Navigator] is currently set
-     */
-    val hasNavigator: Boolean
-
-    /**
-     * Sets the [navigator] which will be used to navigate
-     */
-    fun setNavigator(navigator: Navigator)
-
-    /**
-     * Removes the current [Navigator]
-     */
-    fun removeNavigator()
-}
-
-/**
- * Sets the [navigator] which will be used to navigate
- */
-fun NavigatorHolder.setNavigator(block: (commands: Array<out Command>) -> Unit) =
-    setNavigator(Navigator(block))
+typealias NavigationListener = (commands: Array<out Command>) -> Unit

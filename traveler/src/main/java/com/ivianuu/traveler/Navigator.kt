@@ -19,9 +19,15 @@ package com.ivianuu.traveler
 /**
  * The navigator executes the [Command]'s
  */
-typealias Navigator = (commands: Array<out Command>) -> Unit
+interface Navigator {
+    fun applyCommands(commands: Array<out Command>)
+}
 
 /**
- * Listener for navigation
+ * Returns a new [Navigator] which uses [applyCommands]
  */
-typealias NavigationListener = (commands: Array<out Command>) -> Unit
+fun Navigator(applyCommands: (Array<out Command>) -> Unit) = object : Navigator {
+    override fun applyCommands(commands: Array<out Command>) {
+        applyCommands.invoke(commands)
+    }
+}

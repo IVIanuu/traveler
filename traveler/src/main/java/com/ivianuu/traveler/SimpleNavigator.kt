@@ -21,7 +21,7 @@ package com.ivianuu.traveler
  */
 abstract class SimpleNavigator : Navigator {
 
-    override fun invoke(commands: Array<out Command>) {
+    override fun applyCommands(commands: Array<out Command>) {
         commands.forEach { applyCommand(it) }
     }
 

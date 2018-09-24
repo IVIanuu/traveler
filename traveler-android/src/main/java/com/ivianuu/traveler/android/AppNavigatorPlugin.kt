@@ -29,7 +29,7 @@ open class AppNavigatorPlugin(context: Context) : NavigatorPlugin, AppNavigatorH
 
     private val activityNavigatorHelper = AppNavigatorHelper(this, context)
 
-    override fun invoke(command: Command): Boolean {
+    override fun applyCommand(command: Command): Boolean {
         return when (command) {
             is Forward -> {
                 if (!activityNavigatorHelper.forward(command)) {

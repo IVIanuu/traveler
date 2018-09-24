@@ -37,7 +37,7 @@ open class FragmentNavigatorPlugin(
     private val fragmentNavigatorHelper =
         FragmentNavigatorHelper(this, fragmentManager, containerId)
 
-    override fun invoke(command: Command): Boolean {
+    override fun applyCommand(command: Command): Boolean {
         return when (command) {
             is Back -> {
                 if (!fragmentNavigatorHelper.back(command)) {

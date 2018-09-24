@@ -37,21 +37,21 @@ open class FragmentAppNavigatorPlugin(
 
     private val activityNavigatorHelper = AppNavigatorHelper(this, context)
 
-    override fun invoke(command: Command): Boolean {
+    override fun applyCommand(command: Command): Boolean {
         return when (command) {
             is Forward -> {
                 if (!activityNavigatorHelper.forward(command)) {
-                    super.invoke(command)
+                    super.applyCommand(command)
                 }
                 true
             }
             is Replace -> {
                 if (!activityNavigatorHelper.replace(command)) {
-                    super.invoke(command)
+                    super.applyCommand(command)
                 }
                 true
             }
-            else -> super.invoke(command)
+            else -> super.applyCommand(command)
         }
     }
 

@@ -29,7 +29,7 @@ abstract class AsyncNavigator : Navigator {
 
     private val pendingCommands = LinkedList<PendingCommand>()
 
-    final override fun invoke(commands: Array<out Command>) {
+    final override fun applyCommands(commands: Array<out Command>) {
         commands.forEach { enqueueCommand(it) }
     }
 
