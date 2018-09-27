@@ -76,13 +76,8 @@ class AppNavigatorHelper(private val callback: Callback, private val context: Co
         }
 
         fun createStartActivityOptions(command: Command, activityIntent: Intent): Bundle? {
-            val key = when (command) {
-                is Forward -> command.key
-                is Replace -> command.key
-                else -> null
-            } as? ActivityKey ?: return null
 
-            return key.createStartActivityOptions(command, activityIntent)
+            return null
         }
 
         fun unexistingActivity(key: Any, activityIntent: Intent) {

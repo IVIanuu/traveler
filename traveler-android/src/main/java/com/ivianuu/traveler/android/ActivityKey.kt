@@ -19,8 +19,6 @@ package com.ivianuu.traveler.android
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import com.ivianuu.traveler.Command
 import kotlin.reflect.KClass
 
 /**
@@ -28,7 +26,6 @@ import kotlin.reflect.KClass
  */
 interface ActivityKey {
     fun createIntent(context: Context, data: Any?): Intent
-    fun createStartActivityOptions(command: Command, activityIntent: Intent): Bundle? = null
 }
 
 /**

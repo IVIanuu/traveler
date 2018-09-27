@@ -1,18 +1,17 @@
 package com.ivianuu.traveler.sample
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import com.ivianuu.traveler.Traveler
 import com.ivianuu.traveler.android.ActivityKey
 import com.ivianuu.traveler.android.AppNavigatorPlugin
 import com.ivianuu.traveler.lifecycle.setNavigator
 import com.ivianuu.traveler.navigate
 import com.ivianuu.traveler.plugin.pluginNavigatorOf
 import com.ivianuu.traveler.sample.fragment.FragmentsActivity
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val traveler get() = traveler("main")
+    private val traveler = Traveler()
     private val navigatorHolder get() = traveler.navigatorHolder
     private val router get() = traveler.router
 

@@ -20,3 +20,5 @@ package com.ivianuu.traveler.result
  * Listener for results
  */
 typealias ResultListener = (result: Any) -> Unit
+
+typealias TypedResultListener<T> = (result: T) -> Unit

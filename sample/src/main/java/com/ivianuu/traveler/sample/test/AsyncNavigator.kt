@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ivianuu.traveler.sample
+package com.ivianuu.traveler.sample.test
 
 import com.ivianuu.traveler.Command
 import com.ivianuu.traveler.Navigator
@@ -25,7 +25,14 @@ import java.util.*
  */
 abstract class AsyncNavigator : Navigator {
 
-    protected open val canApplyCommands = true
+    /**
+     * Will be checked before [applyCommand]
+     */
+    protected var canApplyCommands = true
+        set(value) {
+            field = value
+            applyCommandIfPossible()
+        }
 
     private val pendingCommands = LinkedList<PendingCommand>()
 
@@ -33,6 +40,9 @@ abstract class AsyncNavigator : Navigator {
         commands.forEach { enqueueCommand(it) }
     }
 
+    /**
+     * Should apply the [command] and invoke [onComplete] when done
+     */
     protected abstract fun applyCommand(command: Command, onComplete: () -> Unit)
 
     private fun enqueueCommand(command: Command) {
@@ -45,7 +55,8 @@ abstract class AsyncNavigator : Navigator {
         if (pendingCommands.isNotEmpty() && canApplyCommands) {
             val command = pendingCommands.first
             if (command.status == PendingCommand.Status.ENQUEUED) {
-                command.status = PendingCommand.Status.IN_PROGRESS
+                command.status =
+                        PendingCommand.Status.IN_PROGRESS
                 applyCommandInternal(command)
             }
         }
@@ -53,7 +64,8 @@ abstract class AsyncNavigator : Navigator {
 
     private fun applyCommandInternal(command: PendingCommand) {
         applyCommand(command.command) {
-            command.status = PendingCommand.Status.COMPLETED
+            command.status =
+                    PendingCommand.Status.COMPLETED
             pendingCommands.removeFirst()
             applyCommandIfPossible()
         }

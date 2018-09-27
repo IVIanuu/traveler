@@ -17,20 +17,13 @@
 package com.ivianuu.traveler.sample.fragment
 
 import android.app.Activity
-import android.os.AsyncTask
 import android.os.Bundle
-import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
+import com.ivianuu.traveler.Traveler
 import com.ivianuu.traveler.fragment.FragmentNavigatorPlugin
 import com.ivianuu.traveler.goBack
-import com.ivianuu.traveler.lifecycle.addNavigationListener
 import com.ivianuu.traveler.lifecycle.setNavigator
 import com.ivianuu.traveler.plugin.pluginNavigatorOf
-import com.ivianuu.traveler.sample.Backstack
 import com.ivianuu.traveler.sample.ToastPlugin
-import com.ivianuu.traveler.sample.traveler
 import com.ivianuu.traveler.setRoot
 
 private class CounterNavigatorPlugin(
@@ -53,9 +46,9 @@ private class CounterNavigatorPlugin(
 
 class FragmentsActivity : AppCompatActivity() {
 
-    private val traveler get() = traveler("fragments")
-    private val navigatorHolder get() = traveler.navigatorHolder
-    private val router get() = traveler.router
+    private val traveler = Traveler()
+    private val navigatorHolder = traveler.navigatorHolder
+    private val router = traveler.router
 
     private val fragmentNavigator by lazy(LazyThreadSafetyMode.NONE) {
         pluginNavigatorOf(
@@ -68,21 +61,11 @@ class FragmentsActivity : AppCompatActivity() {
         )
     }
 
-    private val backstack by lazy(LazyThreadSafetyMode.NONE) { Backstack(router) }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        router.addNavigationListener(this) { commands ->
-            commands.forEach { Log.d("Router", "on command -> $it") }
-        }
-
-        backstack.addListener(this) { backstack ->
-            Log.d("Backstack", "backstack -> $backstack")
-        }
-
         if (savedInstanceState == null) {
-            AsyncTask.execute { router.setRoot(CounterKey(1)) }
+            router.setRoot(CounterKey(1))
         }
     }
 

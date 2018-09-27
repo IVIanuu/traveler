@@ -34,7 +34,7 @@ fun Router.addResultListener(resultCode: Int, listener: ResultListener) {
 @JvmName("addResultListenerTyped")
 inline fun <reified T> Router.addResultListener(
     resultCode: Int,
-    crossinline onResult: (T) -> Unit
+    crossinline onResult: TypedResultListener<T>
 ): (Any) -> Unit {
     val listener: (Any) -> Unit = { onResult(it as T) }
     addResultListener(resultCode, listener)

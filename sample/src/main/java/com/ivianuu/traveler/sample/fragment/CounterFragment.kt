@@ -22,17 +22,8 @@ import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import com.ivianuu.traveler.finish
-import com.ivianuu.traveler.goBack
-import com.ivianuu.traveler.navigate
-import com.ivianuu.traveler.popTo
-import com.ivianuu.traveler.popToRoot
 import com.ivianuu.traveler.sample.R
-import com.ivianuu.traveler.sample.showToast
-import com.ivianuu.traveler.sample.traveler
 import kotlinx.android.parcel.Parcelize
-import kotlinx.android.synthetic.main.fragment_counter.*
 
 @Parcelize
 data class CounterKey(val count: Int) : Parcelable
@@ -50,7 +41,7 @@ class CounterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val key = arguments!!.getParcelable<CounterKey>("key")!!
 
-        val router = requireActivity().traveler("fragments").router
+        val router = traveler("fragments").router
 
         title.text = "Count ${key.count}"
 
