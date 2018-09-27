@@ -42,6 +42,8 @@ class ControllerNavigatorHelper(
 
         val transaction = controller.toTransaction().tag(tag)
 
+        callback.setupTransaction(command, transaction)
+
         router.pushController(transaction)
 
         return true
