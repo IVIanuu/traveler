@@ -80,6 +80,24 @@ fun Router.replaceTop(key: Any, data: Any? = null) {
 }
 
 /**
+ * Opens all [keys]
+ */
+fun Router.newChain(vararg keys: Any) {
+    val commands =
+        arrayOf(BackTo(null), *keys.map { Forward(it, null) }.toTypedArray())
+    executeCommands(*commands)
+}
+
+/**
+ * Pops to the root and opens all [keys]
+ */
+fun Router.newRootChain(vararg keys: Any) {
+    val commands =
+        arrayOf(BackTo(null), *keys.map { Forward(it, null) }.toTypedArray())
+    executeCommands(*commands)
+}
+
+/**
  * Goes back to [key]
  */
 fun Router.popTo(key: Any) {
