@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-package com.ivianuu.traveler.sample.fragment
+package com.ivianuu.traveler.sample.director
 
 import android.app.Activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import com.ivianuu.traveler.fragment.FragmentNavigatorPlugin
+import com.ivianuu.director.Controller
+import com.ivianuu.director.Router
+import com.ivianuu.director.attachRouter
+import com.ivianuu.traveler.director.ControllerNavigatorPlugin
 import com.ivianuu.traveler.goBack
 import com.ivianuu.traveler.lifecycle.setNavigator
 import com.ivianuu.traveler.plugin.pluginNavigatorOf
@@ -31,12 +32,12 @@ import com.ivianuu.traveler.setRoot
 
 private class CounterNavigatorPlugin(
     private val activity: Activity,
-    fragmentManager: FragmentManager,
-    containerId: Int
-) : FragmentNavigatorPlugin(fragmentManager, containerId) {
-    override fun createFragment(key: Any, data: Any?): Fragment? {
-        return CounterFragment().apply {
-            arguments = Bundle().apply {
+    router: Router
+) : ControllerNavigatorPlugin(router) {
+
+    override fun createController(key: Any, data: Any?): Controller? {
+        return CounterController().apply {
+            args = Bundle().apply {
                 putParcelable("key", key as CounterKey)
             }
         }
@@ -47,27 +48,27 @@ private class CounterNavigatorPlugin(
     }
 }
 
-class FragmentsActivity : AppCompatActivity() {
+class DirectorActivity : AppCompatActivity() {
 
-    private val traveler by lazy { traveler("fragments") }
+    private val traveler by lazy { traveler("director") }
     private val navigatorHolder get() = traveler.navigatorHolder
     private val router get() = traveler.router
 
     private val navigator by lazy {
         pluginNavigatorOf(
-            CounterNavigatorPlugin(
-                this,
-                supportFragmentManager,
-                android.R.id.content
-            ),
+            CounterNavigatorPlugin(this, directorRouter),
             ToastPlugin(this)
         )
     }
 
+    private lateinit var directorRouter: Router
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (savedInstanceState == null) {
+        directorRouter = attachRouter(findViewById(android.R.id.content), savedInstanceState)
+
+        if (!directorRouter.hasRootController) {
             router.setRoot(CounterKey(1))
         }
     }

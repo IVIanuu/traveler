@@ -1,1 +1,1 @@
-include ':sample', ':traveler', ':traveler-android', ':traveler-fragment', ':traveler-lifecycle', ':traveler-plugin', ':traveler-result'
+include ':sample', ':traveler', ':traveler-android', ':traveler-fragment', ':traveler-lifecycle', ':traveler-plugin', ':traveler-result', ':traveler-director'

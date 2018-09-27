@@ -19,6 +19,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".director.DirectorActivity" />
+
         <activity android:name=".fragment.FragmentsActivity"/>
     </application>
 

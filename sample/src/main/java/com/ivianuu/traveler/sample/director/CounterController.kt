@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-package com.ivianuu.traveler.sample.fragment
+package com.ivianuu.traveler.sample.director
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import com.ivianuu.director.Controller
 import com.ivianuu.traveler.finish
 import com.ivianuu.traveler.goBack
 import com.ivianuu.traveler.navigate
@@ -32,25 +31,21 @@ import com.ivianuu.traveler.sample.R
 import com.ivianuu.traveler.sample.showToast
 import com.ivianuu.traveler.sample.traveler
 import kotlinx.android.parcel.Parcelize
-import kotlinx.android.synthetic.main.view_counter.*
+import kotlinx.android.synthetic.main.view_counter.view.*
 
 @Parcelize
 data class CounterKey(val count: Int) : Parcelable
 
-class CounterFragment : Fragment() {
+class CounterController : Controller() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.view_counter, container, false)
+        container: ViewGroup,
+        savedViewState: Bundle?
+    ): View = inflater.inflate(R.layout.view_counter, container, false).apply {
+        val key = args.getParcelable<CounterKey>("key")!!
 
-    @SuppressLint("SetTextI18n")
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val key = arguments!!.getParcelable<CounterKey>("key")!!
-
-        val router = traveler("fragments").router
+        val router = traveler("director").router
 
         title.text = "Count ${key.count}"
 
