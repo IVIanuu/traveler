@@ -31,6 +31,8 @@ interface ControllerKey {
 
     fun setupTransaction(
         command: Command,
+        currentController: Controller?,
+        nextController: Controller,
         transaction: RouterTransaction
     ) {
     }
