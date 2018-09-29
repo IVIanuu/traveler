@@ -17,7 +17,7 @@ android {
 dependencies {
     api Deps.kotlinStdLib
     api project(':traveler')
-    api project(':traveler-plugin')
+    api project(':traveler-common')
 }
 
 // build a jar with source files

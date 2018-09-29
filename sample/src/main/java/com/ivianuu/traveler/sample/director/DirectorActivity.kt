@@ -22,18 +22,17 @@ import androidx.appcompat.app.AppCompatActivity
 import com.ivianuu.director.Controller
 import com.ivianuu.director.Router
 import com.ivianuu.director.attachRouter
-import com.ivianuu.traveler.director.ControllerNavigatorPlugin
-import com.ivianuu.traveler.goBack
+import com.ivianuu.traveler.common.compositeNavigatorOf
+import com.ivianuu.traveler.director.ControllerNavigator
 import com.ivianuu.traveler.lifecycle.setNavigator
-import com.ivianuu.traveler.plugin.pluginNavigatorOf
-import com.ivianuu.traveler.sample.ToastPlugin
+import com.ivianuu.traveler.sample.ToastNavigator
 import com.ivianuu.traveler.sample.traveler
 import com.ivianuu.traveler.setRoot
 
-private class CounterNavigatorPlugin(
+private class CounterNavigator(
     private val activity: Activity,
     router: Router
-) : ControllerNavigatorPlugin(router) {
+) : ControllerNavigator(router) {
 
     override fun createController(key: Any, data: Any?): Controller? {
         return CounterController().apply {
@@ -43,8 +42,9 @@ private class CounterNavigatorPlugin(
         }
     }
 
-    override fun exit() {
+    override fun exit(): Boolean {
         activity.finish()
+        return true
     }
 }
 
@@ -55,9 +55,9 @@ class DirectorActivity : AppCompatActivity() {
     private val router get() = traveler.router
 
     private val navigator by lazy {
-        pluginNavigatorOf(
-            CounterNavigatorPlugin(this, directorRouter),
-            ToastPlugin(this)
+        compositeNavigatorOf(
+            CounterNavigator(this, directorRouter),
+            ToastNavigator(this)
         )
     }
 
@@ -79,6 +79,8 @@ class DirectorActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        router.goBack()
+        if (!directorRouter.handleBack()) {
+            super.onBackPressed()
+        }
     }
 }

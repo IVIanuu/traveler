@@ -20,6 +20,6 @@ import androidx.fragment.app.Fragment
 import com.ivianuu.traveler.android.AppNavigator
 
 /**
- * Returns a new [AppNavigator] instance
+ * Returns a new [AppNavigator]
  */
-fun Fragment.AppNavigator() = AppNavigator(requireActivity())
+fun Fragment.AppNavigator() = requireActivity().AppNavigator()

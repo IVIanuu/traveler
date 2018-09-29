@@ -48,7 +48,7 @@ fun NavigatorHolder.setNavigator(
 fun NavigatorHolder.setNavigator(
     owner: LifecycleOwner,
     event: Lifecycle.Event = Lifecycle.Event.ON_PAUSE,
-    block: (commands: Array<out Command>) -> Unit
+    navigator: (commands: Command) -> Unit
 ) {
-    setNavigator(owner, Navigator(block), event)
+    setNavigator(owner, Navigator(navigator), event)
 }

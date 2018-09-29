@@ -12,10 +12,10 @@
             <option value="$PROJECT_DIR$/sample" />
             <option value="$PROJECT_DIR$/traveler" />
             <option value="$PROJECT_DIR$/traveler-android" />
+            <option value="$PROJECT_DIR$/traveler-common" />
             <option value="$PROJECT_DIR$/traveler-director" />
             <option value="$PROJECT_DIR$/traveler-fragment" />
             <option value="$PROJECT_DIR$/traveler-lifecycle" />
-            <option value="$PROJECT_DIR$/traveler-plugin" />
             <option value="$PROJECT_DIR$/traveler-result" />
           </set>
         </option>

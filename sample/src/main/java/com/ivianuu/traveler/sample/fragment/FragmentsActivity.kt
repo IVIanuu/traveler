@@ -21,19 +21,18 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.ivianuu.traveler.fragment.FragmentNavigatorPlugin
-import com.ivianuu.traveler.goBack
+import com.ivianuu.traveler.common.compositeNavigatorOf
+import com.ivianuu.traveler.fragment.FragmentNavigator
 import com.ivianuu.traveler.lifecycle.setNavigator
-import com.ivianuu.traveler.plugin.pluginNavigatorOf
-import com.ivianuu.traveler.sample.ToastPlugin
+import com.ivianuu.traveler.sample.ToastNavigator
 import com.ivianuu.traveler.sample.traveler
 import com.ivianuu.traveler.setRoot
 
-private class CounterNavigatorPlugin(
+private class CounterNavigator(
     private val activity: Activity,
     fragmentManager: FragmentManager,
     containerId: Int
-) : FragmentNavigatorPlugin(fragmentManager, containerId) {
+) : FragmentNavigator(fragmentManager, containerId) {
     override fun createFragment(key: Any, data: Any?): Fragment? {
         return CounterFragment().apply {
             arguments = Bundle().apply {
@@ -42,8 +41,9 @@ private class CounterNavigatorPlugin(
         }
     }
 
-    override fun exit() {
+    override fun exit(): Boolean {
         activity.finish()
+        return true
     }
 }
 
@@ -54,13 +54,13 @@ class FragmentsActivity : AppCompatActivity() {
     private val router get() = traveler.router
 
     private val navigator by lazy {
-        pluginNavigatorOf(
-            CounterNavigatorPlugin(
+        compositeNavigatorOf(
+            CounterNavigator(
                 this,
                 supportFragmentManager,
                 android.R.id.content
             ),
-            ToastPlugin(this)
+            ToastNavigator(this)
         )
     }
 
@@ -77,7 +77,4 @@ class FragmentsActivity : AppCompatActivity() {
         navigatorHolder.setNavigator(this, navigator)
     }
 
-    override fun onBackPressed() {
-        router.goBack()
-    }
 }

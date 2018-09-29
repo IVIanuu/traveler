@@ -20,13 +20,16 @@ import android.content.Context
 import android.widget.Toast
 import com.ivianuu.traveler.Command
 import com.ivianuu.traveler.Router
-import com.ivianuu.traveler.plugin.NavigatorPlugin
+import com.ivianuu.traveler.common.TypedResultNavigator
 
 data class ShowToast(val msg: CharSequence) : Command
 
-fun ToastPlugin(context: Context) = NavigatorPlugin<ShowToast> {
-    Toast.makeText(context, it.msg, Toast.LENGTH_SHORT).show()
-    true
+class ToastNavigator(private val context: Context) :
+    TypedResultNavigator<ShowToast>(ShowToast::class) {
+    override fun applyTypedCommandWithResult(command: ShowToast): Boolean {
+        Toast.makeText(context, command.msg, Toast.LENGTH_SHORT).show()
+        return true
+    }
 }
 
 fun Router.showToast(msg: CharSequence) {

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.ivianuu.traveler.sample.test
+package com.ivianuu.traveler.common
 
 import com.ivianuu.traveler.Command
 import com.ivianuu.traveler.Navigator
 import java.util.*
 
 /**
- * A asynchronous navigator which waits while a command is being processed
+ * A asynchronous [Navigator] which waits while a command is being processed
  */
 abstract class AsyncNavigator : Navigator {
 
@@ -36,14 +36,14 @@ abstract class AsyncNavigator : Navigator {
 
     private val pendingCommands = LinkedList<PendingCommand>()
 
-    final override fun applyCommands(commands: Array<out Command>) {
-        commands.forEach { enqueueCommand(it) }
+    final override fun applyCommand(command: Command) {
+        enqueueCommand(command)
     }
 
     /**
-     * Should apply the [command] and invoke [onComplete] when done
+     * Should apply the [command] and invoke [listener] when done
      */
-    protected abstract fun applyCommand(command: Command, onComplete: () -> Unit)
+    protected abstract fun applyCommand(command: Command, listener: () -> Unit)
 
     private fun enqueueCommand(command: Command) {
         val pendingCommand = PendingCommand(command)
@@ -55,8 +55,7 @@ abstract class AsyncNavigator : Navigator {
         if (pendingCommands.isNotEmpty() && canApplyCommands) {
             val command = pendingCommands.first
             if (command.status == PendingCommand.Status.ENQUEUED) {
-                command.status =
-                        PendingCommand.Status.IN_PROGRESS
+                command.status = PendingCommand.Status.IN_PROGRESS
                 applyCommandInternal(command)
             }
         }
@@ -64,8 +63,7 @@ abstract class AsyncNavigator : Navigator {
 
     private fun applyCommandInternal(command: PendingCommand) {
         applyCommand(command.command) {
-            command.status =
-                    PendingCommand.Status.COMPLETED
+            command.status = PendingCommand.Status.COMPLETED
             pendingCommands.removeFirst()
             applyCommandIfPossible()
         }
@@ -84,9 +82,9 @@ abstract class AsyncNavigator : Navigator {
 /**
  * Returns a new [AsyncNavigator] which uses [applyCommand]
  */
-fun AsyncNavigator(applyCommand: (command: Command, onComplete: () -> Unit) -> Unit) =
+fun AsyncNavigator(block: (command: Command, listener: () -> Unit) -> Unit) =
     object : AsyncNavigator() {
-        override fun applyCommand(command: Command, onComplete: () -> Unit) {
-            applyCommand.invoke(command, onComplete)
+        override fun applyCommand(command: Command, listener: () -> Unit) {
+            block.invoke(command, listener)
         }
     }

@@ -30,28 +30,34 @@ internal class CommandBuffer : NavigatorHolder {
         get() = navigator != null
 
     private var navigator: Navigator? = null
-    private val pendingCommands = LinkedList<Array<out Command>>()
+    private val pendingCommands = LinkedList<Command>()
 
     private val handler = Handler(Looper.getMainLooper())
     private val isMainThread get() = Looper.myLooper() == Looper.getMainLooper()
 
     override fun setNavigator(navigator: Navigator) {
+        requireMainThread()
         this.navigator = navigator
         while (!pendingCommands.isEmpty()) {
-            executeCommands(pendingCommands.poll())
+            executeCommand(pendingCommands.poll())
         }
     }
 
     override fun removeNavigator() {
+        requireMainThread()
         this.navigator = null
     }
 
     fun executeCommands(commands: Array<out Command>) = mainThread {
+        commands.forEach { executeCommand(it) }
+    }
+
+    private fun executeCommand(command: Command) {
         val navigator = navigator
         if (navigator != null) {
-            navigator.applyCommands(commands)
+            navigator.applyCommand(command)
         } else {
-            pendingCommands.add(commands)
+            pendingCommands.add(command)
         }
     }
 
@@ -60,5 +66,9 @@ internal class CommandBuffer : NavigatorHolder {
             isMainThread -> action()
             else -> handler.post(action)
         }
+    }
+
+    private fun requireMainThread() {
+        if (!isMainThread) throw IllegalArgumentException("must be called from the main thread")
     }
 }

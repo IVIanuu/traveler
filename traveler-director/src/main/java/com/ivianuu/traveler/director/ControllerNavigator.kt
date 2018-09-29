@@ -16,50 +16,140 @@
 
 package com.ivianuu.traveler.director
 
+import com.ivianuu.director.Controller
 import com.ivianuu.director.Router
+import com.ivianuu.director.RouterTransaction
+import com.ivianuu.director.tag
+import com.ivianuu.director.toTransaction
 import com.ivianuu.traveler.Back
 import com.ivianuu.traveler.BackTo
+import com.ivianuu.traveler.Command
 import com.ivianuu.traveler.Forward
 import com.ivianuu.traveler.Replace
-import com.ivianuu.traveler.SimpleNavigator
+import com.ivianuu.traveler.common.ResultNavigator
 
 /**
- * Navigator for fragments only
+ * A [Navigator] for director [Controller]'s
  */
-open class ControllerNavigator(
-    router: Router
-) : SimpleNavigator(), ControllerNavigatorHelper.Callback {
+open class ControllerNavigator(private val router: Router) : ResultNavigator() {
 
-    private val controllerNavigatorHelper = ControllerNavigatorHelper(this, router)
-
-    override fun forward(command: Forward) {
-        if (!controllerNavigatorHelper.forward(command)) {
-            unknownScreen(command)
+    override fun applyCommandWithResult(command: Command): Boolean {
+        return when (command) {
+            is Forward -> forward(command)
+            is Replace -> replace(command)
+            is Back -> back(command)
+            is BackTo -> backTo(command)
+            else -> unsupportedCommand(command)
         }
     }
 
-    override fun replace(command: Replace) {
-        if (!controllerNavigatorHelper.replace(command)) {
-            unknownScreen(command)
-        }
+    protected open fun forward(command: Forward): Boolean {
+        val controller = createController(command.key, command.data)
+            ?: return unknownScreen(command.key)
+
+        val tag = getControllerTag(command.key)
+
+        val transaction = controller.toTransaction().tag(tag)
+
+        setupTransaction(command, transaction)
+
+        router.pushController(transaction)
+        return true
     }
 
-    override fun back(command: Back) {
-        if (!controllerNavigatorHelper.back(command)) {
+    protected open fun replace(command: Replace): Boolean {
+        val controller = createController(command.key, command.data)
+            ?: return unknownScreen(command.key)
+
+        val tag = getControllerTag(command.key)
+
+        val transaction = controller.toTransaction().tag(tag)
+
+        setupTransaction(command, transaction)
+
+        router.replaceTopController(transaction)
+        return true
+    }
+
+    protected open fun back(command: Back): Boolean {
+        return if (!router.handleBack()) {
             exit()
+        } else {
+            true
         }
     }
 
-    override fun backTo(command: BackTo) {
-        if (!controllerNavigatorHelper.backTo(command)) {
-            backToUnexisting(command.key!!)
+    protected open fun backTo(command: BackTo): Boolean {
+        val key = command.key
+
+        return if (key != null) {
+            if (router.popToTag(getControllerTag(key))) {
+                true
+            } else {
+                backToUnexisting(key)
+            }
+        } else {
+            backToRoot()
         }
     }
 
-    override fun backToUnexisting(key: Any) {
-        controllerNavigatorHelper.backToRoot()
+    protected open fun backToRoot(): Boolean {
+        router.popToRoot()
+        return true
     }
 
-    protected open fun exit() {
+    protected open fun backToUnexisting(key: Any): Boolean {
+        router.popToRoot()
+        return true
     }
+
+    /**
+     * Will be called when the backstack is empty and the hosting activity should be closed
+     * This is a no op by default
+     */
+    protected open fun exit() = true
+
+    /**
+     * Creates the corresponding [Controller] for [key]
+     */
+    protected open fun createController(key: Any, data: Any?): Controller? {
+        return when (key) {
+            is ControllerKey -> key.createController(data)
+            else -> null
+        }
+    }
+
+    /**
+     * Returns the corresponding controller tag for [key]
+     */
+    protected open fun getControllerTag(key: Any) = when (key) {
+        is ControllerKey -> key.getControllerTag()
+        else -> key.toString()
+    }
+
+    /**
+     * Add change handlers etc
+     */
+    protected open fun setupTransaction(
+        command: Command,
+        transaction: RouterTransaction
+    ) {
+        val key = when (command) {
+            is Forward -> command.key
+            is Replace -> command.key
+            else -> null
+        } as? ControllerKey ?: return
+
+        key.setupTransaction(command, transaction)
+    }
+
+    /**
+     * Will be called when a unknown screen was requested
+     */
+    protected open fun unknownScreen(key: Any) = false
+
+    /**
+     * Will be called when a unsupported command was send
+     */
+    protected open fun unsupportedCommand(command: Command) = false
 }

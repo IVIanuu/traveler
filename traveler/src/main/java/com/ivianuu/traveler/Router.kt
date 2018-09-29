@@ -30,20 +30,24 @@ open class Router {
      */
     open fun executeCommands(vararg commands: Command) {
         commandBuffer.executeCommands(commands)
-        navigationListeners.toList().forEach { it(commands) }
+
+        val listeners = navigationListeners.toList()
+        commands.forEach { command ->
+            listeners.forEach { it(command) }
+        }
     }
 
     /**
      * Notifies the [listener] on each [executeCommands] call
      */
-    open fun addNavigationListener(listener: NavigationListener) {
+    fun addNavigationListener(listener: NavigationListener) {
         navigationListeners.add(listener)
     }
 
     /**
      * Removes the [listener]
      */
-    open fun removeNavigationListener(listener: NavigationListener) {
+    fun removeNavigationListener(listener: NavigationListener) {
         navigationListeners.remove(listener)
     }
 }

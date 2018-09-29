@@ -16,33 +16,106 @@
 
 package com.ivianuu.traveler.android
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import com.ivianuu.traveler.Command
 import com.ivianuu.traveler.Forward
+import com.ivianuu.traveler.Navigator
 import com.ivianuu.traveler.Replace
-import com.ivianuu.traveler.SimpleNavigator
+import com.ivianuu.traveler.common.ResultNavigator
 
 /**
- * Navigator for activities
+ * A [Navigator] for [Activity]'s
  */
-open class AppNavigator(context: Context) : SimpleNavigator(), AppNavigatorHelper.Callback {
+open class AppNavigator(private val context: Context) : ResultNavigator() {
 
-    private val appNavigatorHelper = AppNavigatorHelper(this, context)
-
-    override fun forward(command: Forward) {
-        if (!appNavigatorHelper.forward(command)) {
-            unknownScreen(command)
+    override fun applyCommandWithResult(command: Command): Boolean {
+        return when (command) {
+            is Forward -> forward(command)
+            is Replace -> replace(command)
+            else -> unsupportedCommand(command)
         }
     }
 
-    override fun replace(command: Replace) {
-        if (!appNavigatorHelper.replace(command)) {
-            unknownScreen(command)
+    protected open fun forward(command: Forward): Boolean {
+        val activityIntent =
+            createActivityIntent(context, command.key, command.data)
+
+        return if (activityIntent != null) {
+            val options = createStartActivityOptions(command, activityIntent)
+            checkAndStartActivity(command.key, activityIntent, options)
+        } else {
+            unknownScreen(command.key)
         }
     }
 
+    protected open fun replace(command: Replace): Boolean {
+        val activityIntent =
+            createActivityIntent(context, command.key, command.data)
+
+        return if (activityIntent != null) {
+            val options = createStartActivityOptions(command, activityIntent)
+            checkAndStartActivity(command.key, activityIntent, options)
+            (context as? Activity
+                ?: throw IllegalStateException("context must be an activity")).finish()
+            true
+        } else {
+            unknownScreen(command.key)
+        }
+    }
+
+    protected open fun createActivityIntent(context: Context, key: Any, data: Any?): Intent? {
+        return when (key) {
+            is ActivityKey -> key.createIntent(context, data)
+            else -> null
+        }
+    }
+
+    protected open fun createStartActivityOptions(
+        command: Command,
+        activityIntent: Intent
+    ): Bundle? {
+        val key = when (command) {
+            is Forward -> command.key
+            is Replace -> command.key
+            else -> null
+        } as? ActivityKey ?: return null
+
+        return key.createStartActivityOptions(command, activityIntent)
+    }
+
+    /**
+     * Will be called when the [activityIntent] is not resolvable
+     */
+    protected open fun unexistingActivity(key: Any, activityIntent: Intent) = true
+
+    /**
+     * Will be called when a unknown screen was requested
+     */
+    protected open fun unknownScreen(key: Any) = false
+
+    /**
+     * Will be called when a unsupported command was send
+     */
+    protected open fun unsupportedCommand(command: Command) = false
+
+    private fun checkAndStartActivity(
+        key: Any,
+        activityIntent: Intent,
+        options: Bundle?
+    ): Boolean {
+        return if (activityIntent.resolveActivity(context.packageManager) != null) {
+            context.startActivity(activityIntent, options)
+            true
+        } else {
+            unexistingActivity(key, activityIntent)
+        }
+    }
 }
 
 /**
- * Returns a new [AppNavigator] instance
+ * Returns a new [AppNavigator]
  */
 fun Context.AppNavigator() = AppNavigator(this)

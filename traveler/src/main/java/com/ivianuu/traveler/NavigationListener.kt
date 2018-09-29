@@ -19,4 +19,4 @@ package com.ivianuu.traveler
 /**
  * Listener for navigation
  */
-typealias NavigationListener = (commands: Array<out Command>) -> Unit
+typealias NavigationListener = (command: Command) -> Unit

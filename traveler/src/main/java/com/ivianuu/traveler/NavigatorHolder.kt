@@ -39,5 +39,5 @@ interface NavigatorHolder {
 /**
  * Sets the [navigator] which will be used to navigate
  */
-fun NavigatorHolder.setNavigator(block: (commands: Array<out Command>) -> Unit) =
-    setNavigator(Navigator(block))
+fun NavigatorHolder.setNavigator(navigator: (Command) -> Unit) =
+    setNavigator(Navigator(navigator))
