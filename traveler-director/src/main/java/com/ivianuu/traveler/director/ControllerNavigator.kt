@@ -82,12 +82,8 @@ open class ControllerNavigator(private val router: Router) : ResultNavigator() {
     }
 
     protected open fun back(command: Back): Boolean {
-        return if (router.backstack.isNotEmpty()) {
-            router.popCurrentController()
-            true
-        } else {
-            exit()
-        }
+        router.handleBack()
+        return true
     }
 
     protected open fun backTo(command: BackTo): Boolean {
