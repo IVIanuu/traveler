@@ -73,6 +73,9 @@ install {
         pom.groupId = Versions.groupId
         version=jitpackGitHash() // default to the same commit hash that jitpack uses
         pom.artifactId = project.name
-        println "Publishing: group ${Versions.groupId}, artifact ${project.name}, version: ${jitpackGitHash()}"
+    }
+    // just for convenience
+    doLast() {
+        println "Published: ${Versions.groupId}:${project.name}:${jitpackGitHash()}"
     }
 }
