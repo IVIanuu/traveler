@@ -21,7 +21,7 @@ def jitpackGitHash = { ->
         commandLine 'git', 'rev-parse', 'HEAD'
         standardOutput = stdout
     }
-    return stdout.toString().trim().substring(0, 9)
+    return stdout.toString().trim().substring(0, 10)
 }
 
 group=Versions.groupId
@@ -73,5 +73,6 @@ install {
         pom.groupId = Versions.groupId
         version=jitpackGitHash() // default to the same commit hash that jitpack uses
         pom.artifactId = project.name
+        println "Publishing: group ${Versions.groupId}, artifact ${project.name}, version: ${jitpackGitHash()}"
     }
 }
