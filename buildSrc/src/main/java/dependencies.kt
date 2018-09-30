@@ -28,7 +28,7 @@ object Deps {
     const val archLifecycleExtensions =
         "androidx.lifecycle:lifecycle-extensions:${Versions.androidxArch}"
 
-    const val director = "com.github.IVIanuu:director:${Versions.director}"
+    const val director = "com.github.IVIanuu.director:director:${Versions.director}"
 
     const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
     const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
