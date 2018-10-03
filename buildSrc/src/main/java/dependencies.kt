@@ -7,14 +7,13 @@ object Versions {
     const val targetSdk = 28
     const val versionCode = 1
     const val versionName = "0.0.1"
-    const val groupId = "com.github.IVIanuu.traveler"
 
     const val androidGradlePlugin = "3.2.0"
 
     const val androidx = "1.0.0-rc02"
     const val androidxArch = "2.0.0-rc01"
 
-    const val director = "79236fe023"
+    const val director = "b905694b16"
 
     const val kotlin = "1.3.0-rc-57"
     const val mavenGradlePlugin = "2.1"
