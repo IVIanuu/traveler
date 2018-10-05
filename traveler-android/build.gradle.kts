@@ -45,7 +45,7 @@ val sourcesJar = task("sourcesJar", Jar::class) {
     classifier = "sources"
 }
 
-task("javadoc", Javadoc::class) {
+val javadoc = task("javadoc", Javadoc::class) {
     isFailOnError = false
     source = android.sourceSets["main"].java.sourceFiles
     classpath += project.files(android.bootClasspath.joinToString(File.pathSeparator))
@@ -53,9 +53,9 @@ task("javadoc", Javadoc::class) {
 }
 
 val javadocJar = task("javadocJar", Jar::class) {
-    val javadoc = dependsOn("javadoc")
+    dependsOn(javadoc)
     classifier = "javadoc"
-    from(javadoc.property("destinationDir"))
+    from(javadoc.destinationDir)
 }
 
 artifacts {
