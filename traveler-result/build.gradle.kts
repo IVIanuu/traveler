@@ -57,7 +57,6 @@ val javadocJar = task("javadocJar", Jar::class) {
     from(javadoc.destinationDir)
 }
 
-
 artifacts {
     add("archives", sourcesJar)
     add("archives", javadocJar)
