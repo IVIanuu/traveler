@@ -1,1 +1,0 @@
-include ':sample', ':traveler', ':traveler-android', ':traveler-fragment', ':traveler-lifecycle', ':traveler-result', ':traveler-director', ':traveler-common'

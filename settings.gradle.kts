@@ -1,0 +1,10 @@
+include(
+    ":sample",
+    ":traveler",
+    ":traveler-android",
+    ":traveler-common",
+    ":traveler-director",
+    ":traveler-fragment",
+    ":traveler-lifecycle",
+    ":traveler-result"
+)

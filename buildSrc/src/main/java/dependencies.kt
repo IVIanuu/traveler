@@ -1,22 +1,27 @@
 @file:Suppress("ClassName", "unused")
 
-object Versions {
-    // android
+object Build {
+    const val applicationId = "com.ivianuu.traveler.sample"
+    const val buildToolsVersion = "28.0.2"
     const val compileSdk = 28
     const val minSdk = 16
     const val targetSdk = 28
+
     const val versionCode = 1
     const val versionName = "0.0.1"
+}
 
+object Versions {
     const val androidGradlePlugin = "3.2.0"
 
-    const val androidx = "1.0.0-rc02"
+    const val androidx = "1.0.0"
     const val androidxArch = "2.0.0-rc01"
 
-    const val director = "b905694b16"
+    const val director = "a9a871ad7b"
 
     const val kotlin = "1.3.0-rc-57"
     const val mavenGradlePlugin = "2.1"
+    const val materialComponents = "1.0.0"
 }
 
 object Deps {
@@ -34,4 +39,7 @@ object Deps {
     const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
 
     const val mavenGradlePlugin = "com.github.dcendents:android-maven-gradle-plugin:${Versions.mavenGradlePlugin}"
+
+    const val materialComponents =
+        "com.google.android.material:material:${Versions.materialComponents}"
 }
