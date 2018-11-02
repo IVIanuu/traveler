@@ -2,7 +2,7 @@
 
 object Build {
     const val applicationId = "com.ivianuu.traveler.sample"
-    const val buildToolsVersion = "28.0.2"
+    const val buildToolsVersion = "28.0.3"
     const val compileSdk = 28
     const val minSdk = 16
     const val targetSdk = 28
@@ -12,14 +12,14 @@ object Build {
 }
 
 object Versions {
-    const val androidGradlePlugin = "3.2.0"
+    const val androidGradlePlugin = "3.2.1"
 
     const val androidx = "1.0.0"
     const val androidxArch = "2.0.0-rc01"
 
     const val director = "a9a871ad7b"
 
-    const val kotlin = "1.3.0-rc-57"
+    const val kotlin = "1.3.0"
     const val mavenGradlePlugin = "2.1"
     const val materialComponents = "1.0.0"
 }
