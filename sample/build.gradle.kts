@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.internal.AndroidExtensionsExtension
+
 /*
  * Copyright 2018 Manuel Wrage
  *
@@ -34,7 +36,10 @@ android {
     }
 
     androidExtensions {
-        isExperimental = true
+        // isExperimental = true
+        configure(delegateClosureOf<AndroidExtensionsExtension> {
+            isExperimental = true
+        })
     }
 
     kapt { correctErrorTypes = true }
@@ -46,7 +51,6 @@ dependencies {
     implementation(project(":traveler"))
     implementation(project(":traveler-android"))
     implementation(project(":traveler-common"))
-    implementation(project(":traveler-director"))
     implementation(project(":traveler-fragment"))
     implementation(project(":traveler-lifecycle"))
     implementation(project(":traveler-result"))

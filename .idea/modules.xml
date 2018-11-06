@@ -8,7 +8,6 @@
       <module fileurl="file://$PROJECT_DIR$/traveler/traveler.iml" filepath="$PROJECT_DIR$/traveler/traveler.iml" />
       <module fileurl="file://$PROJECT_DIR$/traveler-android/traveler-android.iml" filepath="$PROJECT_DIR$/traveler-android/traveler-android.iml" />
       <module fileurl="file://$PROJECT_DIR$/traveler-common/traveler-common.iml" filepath="$PROJECT_DIR$/traveler-common/traveler-common.iml" />
-      <module fileurl="file://$PROJECT_DIR$/traveler-director/traveler-director.iml" filepath="$PROJECT_DIR$/traveler-director/traveler-director.iml" />
       <module fileurl="file://$PROJECT_DIR$/traveler-fragment/traveler-fragment.iml" filepath="$PROJECT_DIR$/traveler-fragment/traveler-fragment.iml" />
       <module fileurl="file://$PROJECT_DIR$/traveler-lifecycle/traveler-lifecycle.iml" filepath="$PROJECT_DIR$/traveler-lifecycle/traveler-lifecycle.iml" />
       <module fileurl="file://$PROJECT_DIR$/traveler-result/traveler-result.iml" filepath="$PROJECT_DIR$/traveler-result/traveler-result.iml" />
