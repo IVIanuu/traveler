@@ -41,7 +41,9 @@ open class Router {
      * Notifies the [listener] on each [executeCommands] call
      */
     fun addNavigationListener(listener: NavigationListener) {
-        navigationListeners.add(listener)
+        if (!navigationListeners.contains(listener)) {
+            navigationListeners.add(listener)
+        }
     }
 
     /**
@@ -119,7 +121,7 @@ fun Router.popToRoot() {
  * Goes back to the previous screen
  */
 fun Router.goBack() {
-    executeCommands(Back)
+    executeCommands(Back())
 }
 
 /**
@@ -128,6 +130,6 @@ fun Router.goBack() {
 fun Router.finish() {
     executeCommands(
         BackTo(null),
-        Back
+        Back()
     )
 }

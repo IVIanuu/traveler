@@ -37,6 +37,8 @@ android {
 
 dependencies {
     api(project(":traveler"))
+    testImplementation(Deps.junit)
+    testImplementation(Deps.roboelectric)
 }
 
 val sourcesJar = task("sourcesJar", Jar::class) {

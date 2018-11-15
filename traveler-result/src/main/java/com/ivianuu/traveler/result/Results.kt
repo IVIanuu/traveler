@@ -22,7 +22,9 @@ internal object Results {
 
     fun addResultListener(resultCode: Int, listener: ResultListener) {
         val listeners = resultListeners.getOrPut(resultCode) { mutableSetOf() }
-        listeners.add(listener)
+        if (!listeners.contains(listener)) {
+            listeners.add(listener)
+        }
     }
 
     fun removeResultListener(resultCode: Int, listener: ResultListener) {

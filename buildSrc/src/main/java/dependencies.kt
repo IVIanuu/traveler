@@ -16,10 +16,16 @@ object Versions {
 
     const val androidx = "1.0.0"
     const val androidxArch = "2.0.0-rc01"
+    const val androidxTestRules = "1.1.0"
+    const val androidxTestRunner = "1.1.0"
+
+    const val junit = "4.12"
 
     const val kotlin = "1.3.0"
     const val mavenGradlePlugin = "2.1"
     const val materialComponents = "1.0.0"
+
+    const val roboelectric = "4.0.2"
 }
 
 object Deps {
@@ -27,9 +33,15 @@ object Deps {
 
     const val androidxAppCompat = "androidx.appcompat:appcompat:${Versions.androidx}"
     const val androidxFragment = "androidx.fragment:fragment:${Versions.androidx}"
+    const val androidxTestCore = "androidx.test:core:${Versions.androidx}"
+    const val androidxTestJunit = "androidx.test.ext:junit:${Versions.androidx}"
+    const val androidxTestRules = "androidx.test:rules:${Versions.androidxTestRules}"
+    const val androidxTestRunner = "androidx.test:runner:${Versions.androidxTestRunner}"
 
     const val archLifecycleExtensions =
         "androidx.lifecycle:lifecycle-extensions:${Versions.androidxArch}"
+
+    const val junit = "junit:junit:${Versions.junit}"
 
     const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
     const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
@@ -38,4 +50,6 @@ object Deps {
 
     const val materialComponents =
         "com.google.android.material:material:${Versions.materialComponents}"
+
+    const val roboelectric = "org.robolectric:robolectric:${Versions.roboelectric}"
 }

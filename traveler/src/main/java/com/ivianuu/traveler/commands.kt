@@ -18,15 +18,23 @@ package com.ivianuu.traveler
 
 /**
  * Navigation command describes screens transition
- * that can be processed by [Navigator]
  */
 interface Command
 
 /**
  * Goes back to the previous screen
  */
-object Back : Command {
+class Back : Command {
     override fun toString() = "Back"
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return javaClass.hashCode()
+    }
 }
 
 /**

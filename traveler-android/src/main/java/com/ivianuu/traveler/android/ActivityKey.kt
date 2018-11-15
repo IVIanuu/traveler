@@ -24,7 +24,7 @@ import com.ivianuu.traveler.Command
 import kotlin.reflect.KClass
 
 /**
- * A key which knows how create intents
+ * A key for activities/intents
  */
 interface ActivityKey {
     fun createIntent(context: Context, data: Any?): Intent
