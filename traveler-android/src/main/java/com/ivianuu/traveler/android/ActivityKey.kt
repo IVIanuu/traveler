@@ -16,12 +16,10 @@
 
 package com.ivianuu.traveler.android
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.ivianuu.traveler.Command
-import kotlin.reflect.KClass
 
 /**
  * A key for activities/intents
@@ -29,23 +27,4 @@ import kotlin.reflect.KClass
 interface ActivityKey {
     fun createIntent(context: Context, data: Any?): Intent
     fun createStartActivityOptions(command: Command, activityIntent: Intent): Bundle? = null
-}
-
-/**
- * Returns a new [ActivityKey]
- */
-fun <T : Activity> ActivityKey(clazz: KClass<T>): ActivityKey = object : ActivityKey {
-    override fun createIntent(context: Context, data: Any?) = Intent(context, clazz.java)
-}
-
-/**
- * Returns a new [ActivityKey]
- */
-inline fun <reified T : Activity> ActivityKey() = ActivityKey(T::class)
-
-/**
- * Returns a new [ActivityKey]
- */
-fun ActivityKey(intent: Intent): ActivityKey = object : ActivityKey {
-    override fun createIntent(context: Context, data: Any?) = intent
 }

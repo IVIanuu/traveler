@@ -2,11 +2,10 @@ package com.ivianuu.traveler.sample
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.ivianuu.traveler.android.ActivityKey
 import com.ivianuu.traveler.android.AppNavigator
 import com.ivianuu.traveler.lifecycle.setNavigator
 import com.ivianuu.traveler.navigate
-import com.ivianuu.traveler.sample.fragment.FragmentsActivity
+import com.ivianuu.traveler.sample.fragment.FragmentsKey
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -21,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        fragments.setOnClickListener { router.navigate(ActivityKey<FragmentsActivity>()) }
+        fragments.setOnClickListener { router.navigate(FragmentsKey()) }
     }
 
     override fun onResumeFragments() {

@@ -19,7 +19,6 @@ package com.ivianuu.traveler.fragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.ivianuu.traveler.Command
-import kotlin.reflect.KClass
 
 /**
  * A key which holds a [Fragment]
@@ -38,22 +37,3 @@ interface FragmentKey {
     ) {
     }
 }
-
-/**
- * Returns a new [FragmentKey]
- */
-fun FragmentKey(fragment: Fragment) = object : FragmentKey {
-    override fun createFragment(data: Any?) = fragment
-}
-
-/**
- * Returns a new [FragmentKey]
- */
-fun FragmentKey(clazz: KClass<out Fragment>) = object : FragmentKey {
-    override fun createFragment(data: Any?) = clazz.java.newInstance()
-}
-
-/**
- * Returns a new [FragmentKey]
- */
-inline fun <reified T : Fragment> FragmentKey() = FragmentKey(T::class)

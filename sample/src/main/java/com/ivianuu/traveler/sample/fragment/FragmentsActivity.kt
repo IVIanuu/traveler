@@ -16,11 +16,11 @@
 
 package com.ivianuu.traveler.sample.fragment
 
-import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
+import com.ivianuu.traveler.android.ActivityKey
 import com.ivianuu.traveler.common.compositeNavigatorOf
 import com.ivianuu.traveler.fragment.FragmentNavigator
 import com.ivianuu.traveler.lifecycle.setNavigator
@@ -28,23 +28,9 @@ import com.ivianuu.traveler.sample.ToastNavigator
 import com.ivianuu.traveler.sample.traveler
 import com.ivianuu.traveler.setRoot
 
-private class CounterNavigator(
-    private val activity: Activity,
-    fragmentManager: FragmentManager,
-    containerId: Int
-) : FragmentNavigator(fragmentManager, containerId) {
-    override fun createFragment(key: Any, data: Any?): Fragment? {
-        return CounterFragment().apply {
-            arguments = Bundle().apply {
-                putParcelable("key", key as CounterKey)
-            }
-        }
-    }
-
-    override fun exit(): Boolean {
-        activity.finish()
-        return true
-    }
+class FragmentsKey : ActivityKey {
+    override fun createIntent(context: Context, data: Any?) =
+        Intent(context, FragmentsActivity::class.java)
 }
 
 class FragmentsActivity : AppCompatActivity() {
@@ -55,8 +41,7 @@ class FragmentsActivity : AppCompatActivity() {
 
     private val navigator by lazy {
         compositeNavigatorOf(
-            CounterNavigator(
-                this,
+            FragmentNavigator(
                 supportFragmentManager,
                 android.R.id.content
             ),

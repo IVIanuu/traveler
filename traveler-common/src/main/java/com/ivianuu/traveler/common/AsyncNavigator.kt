@@ -78,13 +78,3 @@ abstract class AsyncNavigator : Navigator {
         }
     }
 }
-
-/**
- * Returns a new [AsyncNavigator] which uses [applyCommand]
- */
-fun AsyncNavigator(block: (command: Command, listener: () -> Unit) -> Unit) =
-    object : AsyncNavigator() {
-        override fun applyCommand(command: Command, listener: () -> Unit) {
-            block.invoke(command, listener)
-        }
-    }

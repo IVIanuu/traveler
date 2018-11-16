@@ -57,6 +57,10 @@ class CommandBufferTest {
         expectedState.add(TestCommand(2))
         commandBuffer.executeCommands(arrayOf(TestCommand(2)))
         assertEquals(expectedState, navigator.history)
+
+        expectedState.add(TestCommand(3))
+        commandBuffer.executeCommands(arrayOf(TestCommand(3)))
+        assertEquals(expectedState, navigator.history)
     }
 
     @Test

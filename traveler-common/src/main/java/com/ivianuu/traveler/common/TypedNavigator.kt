@@ -21,7 +21,7 @@ import com.ivianuu.traveler.Navigator
 import kotlin.reflect.KClass
 
 /**
- * A [Navigator] which only accepts [Command]'s of type [T]
+ * A [Navigator] which only accepts [Command]s of type [T]
  */
 abstract class TypedNavigator<T : Command>(private val clazz: KClass<T>) : Navigator {
 
@@ -46,19 +46,3 @@ abstract class TypedNavigator<T : Command>(private val clazz: KClass<T>) : Navig
         throw IllegalArgumentException("unsupported command $command")
     }
 }
-
-/**
- * Returns a new [TypedNavigator] which uses [applyTypedCommand]
- */
-inline fun <reified T : Command> TypedNavigator(noinline block: (command: T) -> Unit) =
-    TypedNavigator(T::class, block)
-
-/**
- * Returns a new [TypedNavigator] which uses [applyTypedCommand]
- */
-fun <T : Command> TypedNavigator(clazz: KClass<T>, block: (command: T) -> Unit) =
-    object : TypedNavigator<T>(clazz) {
-        override fun applyTypedCommand(command: T) {
-            block.invoke(command)
-        }
-    }

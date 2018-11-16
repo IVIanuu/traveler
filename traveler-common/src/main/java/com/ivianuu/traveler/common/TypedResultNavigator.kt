@@ -20,7 +20,7 @@ import com.ivianuu.traveler.Command
 import kotlin.reflect.KClass
 
 /**
- * A [ResultNavigator] which only accepts [Command]'s of type [T]
+ * A [ResultNavigator] which only accepts [Command]s of type [T]
  */
 abstract class TypedResultNavigator<T : Command>(private val clazz: KClass<T>) : ResultNavigator() {
     final override fun applyCommandWithResult(command: Command): Boolean {
@@ -37,17 +37,3 @@ abstract class TypedResultNavigator<T : Command>(private val clazz: KClass<T>) :
      */
     protected abstract fun applyTypedCommandWithResult(command: T): Boolean
 }
-
-/**
- * Returns a new [TypedResultNavigator] which uses [block]
- */
-inline fun <reified T : Command> TypedResultNavigator(noinline block: (command: T) -> Boolean) =
-    TypedResultNavigator(T::class, block)
-
-/**
- * Returns a new [TypedResultNavigator] which uses [block]
- */
-fun <T : Command> TypedResultNavigator(clazz: KClass<T>, block: (command: T) -> Boolean) =
-    object : TypedResultNavigator<T>(clazz) {
-        override fun applyTypedCommandWithResult(command: T) = block.invoke(command)
-    }

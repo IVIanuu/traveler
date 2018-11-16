@@ -35,9 +35,3 @@ interface NavigatorHolder {
      */
     fun removeNavigator()
 }
-
-/**
- * Sets the [navigator] which will be used to navigate
- */
-fun NavigatorHolder.setNavigator(navigator: (Command) -> Unit) =
-    setNavigator(Navigator(navigator))

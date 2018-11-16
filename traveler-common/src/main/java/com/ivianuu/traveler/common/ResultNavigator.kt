@@ -42,12 +42,3 @@ abstract class ResultNavigator : Navigator {
         throw IllegalArgumentException("couldn't handle command $command")
     }
 }
-
-/**
- * Returns a new [ResultNavigator] which uses [applyCommandWithResult]
- */
-fun ResultNavigator(block: (command: Command) -> Boolean) =
-    object : ResultNavigator() {
-        override fun applyCommandWithResult(command: Command) =
-            block.invoke(command)
-    }

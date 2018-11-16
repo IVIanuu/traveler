@@ -17,20 +17,11 @@
 package com.ivianuu.traveler
 
 /**
- * The navigator executes the [Command]'s
+ * The navigator executes the [Command]s
  */
 interface Navigator {
     /**
      * Applies the [command]
      */
     fun applyCommand(command: Command)
-}
-
-/**
- * Returns a new [Navigator] which uses [applyCommand]
- */
-fun Navigator(block: (Command) -> Unit) = object : Navigator {
-    override fun applyCommand(command: Command) {
-        block.invoke(command)
-    }
 }

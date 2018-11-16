@@ -24,6 +24,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.ivianuu.traveler.finish
+import com.ivianuu.traveler.fragment.FragmentKey
 import com.ivianuu.traveler.goBack
 import com.ivianuu.traveler.navigate
 import com.ivianuu.traveler.popTo
@@ -35,7 +36,15 @@ import kotlinx.android.parcel.Parcelize
 import kotlinx.android.synthetic.main.view_counter.*
 
 @Parcelize
-data class CounterKey(val count: Int) : Parcelable
+data class CounterKey(val count: Int) : FragmentKey, Parcelable {
+    override fun createFragment(data: Any?): Fragment {
+        return CounterFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable("key", this@CounterKey)
+            }
+        }
+    }
+}
 
 class CounterFragment : Fragment() {
 

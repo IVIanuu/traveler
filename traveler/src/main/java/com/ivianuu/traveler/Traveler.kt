@@ -41,7 +41,3 @@ class Traveler<T : Router> private constructor(val router: T) {
 
     }
 }
-
-fun <T : Router> Traveler<T>.component1() = router
-
-fun <T : Router> Traveler<T>.component2() = navigatorHolder

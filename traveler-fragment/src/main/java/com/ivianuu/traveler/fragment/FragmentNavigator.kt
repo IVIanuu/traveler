@@ -18,7 +18,6 @@ package com.ivianuu.traveler.fragment
 
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.ivianuu.traveler.Back
@@ -256,15 +255,3 @@ open class FragmentNavigator(
             .forEach { localStackCopy.add(it) }
     }
 }
-
-/**
- * Returns a new [FragmentNavigator]
- */
-fun FragmentActivity.FragmentNavigator(containerId: Int) =
-    FragmentNavigator(supportFragmentManager, containerId)
-
-/**
- * Returns a new [FragmentNavigator]
- */
-fun Fragment.FragmentNavigator(containerId: Int) =
-    FragmentNavigator(childFragmentManager, containerId)

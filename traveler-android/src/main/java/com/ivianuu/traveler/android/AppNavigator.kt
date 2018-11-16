@@ -27,7 +27,7 @@ import com.ivianuu.traveler.Replace
 import com.ivianuu.traveler.common.ResultNavigator
 
 /**
- * A [Navigator] for [Activity]'s
+ * A [Navigator] for [Activity]s
  */
 open class AppNavigator(private val context: Context) : ResultNavigator() {
 
@@ -114,8 +114,3 @@ open class AppNavigator(private val context: Context) : ResultNavigator() {
         }
     }
 }
-
-/**
- * Returns a new [AppNavigator]
- */
-fun Context.AppNavigator() = AppNavigator(this)
