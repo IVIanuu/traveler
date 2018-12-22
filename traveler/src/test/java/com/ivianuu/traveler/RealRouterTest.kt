@@ -94,7 +94,7 @@ class RealRouterTest {
         expectedState.add(TestCommand(1))
         router.enqueueCommands(TestCommand(1))
 
-        assertEquals(expectedState, listener.commandEnqueuedCalls)
+        assertEquals(expectedState, listener.commandEnqueuedHistory)
         assertEquals(1, listener.commandEnqueuedCalls)
         assertEquals(expectedState, listener.preCommandAppliedHistory)
         assertEquals(1, listener.preCommandAppliedCalls)
@@ -106,7 +106,7 @@ class RealRouterTest {
 
         router.enqueueCommands(TestCommand(2), TestCommand(3))
 
-        assertEquals(expectedState, listener.commandEnqueuedCalls)
+        assertEquals(expectedState, listener.commandEnqueuedHistory)
         assertEquals(3, listener.commandEnqueuedCalls)
         assertEquals(expectedState, listener.preCommandAppliedHistory)
         assertEquals(3, listener.preCommandAppliedCalls)
@@ -130,6 +130,8 @@ class RealRouterTest {
 
     @Test
     fun testRouterListenerAddedTwice() {
+        router.setNavigator(TestNavigator())
+
         router.addRouterListener(listener)
         router.addRouterListener(listener)
         router.enqueueCommands(TestCommand())
