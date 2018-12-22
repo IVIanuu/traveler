@@ -36,9 +36,8 @@ android {
 }
 
 dependencies {
-    api(Deps.archLifecycleExtensions)
+    api(Deps.androidxLifecycleExtensions)
     api(project(":traveler"))
-    api(project(":traveler-result"))
 }
 
 val sourcesJar = task("sourcesJar", Jar::class) {

@@ -15,7 +15,6 @@
             <option value="$PROJECT_DIR$/traveler-common" />
             <option value="$PROJECT_DIR$/traveler-fragment" />
             <option value="$PROJECT_DIR$/traveler-lifecycle" />
-            <option value="$PROJECT_DIR$/traveler-result" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

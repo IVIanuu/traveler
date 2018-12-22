@@ -4,6 +4,5 @@ include(
     ":traveler-android",
     ":traveler-common",
     ":traveler-fragment",
-    ":traveler-lifecycle",
-    ":traveler-result"
+    ":traveler-lifecycle"
 )

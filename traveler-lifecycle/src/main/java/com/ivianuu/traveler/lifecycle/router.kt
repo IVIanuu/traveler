@@ -19,46 +19,43 @@ package com.ivianuu.traveler.lifecycle
 import androidx.lifecycle.GenericLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
-import com.ivianuu.traveler.NavigationListener
+import com.ivianuu.traveler.Navigator
 import com.ivianuu.traveler.Router
-import com.ivianuu.traveler.result.ResultListener
-import com.ivianuu.traveler.result.addResultListener
-import com.ivianuu.traveler.result.removeResultListener
+import com.ivianuu.traveler.RouterListener
 
 /**
- * Adds the [listener] and removes him on [event]
+ * Sets the [navigator] and removes it on [event]
  */
-fun Router.addNavigationListener(
+fun Router.setNavigator(
     owner: LifecycleOwner,
-    event: Lifecycle.Event = Lifecycle.Event.ON_DESTROY,
-    listener: NavigationListener
+    navigator: Navigator,
+    event: Lifecycle.Event = Lifecycle.Event.ON_PAUSE
 ) {
-    addNavigationListener(listener)
+    setNavigator(navigator)
     owner.lifecycle.addObserver(object : GenericLifecycleObserver {
         override fun onStateChanged(source: LifecycleOwner, e: Lifecycle.Event) {
             if (e == event) {
                 owner.lifecycle.removeObserver(this)
-                removeNavigationListener(listener)
+                removeNavigator()
             }
         }
     })
 }
 
 /**
- * Adds the [listener] and removes him on [event]
+ * Adds the [listener] and removes it on [event]
  */
-fun Router.addResultListener(
+fun Router.addRouterListener(
     owner: LifecycleOwner,
-    resultCode: Int,
     event: Lifecycle.Event = Lifecycle.Event.ON_DESTROY,
-    listener: ResultListener
+    listener: RouterListener
 ) {
-    addResultListener(resultCode, listener)
+    addRouterListener(listener)
     owner.lifecycle.addObserver(object : GenericLifecycleObserver {
         override fun onStateChanged(source: LifecycleOwner, e: Lifecycle.Event) {
             if (e == event) {
                 owner.lifecycle.removeObserver(this)
-                removeResultListener(resultCode, listener)
+                removeRouterListener(listener)
             }
         }
     })

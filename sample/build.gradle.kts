@@ -53,5 +53,4 @@ dependencies {
     implementation(project(":traveler-common"))
     implementation(project(":traveler-fragment"))
     implementation(project(":traveler-lifecycle"))
-    implementation(project(":traveler-result"))
 }

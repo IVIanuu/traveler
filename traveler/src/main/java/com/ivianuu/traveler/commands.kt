@@ -22,6 +22,14 @@ package com.ivianuu.traveler
 interface Command
 
 /**
+ * A command which holds meta data
+ */
+interface MetaCommand : Command {
+    val key: Any
+    val data: Any?
+}
+
+/**
  * Goes back to the previous screen
  */
 class Back : Command {
@@ -46,9 +54,9 @@ data class BackTo(val key: Any?) : Command
 /**
  * Opens a new screen
  */
-data class Forward(val key: Any, val data: Any?) : Command
+data class Forward(override val key: Any, override val data: Any?) : MetaCommand
 
 /**
  * Replaces the current screen
  */
-data class Replace(val key: Any, val data: Any?) : Command
+data class Replace(override val key: Any, override val data: Any?) : MetaCommand

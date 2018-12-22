@@ -10,10 +10,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val traveler by lazy { traveler("main") }
-    private val navigatorHolder get() = traveler.navigatorHolder
-    private val router get() = traveler.router
-
+    private val router by lazy { router("main") }
     private val navigator by lazy(LazyThreadSafetyMode.NONE) { AppNavigator(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +22,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResumeFragments() {
         super.onResumeFragments()
-        navigatorHolder.setNavigator(this, navigator)
+        router.setNavigator(this, navigator)
     }
 }

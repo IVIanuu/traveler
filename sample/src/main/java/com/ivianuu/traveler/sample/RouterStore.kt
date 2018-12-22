@@ -16,22 +16,29 @@
 
 package com.ivianuu.traveler.sample
 
-import android.content.Context
-import android.widget.Toast
+import android.util.Log
 import com.ivianuu.traveler.Command
 import com.ivianuu.traveler.Router
-import com.ivianuu.traveler.common.TypedResultNavigator
+import com.ivianuu.traveler.RouterListener
 
-data class ShowToast(val msg: CharSequence) : Command
+private val routers = mutableMapOf<String, Router>()
 
-class ToastNavigator(private val context: Context) :
-    TypedResultNavigator<ShowToast>(ShowToast::class) {
-    override fun applyTypedCommandWithResult(command: ShowToast): Boolean {
-        Toast.makeText(context, command.msg, Toast.LENGTH_SHORT).show()
-        return true
-    }
+fun router(key: String) = routers.getOrPut(key) {
+    Router().apply { addRouterListener(LoggingRouterListener(key)) }
 }
 
-fun Router.showToast(msg: CharSequence) {
-    enqueueCommands(ShowToast(msg))
+private class LoggingRouterListener(private val key: String) : RouterListener {
+
+    override fun onCommandEnqueued(command: Command) {
+        Log.d("Router-$key", "command enqueued $command")
+    }
+
+    override fun preCommandApplied(command: Command) {
+        Log.d("Router-$key", "pre command applied $command")
+    }
+
+    override fun postCommandApplied(command: Command) {
+        Log.d("Router-$key", "post command applied $command")
+    }
+
 }

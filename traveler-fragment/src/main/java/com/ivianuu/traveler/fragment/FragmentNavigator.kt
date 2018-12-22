@@ -20,11 +20,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import com.ivianuu.traveler.Back
-import com.ivianuu.traveler.BackTo
-import com.ivianuu.traveler.Command
-import com.ivianuu.traveler.Forward
-import com.ivianuu.traveler.Replace
+import com.ivianuu.traveler.*
 import com.ivianuu.traveler.common.ResultNavigator
 import java.util.*
 
@@ -219,13 +215,8 @@ open class FragmentNavigator(
         nextFragment: Fragment,
         transaction: FragmentTransaction
     ) {
-        val key = when (command) {
-            is Forward -> command.key
-            is Replace -> command.key
-            else -> null
-        } as? FragmentKey ?: return
-
-        key.setupFragmentTransaction(command, currentFragment, nextFragment, transaction)
+        ((command as? MetaCommand)?.key as? FragmentKey)
+            ?.setupFragmentTransaction(command, currentFragment, nextFragment, transaction)
     }
 
     /**

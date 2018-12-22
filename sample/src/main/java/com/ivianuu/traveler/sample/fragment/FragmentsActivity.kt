@@ -25,7 +25,7 @@ import com.ivianuu.traveler.common.compositeNavigatorOf
 import com.ivianuu.traveler.fragment.FragmentNavigator
 import com.ivianuu.traveler.lifecycle.setNavigator
 import com.ivianuu.traveler.sample.ToastNavigator
-import com.ivianuu.traveler.sample.traveler
+import com.ivianuu.traveler.sample.router
 import com.ivianuu.traveler.setRoot
 
 class FragmentsKey : ActivityKey {
@@ -35,9 +35,7 @@ class FragmentsKey : ActivityKey {
 
 class FragmentsActivity : AppCompatActivity() {
 
-    private val traveler by lazy { traveler("fragments") }
-    private val navigatorHolder get() = traveler.navigatorHolder
-    private val router get() = traveler.router
+    private val router by lazy { router("fragments") }
 
     private val navigator by lazy {
         compositeNavigatorOf(
@@ -59,7 +57,7 @@ class FragmentsActivity : AppCompatActivity() {
 
     override fun onResumeFragments() {
         super.onResumeFragments()
-        navigatorHolder.setNavigator(this, navigator)
+        router.setNavigator(this, navigator)
     }
 
 }

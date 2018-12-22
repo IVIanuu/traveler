@@ -17,21 +17,26 @@
 package com.ivianuu.traveler
 
 /**
- * Holds a navigator.
+ * Listener for navigation
  */
-interface NavigatorHolder {
-    /**
-     * Whether or not a [Navigator] is currently set
-     */
-    val hasNavigator: Boolean
+interface RouterListener {
 
     /**
-     * Sets the [navigator] which will be used to navigate
+     * Will be called when the [command] gets enqueued
      */
-    fun setNavigator(navigator: Navigator)
+    fun onCommandEnqueued(command: Command) {
+    }
 
     /**
-     * Removes the current [Navigator]
+     * Will be called right before the [command] will be applied by the navigator
      */
-    fun removeNavigator()
+    fun preCommandApplied(command: Command) {
+    }
+
+    /**
+     * Will be called right after the [command] was applied by the navigator
+     */
+    fun postCommandApplied(command: Command) {
+    }
+
 }
