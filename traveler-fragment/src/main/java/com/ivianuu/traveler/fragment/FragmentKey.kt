@@ -27,7 +27,7 @@ interface FragmentKey {
 
     fun createFragment(data: Any?): Fragment
 
-    fun getFragmentTag() = toString()
+    fun getFragmentTag(): String = toString()
 
     fun setupFragmentTransaction(
         command: Command,

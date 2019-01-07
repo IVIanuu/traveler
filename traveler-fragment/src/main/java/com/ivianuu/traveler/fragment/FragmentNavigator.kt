@@ -186,7 +186,7 @@ open class FragmentNavigator(
      * Will be called when the backstack is empty and the hosting activity should be closed
      * This is a no op by default
      */
-    protected open fun exit() = true
+    protected open fun exit(): Boolean = true
 
     /**
      * Creates the corresponding [Fragment] for [key]
