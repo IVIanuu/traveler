@@ -83,9 +83,10 @@ open class RealRouter : Router {
     }
 
     private fun mainThread(action: () -> Unit) {
-        when {
-            isMainThread -> action()
-            else -> handler.post(action)
+        if (isMainThread) {
+            action()
+        } else {
+            handler.post(action)
         }
     }
 

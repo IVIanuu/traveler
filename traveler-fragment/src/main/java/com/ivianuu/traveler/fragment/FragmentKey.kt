@@ -25,10 +25,19 @@ import com.ivianuu.traveler.Command
  */
 interface FragmentKey {
 
+    /**
+     * Creates a [Fragment] for this key
+     */
     fun createFragment(data: Any?): Fragment
 
+    /**
+     * Returns the fragment tag of this key
+     */
     fun getFragmentTag(): String = toString()
 
+    /**
+     * Applies animations
+     */
     fun setupFragmentTransaction(
         command: Command,
         currentFragment: Fragment?,

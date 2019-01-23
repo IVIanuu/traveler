@@ -16,6 +16,7 @@
 
 package com.ivianuu.traveler.android
 
+import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -25,6 +26,14 @@ import com.ivianuu.traveler.Command
  * A key for activities/intents
  */
 interface ActivityKey {
+    /**
+     * Returns the [Intent] for this key
+     */
     fun createIntent(context: Context, data: Any?): Intent
+
+    /**
+     * Returns the [ActivityOptions] for this key
+     */
     fun createStartActivityOptions(command: Command, activityIntent: Intent): Bundle? = null
+
 }

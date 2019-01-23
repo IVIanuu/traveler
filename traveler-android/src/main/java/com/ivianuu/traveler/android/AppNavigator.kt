@@ -39,6 +39,9 @@ open class AppNavigator(private val context: Context) : ResultNavigator() {
         }
     }
 
+    /**
+     * Navigates forward
+     */
     protected open fun forward(command: Forward): Boolean {
         val activityIntent =
             createActivityIntent(context, command.key, command.data)
@@ -51,6 +54,9 @@ open class AppNavigator(private val context: Context) : ResultNavigator() {
         }
     }
 
+    /**
+     * Replaces the current screen with the new one
+     */
     protected open fun replace(command: Replace): Boolean {
         val activityIntent =
             createActivityIntent(context, command.key, command.data)
@@ -66,6 +72,9 @@ open class AppNavigator(private val context: Context) : ResultNavigator() {
         }
     }
 
+    /**
+     * Creates a [Intent] for [key]
+     */
     protected open fun createActivityIntent(context: Context, key: Any, data: Any?): Intent? {
         return when (key) {
             is ActivityKey -> key.createIntent(context, data)
@@ -73,6 +82,9 @@ open class AppNavigator(private val context: Context) : ResultNavigator() {
         }
     }
 
+    /**
+     * Creates activity options for [command]
+     */
     protected open fun createStartActivityOptions(
         command: Command,
         activityIntent: Intent

@@ -12,10 +12,13 @@ object Build {
 }
 
 object Versions {
-    const val androidGradlePlugin = "3.2.1"
+    const val androidGradlePlugin = "3.3.0"
 
-    const val androidx = "1.0.0"
+    const val androidxAppCompat = "1.0.0"
+    const val androidxFragment = "1.0.0"
     const val androidxLifecycle = "2.0.0"
+    const val androidxTestCore = "1.0.0"
+    const val androidxTestJunit = "1.0.0"
     const val androidxTestRules = "1.1.0"
     const val androidxTestRunner = "1.1.0"
 
@@ -31,12 +34,12 @@ object Versions {
 object Deps {
     const val androidGradlePlugin = "com.android.tools.build:gradle:${Versions.androidGradlePlugin}"
 
-    const val androidxAppCompat = "androidx.appcompat:appcompat:${Versions.androidx}"
-    const val androidxFragment = "androidx.fragment:fragment:${Versions.androidx}"
+    const val androidxAppCompat = "androidx.appcompat:appcompat:${Versions.androidxAppCompat}"
+    const val androidxFragment = "androidx.fragment:fragment:${Versions.androidxFragment}"
     const val androidxLifecycleExtensions =
         "androidx.lifecycle:lifecycle-extensions:${Versions.androidxLifecycle}"
-    const val androidxTestCore = "androidx.test:core:${Versions.androidx}"
-    const val androidxTestJunit = "androidx.test.ext:junit:${Versions.androidx}"
+    const val androidxTestCore = "androidx.test:core:${Versions.androidxTestCore}"
+    const val androidxTestJunit = "androidx.test.ext:junit:${Versions.androidxTestJunit}"
     const val androidxTestRules = "androidx.test:rules:${Versions.androidxTestRules}"
     const val androidxTestRunner = "androidx.test:runner:${Versions.androidxTestRunner}"
 

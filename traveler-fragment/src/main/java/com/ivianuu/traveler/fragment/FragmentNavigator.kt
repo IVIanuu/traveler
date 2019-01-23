@@ -44,6 +44,9 @@ open class FragmentNavigator(
         }
     }
 
+    /**
+     * Navigates forward
+     */
     protected open fun forward(command: Forward): Boolean {
         executePendingTransactions()
         copyStackToLocal()
@@ -76,6 +79,9 @@ open class FragmentNavigator(
         return true
     }
 
+    /**
+     * Replaces the current screen with the new one
+     */
     protected open fun replace(command: Replace): Boolean {
         executePendingTransactions()
         copyStackToLocal()
@@ -132,6 +138,9 @@ open class FragmentNavigator(
         return true
     }
 
+    /**
+     * Navigates back
+     */
     protected open fun back(command: Back): Boolean {
         executePendingTransactions()
         copyStackToLocal()
@@ -145,6 +154,9 @@ open class FragmentNavigator(
         }
     }
 
+    /**
+     * Navigates back to [BackTo.key] or to the root
+     */
     protected open fun backTo(command: BackTo): Boolean {
         executePendingTransactions()
         copyStackToLocal()
@@ -171,12 +183,18 @@ open class FragmentNavigator(
         }
     }
 
+    /**
+     * Navigates back to root
+     */
     protected open fun backToRoot(): Boolean {
         fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         localStackCopy.clear()
         return true
     }
 
+    /**
+     * Will be called on a [backTo] with a unknown key
+     */
     protected open fun backToUnexisting(key: Any): Boolean {
         backToRoot()
         return true
