@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Traveler.iml" filepath="$PROJECT_DIR$/Traveler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/buildSrc/buildSrc.iml" filepath="$PROJECT_DIR$/buildSrc/buildSrc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sample/sample.iml" filepath="$PROJECT_DIR$/sample/sample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/traveler/traveler.iml" filepath="$PROJECT_DIR$/traveler/traveler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/traveler-android/traveler-android.iml" filepath="$PROJECT_DIR$/traveler-android/traveler-android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/traveler-common/traveler-common.iml" filepath="$PROJECT_DIR$/traveler-common/traveler-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/traveler-fragment/traveler-fragment.iml" filepath="$PROJECT_DIR$/traveler-fragment/traveler-fragment.iml" />
+      <module fileurl="file://$PROJECT_DIR$/traveler-lifecycle/traveler-lifecycle.iml" filepath="$PROJECT_DIR$/traveler-lifecycle/traveler-lifecycle.iml" />
+    </modules>
+  </component>
+</project>
