@@ -14,7 +14,7 @@ object Build {
 object Versions {
     const val androidGradlePlugin = "3.3.0"
 
-    const val androidxAppCompat = "1.0.0"
+    const val androidxAppCompat = "1.0.2"
     const val androidxFragment = "1.0.0"
     const val androidxLifecycle = "2.0.0"
     const val androidxTestCore = "1.0.0"
