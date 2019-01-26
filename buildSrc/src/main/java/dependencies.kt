@@ -11,6 +11,12 @@ object Build {
     const val versionName = "0.0.1"
 }
 
+object Publishing {
+    const val groupId = "com.ivianuu.traveler"
+    const val vcsUrl = "https://github.com/IVIanuu/traveler"
+    const val version = "git"
+}
+
 object Versions {
     const val androidGradlePlugin = "3.3.0"
 
@@ -21,6 +27,8 @@ object Versions {
     const val androidxTestJunit = "1.0.0"
     const val androidxTestRules = "1.1.0"
     const val androidxTestRunner = "1.1.0"
+
+    const val bintray = "1.8.4"
 
     const val junit = "4.12"
 
@@ -42,6 +50,9 @@ object Deps {
     const val androidxTestJunit = "androidx.test.ext:junit:${Versions.androidxTestJunit}"
     const val androidxTestRules = "androidx.test:rules:${Versions.androidxTestRules}"
     const val androidxTestRunner = "androidx.test:runner:${Versions.androidxTestRunner}"
+
+    const val bintrayGradlePlugin =
+        "com.jfrog.bintray.gradle:gradle-bintray-plugin:${Versions.bintray}"
 
     const val junit = "junit:junit:${Versions.junit}"
 
