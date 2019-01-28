@@ -59,6 +59,17 @@ interface Router {
 fun Router(): Router = RealRouter()
 
 /**
+ * Sets the [navigator] which will be used to navigate
+ */
+fun Router.setNavigator(applyCommand: (command: Command) -> Unit): Navigator {
+    return object : Navigator {
+        override fun applyCommand(command: Command) {
+            applyCommand.invoke(command)
+        }
+    }.also { setNavigator(it) }
+}
+
+/**
  * Sends the [commands] to the [Navigator]
  */
 fun Router.enqueueCommands(commands: Collection<Command>) {
@@ -136,4 +147,27 @@ fun Router.finish() {
         BackTo(null),
         Back()
     )
+}
+
+/**
+ * Adds the [listener]
+ */
+fun Router.addRouterListener(
+    onCommandEnqueued: ((command: Command) -> Unit)? = null,
+    preCommandApplied: ((navigator: Navigator, command: Command) -> Unit)? = null,
+    postCommandApplied: ((navigator: Navigator, command: Command) -> Unit)? = null
+): RouterListener {
+    return object : RouterListener {
+        override fun onCommandEnqueued(command: Command) {
+            onCommandEnqueued?.invoke(command)
+        }
+
+        override fun preCommandApplied(navigator: Navigator, command: Command) {
+            preCommandApplied?.invoke(navigator, command)
+        }
+
+        override fun postCommandApplied(navigator: Navigator, command: Command) {
+            postCommandApplied?.invoke(navigator, command)
+        }
+    }.also { addRouterListener(it) }
 }

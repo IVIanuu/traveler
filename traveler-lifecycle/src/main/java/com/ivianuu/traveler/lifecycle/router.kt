@@ -19,9 +19,12 @@ package com.ivianuu.traveler.lifecycle
 import androidx.lifecycle.GenericLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
+import com.ivianuu.traveler.Command
 import com.ivianuu.traveler.Navigator
 import com.ivianuu.traveler.Router
 import com.ivianuu.traveler.RouterListener
+import com.ivianuu.traveler.addRouterListener
+import com.ivianuu.traveler.setNavigator
 
 /**
  * Sets the [navigator] and removes it on [event]
@@ -32,14 +35,20 @@ fun Router.setNavigator(
     event: Lifecycle.Event = Lifecycle.Event.ON_PAUSE
 ) {
     setNavigator(navigator)
-    owner.lifecycle.addObserver(object : GenericLifecycleObserver {
-        override fun onStateChanged(source: LifecycleOwner, e: Lifecycle.Event) {
-            if (e == event) {
-                owner.lifecycle.removeObserver(this)
-                removeNavigator()
-            }
-        }
-    })
+    removeNavigatorOnEvent(owner, event)
+}
+
+/**
+ * Sets the [navigator] which will be used to navigate
+ */
+fun Router.setNavigator(
+    owner: LifecycleOwner,
+    event: Lifecycle.Event = Lifecycle.Event.ON_PAUSE,
+    applyCommand: (command: Command) -> Unit
+): Navigator {
+    val navigator = setNavigator(applyCommand)
+    removeNavigatorOnEvent(owner, event)
+    return navigator
 }
 
 /**
@@ -56,6 +65,43 @@ fun Router.addRouterListener(
             if (e == event) {
                 owner.lifecycle.removeObserver(this)
                 removeRouterListener(listener)
+            }
+        }
+    })
+}
+
+/**
+ * Adds the [listener] and removes it on [event]
+ */
+fun Router.addRouterListener(
+    owner: LifecycleOwner,
+    event: Lifecycle.Event = Lifecycle.Event.ON_DESTROY,
+    onCommandEnqueued: ((command: Command) -> Unit)? = null,
+    preCommandApplied: ((navigator: Navigator, command: Command) -> Unit)? = null,
+    postCommandApplied: ((navigator: Navigator, command: Command) -> Unit)? = null
+): RouterListener {
+    val listener = addRouterListener(onCommandEnqueued, preCommandApplied, postCommandApplied)
+    owner.lifecycle.addObserver(object : GenericLifecycleObserver {
+        override fun onStateChanged(source: LifecycleOwner, e: Lifecycle.Event) {
+            if (e == event) {
+                owner.lifecycle.removeObserver(this)
+                removeRouterListener(listener)
+            }
+        }
+    })
+
+    return listener
+}
+
+private fun Router.removeNavigatorOnEvent(
+    owner: LifecycleOwner,
+    event: Lifecycle.Event
+) {
+    owner.lifecycle.addObserver(object : GenericLifecycleObserver {
+        override fun onStateChanged(source: LifecycleOwner, e: Lifecycle.Event) {
+            if (e == event) {
+                owner.lifecycle.removeObserver(this)
+                removeNavigator()
             }
         }
     })

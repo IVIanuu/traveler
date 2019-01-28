@@ -18,6 +18,7 @@ package com.ivianuu.traveler.sample
 
 import android.util.Log
 import com.ivianuu.traveler.Command
+import com.ivianuu.traveler.Navigator
 import com.ivianuu.traveler.Router
 import com.ivianuu.traveler.RouterListener
 
@@ -33,12 +34,12 @@ private class LoggingRouterListener(private val key: String) : RouterListener {
         Log.d("Router-$key", "command enqueued $command")
     }
 
-    override fun preCommandApplied(command: Command) {
-        Log.d("Router-$key", "pre command applied $command")
+    override fun preCommandApplied(navigator: Navigator, command: Command) {
+        Log.d("Router-$key", "pre command applied $navigator $command")
     }
 
-    override fun postCommandApplied(command: Command) {
-        Log.d("Router-$key", "post command applied $command")
+    override fun postCommandApplied(navigator: Navigator, command: Command) {
+        Log.d("Router-$key", "post command applied $navigator $command")
     }
 
 }

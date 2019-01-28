@@ -28,15 +28,15 @@ interface RouterListener {
     }
 
     /**
-     * Will be called right before the [command] will be applied by the navigator
+     * Will be called right before the [command] will be applied by the [navigator]
      */
-    fun preCommandApplied(command: Command) {
+    fun preCommandApplied(navigator: Navigator, command: Command) {
     }
 
     /**
-     * Will be called right after the [command] was applied by the navigator
+     * Will be called right after the [command] was applied by the [navigator]
      */
-    fun postCommandApplied(command: Command) {
+    fun postCommandApplied(navigator: Navigator, command: Command) {
     }
 
 }

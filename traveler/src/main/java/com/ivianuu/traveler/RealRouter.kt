@@ -74,9 +74,9 @@ open class RealRouter : Router {
     private fun executeCommand(command: Command) {
         val navigator = navigator
         if (navigator != null) {
-            routerListeners.toList().forEach { it.preCommandApplied(command) }
+            routerListeners.toList().forEach { it.preCommandApplied(navigator, command) }
             navigator.applyCommand(command)
-            routerListeners.toList().forEach { it.postCommandApplied(command) }
+            routerListeners.toList().forEach { it.postCommandApplied(navigator, command) }
         } else {
             pendingCommands.add(command)
         }
