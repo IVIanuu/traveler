@@ -60,18 +60,11 @@ fun Router.addRouterListener(
     listener: RouterListener
 ) {
     addRouterListener(listener)
-    owner.lifecycle.addObserver(object : GenericLifecycleObserver {
-        override fun onStateChanged(source: LifecycleOwner, e: Lifecycle.Event) {
-            if (e == event) {
-                owner.lifecycle.removeObserver(this)
-                removeRouterListener(listener)
-            }
-        }
-    })
+    removeListenerOnEvent(owner, listener, event)
 }
 
 /**
- * Adds the [listener] and removes it on [event]
+ * Adds the listener and removes it on [event]
  */
 fun Router.addRouterListener(
     owner: LifecycleOwner,
@@ -80,17 +73,8 @@ fun Router.addRouterListener(
     preCommandApplied: ((navigator: Navigator, command: Command) -> Unit)? = null,
     postCommandApplied: ((navigator: Navigator, command: Command) -> Unit)? = null
 ): RouterListener {
-    val listener = addRouterListener(onCommandEnqueued, preCommandApplied, postCommandApplied)
-    owner.lifecycle.addObserver(object : GenericLifecycleObserver {
-        override fun onStateChanged(source: LifecycleOwner, e: Lifecycle.Event) {
-            if (e == event) {
-                owner.lifecycle.removeObserver(this)
-                removeRouterListener(listener)
-            }
-        }
-    })
-
-    return listener
+    return addRouterListener(onCommandEnqueued, preCommandApplied, postCommandApplied)
+        .also { removeListenerOnEvent(owner, it, event) }
 }
 
 private fun Router.removeNavigatorOnEvent(
@@ -102,6 +86,21 @@ private fun Router.removeNavigatorOnEvent(
             if (e == event) {
                 owner.lifecycle.removeObserver(this)
                 removeNavigator()
+            }
+        }
+    })
+}
+
+private fun Router.removeListenerOnEvent(
+    owner: LifecycleOwner,
+    listener: RouterListener,
+    event: Lifecycle.Event
+) {
+    owner.lifecycle.addObserver(object : GenericLifecycleObserver {
+        override fun onStateChanged(source: LifecycleOwner, e: Lifecycle.Event) {
+            if (e == event) {
+                owner.lifecycle.removeObserver(this)
+                removeRouterListener(listener)
             }
         }
     })
