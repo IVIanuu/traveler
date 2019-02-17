@@ -14,7 +14,7 @@ object Build {
 object Publishing {
     const val groupId = "com.ivianuu.traveler"
     const val vcsUrl = "https://github.com/IVIanuu/traveler"
-    const val version = "0.0.1-dev-1"
+    const val version = "0.0.1-dev-2"
 }
 
 object Versions {
@@ -32,7 +32,7 @@ object Versions {
 
     const val junit = "4.12"
 
-    const val kotlin = "1.3.20"
+    const val kotlin = "1.3.21"
     const val mavenGradlePlugin = "2.1"
     const val materialComponents = "1.0.0"
 

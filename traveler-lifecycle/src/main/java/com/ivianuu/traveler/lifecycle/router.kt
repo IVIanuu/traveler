@@ -69,12 +69,17 @@ fun Router.addRouterListener(
 fun Router.addRouterListener(
     owner: LifecycleOwner,
     event: Lifecycle.Event = Lifecycle.Event.ON_DESTROY,
-    onCommandEnqueued: ((command: Command) -> Unit)? = null,
-    preCommandApplied: ((navigator: Navigator, command: Command) -> Unit)? = null,
-    postCommandApplied: ((navigator: Navigator, command: Command) -> Unit)? = null
+    onNavigatorSet: ((router: Router, navigator: Navigator) -> Unit)? = null,
+    onNavigatorRemoved: ((router: Router, navigator: Navigator) -> Unit)? = null,
+    onCommandEnqueued: ((router: Router, command: Command) -> Unit)? = null,
+    preCommandApplied: ((router: Router, navigator: Navigator, command: Command) -> Unit)? = null,
+    postCommandApplied: ((router: Router, navigator: Navigator, command: Command) -> Unit)? = null
 ): RouterListener {
-    return addRouterListener(onCommandEnqueued, preCommandApplied, postCommandApplied)
-        .also { removeListenerOnEvent(owner, it, event) }
+    return addRouterListener(
+        onNavigatorSet, onNavigatorRemoved,
+        onCommandEnqueued,
+        preCommandApplied, postCommandApplied
+    ).also { removeListenerOnEvent(owner, it, event) }
 }
 
 private fun Router.removeNavigatorOnEvent(

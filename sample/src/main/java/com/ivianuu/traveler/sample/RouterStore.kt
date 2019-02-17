@@ -30,16 +30,27 @@ fun router(key: String) = routers.getOrPut(key) {
 
 private class LoggingRouterListener(private val key: String) : RouterListener {
 
-    override fun onCommandEnqueued(command: Command) {
-        Log.d("Router-$key", "command enqueued $command")
+    override fun onNavigatorSet(router: Router, navigator: Navigator) {
+        log { "navigator set $navigator" }
     }
 
-    override fun preCommandApplied(navigator: Navigator, command: Command) {
-        Log.d("Router-$key", "pre command applied $navigator $command")
+    override fun onNavigatorRemoved(router: Router, navigator: Navigator) {
+        log { "navigator removed $navigator" }
     }
 
-    override fun postCommandApplied(navigator: Navigator, command: Command) {
-        Log.d("Router-$key", "post command applied $navigator $command")
+    override fun onCommandEnqueued(router: Router, command: Command) {
+        log { "command enqueued $command" }
     }
 
+    override fun preCommandApplied(router: Router, navigator: Navigator, command: Command) {
+        log { "pre command applied $navigator $command" }
+    }
+
+    override fun postCommandApplied(router: Router, navigator: Navigator, command: Command) {
+        log { "post command applied $navigator $command" }
+    }
+
+    private inline fun log(msg: () -> String) {
+        Log.d("Router-$key", msg())
+    }
 }

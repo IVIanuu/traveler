@@ -22,9 +22,9 @@ package com.ivianuu.traveler
 interface Router {
 
     /**
-     * Whether or not a [Navigator] is currently set
+     * The current navigator attached to this router
      */
-    val hasNavigator: Boolean
+    val navigator: Navigator?
 
     /**
      * Sets the [navigator] which will be used to navigate
@@ -57,6 +57,11 @@ interface Router {
  * Returns a new [Router] instance
  */
 fun Router(): Router = RealRouter()
+
+/**
+ * Whether or not a [Navigator] is currently set
+ */
+val Router.hasNavigator: Boolean get() = navigator != null
 
 /**
  * Sets the [navigator] which will be used to navigate
@@ -153,21 +158,32 @@ fun Router.finish() {
  * Adds the [listener]
  */
 fun Router.addRouterListener(
-    onCommandEnqueued: ((command: Command) -> Unit)? = null,
-    preCommandApplied: ((navigator: Navigator, command: Command) -> Unit)? = null,
-    postCommandApplied: ((navigator: Navigator, command: Command) -> Unit)? = null
+    onNavigatorSet: ((router: Router, navigator: Navigator) -> Unit)? = null,
+    onNavigatorRemoved: ((router: Router, navigator: Navigator) -> Unit)? = null,
+    onCommandEnqueued: ((router: Router, command: Command) -> Unit)? = null,
+    preCommandApplied: ((router: Router, navigator: Navigator, command: Command) -> Unit)? = null,
+    postCommandApplied: ((router: Router, navigator: Navigator, command: Command) -> Unit)? = null
 ): RouterListener {
     return object : RouterListener {
-        override fun onCommandEnqueued(command: Command) {
-            onCommandEnqueued?.invoke(command)
+
+        override fun onNavigatorSet(router: Router, navigator: Navigator) {
+            onNavigatorSet?.invoke(router, navigator)
         }
 
-        override fun preCommandApplied(navigator: Navigator, command: Command) {
-            preCommandApplied?.invoke(navigator, command)
+        override fun onNavigatorRemoved(router: Router, navigator: Navigator) {
+            onNavigatorRemoved?.invoke(router, navigator)
         }
 
-        override fun postCommandApplied(navigator: Navigator, command: Command) {
-            postCommandApplied?.invoke(navigator, command)
+        override fun onCommandEnqueued(router: Router, command: Command) {
+            onCommandEnqueued?.invoke(router, command)
+        }
+
+        override fun preCommandApplied(router: Router, navigator: Navigator, command: Command) {
+            preCommandApplied?.invoke(router, navigator, command)
+        }
+
+        override fun postCommandApplied(router: Router, navigator: Navigator, command: Command) {
+            postCommandApplied?.invoke(router, navigator, command)
         }
     }.also { addRouterListener(it) }
 }

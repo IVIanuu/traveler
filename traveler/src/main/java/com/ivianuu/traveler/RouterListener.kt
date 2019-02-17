@@ -22,21 +22,50 @@ package com.ivianuu.traveler
 interface RouterListener {
 
     /**
+     * Will be called when the [navigator] was attached to this router
+     */
+    fun onNavigatorSet(
+        router: Router,
+        navigator: Navigator
+    ) {
+    }
+
+    /**
+     * Will be called the [navigator] was removed
+     */
+    fun onNavigatorRemoved(
+        router: Router,
+        navigator: Navigator
+    ) {
+    }
+
+    /**
      * Will be called when the [command] gets enqueued
      */
-    fun onCommandEnqueued(command: Command) {
+    fun onCommandEnqueued(
+        router: Router,
+        command: Command
+    ) {
     }
 
     /**
      * Will be called right before the [command] will be applied by the [navigator]
      */
-    fun preCommandApplied(navigator: Navigator, command: Command) {
+    fun preCommandApplied(
+        router: Router,
+        navigator: Navigator,
+        command: Command
+    ) {
     }
 
     /**
      * Will be called right after the [command] was applied by the [navigator]
      */
-    fun postCommandApplied(navigator: Navigator, command: Command) {
+    fun postCommandApplied(
+        router: Router,
+        navigator: Navigator,
+        command: Command
+    ) {
     }
 
 }
