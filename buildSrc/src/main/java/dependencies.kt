@@ -14,7 +14,7 @@ object Build {
 object Publishing {
     const val groupId = "com.ivianuu.traveler"
     const val vcsUrl = "https://github.com/IVIanuu/traveler"
-    const val version = "0.0.1-dev-2"
+    const val version = "0.0.1-dev-4"
 }
 
 object Versions {
@@ -29,6 +29,8 @@ object Versions {
     const val androidxTestRunner = "1.1.0"
 
     const val bintray = "1.8.4"
+
+    const val closeable = "0.0.1-dev-2"
 
     const val junit = "4.12"
 
@@ -53,6 +55,8 @@ object Deps {
 
     const val bintrayGradlePlugin =
         "com.jfrog.bintray.gradle:gradle-bintray-plugin:${Versions.bintray}"
+
+    const val closeable = "com.ivianuu.closeable:closeable:${Versions.closeable}"
 
     const val junit = "junit:junit:${Versions.junit}"
 

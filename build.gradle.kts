@@ -16,6 +16,8 @@
 
 buildscript {
     repositories {
+        mavenLocal()
+        maven("https://dl.bintray.com/ivianuu/maven/")
         google()
         jcenter()
     }
@@ -29,6 +31,8 @@ buildscript {
 
 allprojects {
     repositories {
+        mavenLocal()
+        maven("https://dl.bintray.com/ivianuu/maven/")
         google()
         jcenter()
     }

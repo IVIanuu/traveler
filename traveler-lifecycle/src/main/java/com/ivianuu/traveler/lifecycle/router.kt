@@ -22,8 +22,6 @@ import androidx.lifecycle.LifecycleOwner
 import com.ivianuu.traveler.Command
 import com.ivianuu.traveler.Navigator
 import com.ivianuu.traveler.Router
-import com.ivianuu.traveler.RouterListener
-import com.ivianuu.traveler.addRouterListener
 import com.ivianuu.traveler.setNavigator
 
 /**
@@ -51,37 +49,6 @@ fun Router.setNavigator(
     return navigator
 }
 
-/**
- * Adds the [listener] and removes it on [event]
- */
-fun Router.addRouterListener(
-    owner: LifecycleOwner,
-    event: Lifecycle.Event = Lifecycle.Event.ON_DESTROY,
-    listener: RouterListener
-) {
-    addRouterListener(listener)
-    removeListenerOnEvent(owner, listener, event)
-}
-
-/**
- * Adds the listener and removes it on [event]
- */
-fun Router.addRouterListener(
-    owner: LifecycleOwner,
-    event: Lifecycle.Event = Lifecycle.Event.ON_DESTROY,
-    onNavigatorSet: ((router: Router, navigator: Navigator) -> Unit)? = null,
-    onNavigatorRemoved: ((router: Router, navigator: Navigator) -> Unit)? = null,
-    onCommandEnqueued: ((router: Router, command: Command) -> Unit)? = null,
-    preCommandApplied: ((router: Router, navigator: Navigator, command: Command) -> Unit)? = null,
-    postCommandApplied: ((router: Router, navigator: Navigator, command: Command) -> Unit)? = null
-): RouterListener {
-    return addRouterListener(
-        onNavigatorSet, onNavigatorRemoved,
-        onCommandEnqueued,
-        preCommandApplied, postCommandApplied
-    ).also { removeListenerOnEvent(owner, it, event) }
-}
-
 private fun Router.removeNavigatorOnEvent(
     owner: LifecycleOwner,
     event: Lifecycle.Event
@@ -91,21 +58,6 @@ private fun Router.removeNavigatorOnEvent(
             if (e == event) {
                 owner.lifecycle.removeObserver(this)
                 removeNavigator()
-            }
-        }
-    })
-}
-
-private fun Router.removeListenerOnEvent(
-    owner: LifecycleOwner,
-    listener: RouterListener,
-    event: Lifecycle.Event
-) {
-    owner.lifecycle.addObserver(object : GenericLifecycleObserver {
-        override fun onStateChanged(source: LifecycleOwner, e: Lifecycle.Event) {
-            if (e == event) {
-                owner.lifecycle.removeObserver(this)
-                removeRouterListener(listener)
             }
         }
     })

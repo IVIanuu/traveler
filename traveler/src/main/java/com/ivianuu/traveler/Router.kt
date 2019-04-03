@@ -16,6 +16,8 @@
 
 package com.ivianuu.traveler
 
+import com.ivianuu.closeable.Closeable
+
 /**
  * The object used to navigate around
  */
@@ -29,7 +31,7 @@ interface Router {
     /**
      * Sets the [navigator] which will be used to navigate
      */
-    fun setNavigator(navigator: Navigator)
+    fun setNavigator(navigator: Navigator): Closeable
 
     /**
      * Removes the current [Navigator]
@@ -44,12 +46,12 @@ interface Router {
     /**
      * Adds the [listener]
      */
-    fun addRouterListener(listener: RouterListener)
+    fun addListener(listener: RouterListener): Closeable
 
     /**
      * Removes the previously added [listener]
      */
-    fun removeRouterListener(listener: RouterListener)
+    fun removeListener(listener: RouterListener)
 
 }
 
@@ -157,14 +159,14 @@ fun Router.finish() {
 /**
  * Adds the [listener]
  */
-fun Router.addRouterListener(
+fun Router.addListener(
     onNavigatorSet: ((router: Router, navigator: Navigator) -> Unit)? = null,
     onNavigatorRemoved: ((router: Router, navigator: Navigator) -> Unit)? = null,
     onCommandEnqueued: ((router: Router, command: Command) -> Unit)? = null,
     preCommandApplied: ((router: Router, navigator: Navigator, command: Command) -> Unit)? = null,
     postCommandApplied: ((router: Router, navigator: Navigator, command: Command) -> Unit)? = null
-): RouterListener {
-    return object : RouterListener {
+): Closeable {
+    val listener = object : RouterListener {
 
         override fun onNavigatorSet(router: Router, navigator: Navigator) {
             onNavigatorSet?.invoke(router, navigator)
@@ -185,5 +187,7 @@ fun Router.addRouterListener(
         override fun postCommandApplied(router: Router, navigator: Navigator, command: Command) {
             postCommandApplied?.invoke(router, navigator, command)
         }
-    }.also { addRouterListener(it) }
+    }
+
+    return addListener(listener)
 }

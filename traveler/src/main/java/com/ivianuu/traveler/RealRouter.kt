@@ -2,6 +2,7 @@ package com.ivianuu.traveler
 
 import android.os.Handler
 import android.os.Looper
+import com.ivianuu.closeable.Closeable
 import java.util.*
 
 /**
@@ -17,15 +18,17 @@ open class RealRouter : Router {
     private val handler = Handler(Looper.getMainLooper())
     private val isMainThread get() = Looper.myLooper() == Looper.getMainLooper()
 
-    private val routerListeners = mutableSetOf<RouterListener>()
+    private val listeners = mutableSetOf<RouterListener>()
 
-    override fun setNavigator(navigator: Navigator) {
+    override fun setNavigator(navigator: Navigator): Closeable {
         requireMainThread()
         if (_navigator != navigator) {
             _navigator = navigator
             notifyListeners { it.onNavigatorSet(this, navigator) }
             executePendingCommands()
         }
+
+        return Closeable(this::removeNavigator)
     }
 
     override fun removeNavigator() {
@@ -43,14 +46,15 @@ open class RealRouter : Router {
         }
     }
 
-    override fun addRouterListener(listener: RouterListener) {
+    override fun addListener(listener: RouterListener): Closeable {
         requireMainThread()
-        routerListeners.add(listener)
+        listeners.add(listener)
+        return Closeable { removeListener(listener) }
     }
 
-    override fun removeRouterListener(listener: RouterListener) {
+    override fun removeListener(listener: RouterListener) {
         requireMainThread()
-        routerListeners.remove(listener)
+        listeners.remove(listener)
     }
 
     private fun executePendingCommands() {
@@ -83,6 +87,6 @@ open class RealRouter : Router {
     }
 
     private inline fun notifyListeners(block: (RouterListener) -> Unit) {
-        routerListeners.toList().forEach(block)
+        listeners.toList().forEach(block)
     }
 }
