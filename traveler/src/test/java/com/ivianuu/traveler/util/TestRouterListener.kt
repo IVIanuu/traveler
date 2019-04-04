@@ -17,6 +17,8 @@
 package com.ivianuu.traveler.util
 
 import com.ivianuu.traveler.Command
+import com.ivianuu.traveler.Navigator
+import com.ivianuu.traveler.Router
 import com.ivianuu.traveler.RouterListener
 
 class TestRouterListener : RouterListener {
@@ -33,15 +35,15 @@ class TestRouterListener : RouterListener {
     private val _postCommandAppliedHistory = mutableListOf<Command>()
     val postCommandAppliedCalls get() = _postCommandAppliedHistory.size
 
-    override fun onCommandEnqueued(command: Command) {
+    override fun onCommandEnqueued(router: Router, command: Command) {
         _commandEnqueuedHistory.add(command)
     }
 
-    override fun preCommandApplied(command: Command) {
+    override fun preCommandApplied(router: Router, navigator: Navigator, command: Command) {
         _preCommandAppliedHistory.add(command)
     }
 
-    override fun postCommandApplied(command: Command) {
+    override fun postCommandApplied(router: Router, navigator: Navigator, command: Command) {
         _postCommandAppliedHistory.add(command)
     }
 

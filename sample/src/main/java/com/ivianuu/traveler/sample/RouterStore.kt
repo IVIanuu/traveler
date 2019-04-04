@@ -25,7 +25,7 @@ import com.ivianuu.traveler.RouterListener
 private val routers = mutableMapOf<String, Router>()
 
 fun router(key: String) = routers.getOrPut(key) {
-    Router().apply { addRouterListener(LoggingRouterListener(key)) }
+    Router().apply { addListener(LoggingRouterListener(key)) }
 }
 
 private class LoggingRouterListener(private val key: String) : RouterListener {

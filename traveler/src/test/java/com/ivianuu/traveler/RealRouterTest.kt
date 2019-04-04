@@ -19,7 +19,9 @@ package com.ivianuu.traveler
 import com.ivianuu.traveler.util.TestCommand
 import com.ivianuu.traveler.util.TestNavigator
 import com.ivianuu.traveler.util.TestRouterListener
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -84,7 +86,7 @@ class RealRouterTest {
     fun testRouterListener() {
         router.setNavigator(TestNavigator())
 
-        router.addRouterListener(listener)
+        router.addListener(listener)
         assertEquals(0, listener.commandEnqueuedCalls)
         assertEquals(0, listener.preCommandAppliedCalls)
         assertEquals(0, listener.postCommandAppliedCalls)
@@ -118,8 +120,8 @@ class RealRouterTest {
     fun testRemoveRouterListener() {
         router.setNavigator(TestNavigator())
 
-        router.addRouterListener(listener)
-        router.removeRouterListener(listener)
+        router.addListener(listener)
+        router.removeListener(listener)
 
         router.enqueueCommands(TestCommand())
 
@@ -128,15 +130,4 @@ class RealRouterTest {
         assertEquals(0, listener.postCommandAppliedCalls)
     }
 
-    @Test
-    fun testRouterListenerAddedTwice() {
-        router.setNavigator(TestNavigator())
-
-        router.addRouterListener(listener)
-        router.addRouterListener(listener)
-        router.enqueueCommands(TestCommand())
-        assertEquals(1, listener.commandEnqueuedCalls)
-        assertEquals(1, listener.preCommandAppliedCalls)
-        assertEquals(1, listener.postCommandAppliedCalls)
-    }
 }
