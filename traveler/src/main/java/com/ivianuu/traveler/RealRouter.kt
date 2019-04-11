@@ -28,7 +28,7 @@ open class RealRouter : Router {
             executePendingCommands()
         }
 
-        return Closeable(this::removeNavigator)
+        return Closeable { removeNavigator() }
     }
 
     override fun removeNavigator() {

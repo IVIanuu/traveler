@@ -259,8 +259,8 @@ open class FragmentNavigator(
         localStackCopy.clear()
 
         (0 until fragmentManager.backStackEntryCount)
-            .map(fragmentManager::getBackStackEntryAt)
-            .mapNotNull(FragmentManager.BackStackEntry::getName)
+            .map { fragmentManager.getBackStackEntryAt(it) }
+            .mapNotNull { it.getName() }
             .forEach { localStackCopy.add(it) }
     }
 }
