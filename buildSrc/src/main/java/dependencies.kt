@@ -20,13 +20,13 @@ object Publishing {
 object Versions {
     const val androidGradlePlugin = "3.3.0"
 
-    const val androidxAppCompat = "1.0.2"
-    const val androidxFragment = "1.0.0"
-    const val androidxLifecycle = "2.0.0"
-    const val androidxTestCore = "1.0.0"
-    const val androidxTestJunit = "1.0.0"
-    const val androidxTestRules = "1.1.0"
-    const val androidxTestRunner = "1.1.0"
+    const val androidxAppCompat = "1.1.0-alpha04"
+    const val androidxFragment = "1.1.0-alpha06"
+    const val androidxLifecycle = "2.1.0-alpha04"
+    const val androidxTestCore = "1.2.0-alpha03"
+    const val androidxTestJunit = "1.2.0-alpha03"
+    const val androidxTestRules = "1.2.0-alpha03"
+    const val androidxTestRunner = "1.2.0-alpha03"
 
     const val bintray = "1.8.4"
 
@@ -34,7 +34,7 @@ object Versions {
 
     const val junit = "4.12"
 
-    const val kotlin = "1.3.21"
+    const val kotlin = "1.3.30"
     const val mavenGradlePlugin = "2.1"
     const val materialComponents = "1.0.0"
 
