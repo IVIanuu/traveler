@@ -16,8 +16,6 @@
 
 package com.ivianuu.traveler
 
-import com.ivianuu.closeable.Closeable
-
 /**
  * The object used to navigate around
  */
@@ -31,7 +29,7 @@ interface Router {
     /**
      * Sets the [navigator] which will be used to navigate
      */
-    fun setNavigator(navigator: Navigator): Closeable
+    fun setNavigator(navigator: Navigator)
 
     /**
      * Removes the current [Navigator]
@@ -46,7 +44,7 @@ interface Router {
     /**
      * Adds the [listener]
      */
-    fun addListener(listener: RouterListener): Closeable
+    fun addListener(listener: RouterListener)
 
     /**
      * Removes the previously added [listener]
@@ -165,7 +163,7 @@ fun Router.addListener(
     onCommandEnqueued: ((router: Router, command: Command) -> Unit)? = null,
     preCommandApplied: ((router: Router, navigator: Navigator, command: Command) -> Unit)? = null,
     postCommandApplied: ((router: Router, navigator: Navigator, command: Command) -> Unit)? = null
-): Closeable {
+) {
     val listener = object : RouterListener {
 
         override fun onNavigatorSet(router: Router, navigator: Navigator) {
@@ -189,5 +187,5 @@ fun Router.addListener(
         }
     }
 
-    return addListener(listener)
+    addListener(listener)
 }

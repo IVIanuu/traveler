@@ -2,7 +2,6 @@ package com.ivianuu.traveler
 
 import android.os.Handler
 import android.os.Looper
-import com.ivianuu.closeable.Closeable
 import java.util.*
 
 /**
@@ -20,15 +19,13 @@ open class RealRouter : Router {
 
     private val listeners = mutableSetOf<RouterListener>()
 
-    override fun setNavigator(navigator: Navigator): Closeable {
+    override fun setNavigator(navigator: Navigator) {
         requireMainThread()
         if (_navigator != navigator) {
             _navigator = navigator
             notifyListeners { it.onNavigatorSet(this, navigator) }
             executePendingCommands()
         }
-
-        return Closeable { removeNavigator() }
     }
 
     override fun removeNavigator() {
@@ -46,10 +43,9 @@ open class RealRouter : Router {
         }
     }
 
-    override fun addListener(listener: RouterListener): Closeable {
+    override fun addListener(listener: RouterListener) {
         requireMainThread()
         listeners.add(listener)
-        return Closeable { removeListener(listener) }
     }
 
     override fun removeListener(listener: RouterListener) {
