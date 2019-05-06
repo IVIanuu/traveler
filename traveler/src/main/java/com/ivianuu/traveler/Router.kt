@@ -66,10 +66,10 @@ val Router.hasNavigator: Boolean get() = navigator != null
 /**
  * Sets the [navigator] which will be used to navigate
  */
-fun Router.setNavigator(applyCommand: (command: Command) -> Unit): Navigator {
+fun Router.setNavigator(navigator: (command: Command) -> Unit): Navigator {
     return object : Navigator {
         override fun applyCommand(command: Command) {
-            applyCommand.invoke(command)
+            navigator.invoke(command)
         }
     }.also { setNavigator(it) }
 }
@@ -163,9 +163,8 @@ fun Router.addListener(
     onCommandEnqueued: ((router: Router, command: Command) -> Unit)? = null,
     preCommandApplied: ((router: Router, navigator: Navigator, command: Command) -> Unit)? = null,
     postCommandApplied: ((router: Router, navigator: Navigator, command: Command) -> Unit)? = null
-) {
-    val listener = object : RouterListener {
-
+): RouterListener {
+    return object : RouterListener {
         override fun onNavigatorSet(router: Router, navigator: Navigator) {
             onNavigatorSet?.invoke(router, navigator)
         }
@@ -185,7 +184,5 @@ fun Router.addListener(
         override fun postCommandApplied(router: Router, navigator: Navigator, command: Command) {
             postCommandApplied?.invoke(router, navigator, command)
         }
-    }
-
-    addListener(listener)
+    }.also { addListener(it) }
 }

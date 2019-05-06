@@ -24,7 +24,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.ivianuu.traveler.*
-import com.ivianuu.traveler.fragment.FragmentKey
+import com.ivianuu.traveler.android.FragmentKey
 import com.ivianuu.traveler.sample.R
 import com.ivianuu.traveler.sample.router
 import com.ivianuu.traveler.sample.showToast

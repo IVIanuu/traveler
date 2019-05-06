@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ivianuu.traveler.fragment
+package com.ivianuu.traveler.android
 
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment

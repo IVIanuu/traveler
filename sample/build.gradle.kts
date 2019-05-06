@@ -23,8 +23,6 @@ plugins {
 
 apply(from = "https://raw.githubusercontent.com/IVIanuu/gradle-scripts/master/android-build-app.gradle")
 apply(from = "https://raw.githubusercontent.com/IVIanuu/gradle-scripts/master/kt-android-ext.gradle")
-// todo remove once fixed
-apply(from = "https://raw.githubusercontent.com/IVIanuu/gradle-scripts/master/coroutines-fix.gradle")
 
 dependencies {
     implementation(Deps.androidxAppCompat)
@@ -32,6 +30,4 @@ dependencies {
     implementation(project(":traveler"))
     implementation(project(":traveler-android"))
     implementation(project(":traveler-common"))
-    implementation(project(":traveler-fragment"))
-    implementation(project(":traveler-lifecycle"))
 }

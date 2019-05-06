@@ -23,6 +23,8 @@ apply(from = "https://raw.githubusercontent.com/IVIanuu/gradle-scripts/master/an
 apply(from = "https://raw.githubusercontent.com/IVIanuu/gradle-scripts/master/mvn-publish.gradle")
 
 dependencies {
+    api(Deps.androidxFragment)
+    api(Deps.androidxLifecycleExtensions)
     api(project(":traveler"))
     api(project(":traveler-common"))
 }

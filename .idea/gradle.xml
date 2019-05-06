@@ -14,8 +14,6 @@
             <option value="$PROJECT_DIR$/traveler" />
             <option value="$PROJECT_DIR$/traveler-android" />
             <option value="$PROJECT_DIR$/traveler-common" />
-            <option value="$PROJECT_DIR$/traveler-fragment" />
-            <option value="$PROJECT_DIR$/traveler-lifecycle" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

@@ -3,7 +3,7 @@ package com.ivianuu.traveler.sample
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.ivianuu.traveler.android.AppNavigator
-import com.ivianuu.traveler.lifecycle.setNavigator
+import com.ivianuu.traveler.android.setNavigator
 import com.ivianuu.traveler.navigate
 import com.ivianuu.traveler.sample.fragment.FragmentsKey
 import kotlinx.android.synthetic.main.activity_main.*

@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package com.ivianuu.traveler.lifecycle
+package com.ivianuu.traveler.android
 
 import androidx.lifecycle.GenericLifecycleObserver
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import com.ivianuu.traveler.Command
 import com.ivianuu.traveler.Navigator
@@ -53,7 +54,7 @@ private fun Router.removeNavigatorOnEvent(
     owner: LifecycleOwner,
     event: Lifecycle.Event
 ) {
-    owner.lifecycle.addObserver(object : GenericLifecycleObserver {
+    owner.lifecycle.addObserver(object : LifecycleEventObserver {
         override fun onStateChanged(source: LifecycleOwner, e: Lifecycle.Event) {
             if (e == event) {
                 owner.lifecycle.removeObserver(this)

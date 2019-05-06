@@ -26,6 +26,7 @@ import com.ivianuu.traveler.Command
  * A key for activities/intents
  */
 interface ActivityKey {
+
     /**
      * Returns the [Intent] for this key
      */
