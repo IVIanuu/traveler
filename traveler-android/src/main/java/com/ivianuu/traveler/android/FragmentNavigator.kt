@@ -57,6 +57,7 @@ open class FragmentNavigator(
         val tag = getFragmentTag(command.key)
 
         val transaction = fragmentManager.beginTransaction()
+            .setReorderingAllowed(true)
 
         setupFragmentTransaction(
             command,
@@ -96,6 +97,7 @@ open class FragmentNavigator(
             localStack.removeLast()
 
             val transaction = fragmentManager.beginTransaction()
+                .setReorderingAllowed(true)
 
             setupFragmentTransaction(
                 command,
@@ -117,6 +119,7 @@ open class FragmentNavigator(
             localStack.add(tag)
         } else {
             val transaction = fragmentManager.beginTransaction()
+                .setReorderingAllowed(true)
 
             setupFragmentTransaction(
                 command,
