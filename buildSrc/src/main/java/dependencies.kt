@@ -21,8 +21,8 @@ object Versions {
     const val androidGradlePlugin = "3.4.0"
 
     const val androidxAppCompat = "1.1.0-alpha04"
-    const val androidxFragment = "1.1.0-alpha06"
-    const val androidxLifecycle = "2.1.0-alpha04"
+    const val androidxFragment = "1.1.0-alpha08"
+    const val androidxLifecycle = "2.2.0-alpha01"
     const val androidxTestCore = "1.2.0-alpha03"
     const val androidxTestJunit = "1.2.0-alpha03"
     const val androidxTestRules = "1.2.0-alpha03"

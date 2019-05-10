@@ -32,7 +32,7 @@ open class FragmentNavigator(
     private val containerId: Int
 ) : ResultNavigator() {
 
-    private val localStackCopy = LinkedList<String>()
+    private val localStack = LinkedList<String>()
 
     override fun applyCommandWithResult(command: Command): Boolean {
         return when (command) {
@@ -49,7 +49,7 @@ open class FragmentNavigator(
      */
     protected open fun forward(command: Forward): Boolean {
         executePendingTransactions()
-        copyStackToLocal()
+        updateLocalStack()
 
         val fragment = createFragment(command.key, command.data)
             ?: return unknownScreen(command.key)
@@ -75,7 +75,7 @@ open class FragmentNavigator(
             fragment.show(transaction, tag)
         }
 
-        localStackCopy.add(tag)
+        localStack.add(tag)
         return true
     }
 
@@ -84,16 +84,16 @@ open class FragmentNavigator(
      */
     protected open fun replace(command: Replace): Boolean {
         executePendingTransactions()
-        copyStackToLocal()
+        updateLocalStack()
 
         val fragment = createFragment(command.key, command.data)
             ?: return unknownScreen(command.key)
 
         val tag = getFragmentTag(command.key)
 
-        if (localStackCopy.size > 0) {
+        if (localStack.size > 0) {
             fragmentManager.popBackStack()
-            localStackCopy.removeLast()
+            localStack.removeLast()
 
             val transaction = fragmentManager.beginTransaction()
 
@@ -114,7 +114,7 @@ open class FragmentNavigator(
                 fragment.show(transaction, tag)
             }
 
-            localStackCopy.add(tag)
+            localStack.add(tag)
         } else {
             val transaction = fragmentManager.beginTransaction()
 
@@ -143,11 +143,11 @@ open class FragmentNavigator(
      */
     protected open fun back(command: Back): Boolean {
         executePendingTransactions()
-        copyStackToLocal()
+        updateLocalStack()
 
-        return if (localStackCopy.size > 0) {
+        return if (localStack.size > 0) {
             fragmentManager.popBackStack()
-            localStackCopy.removeLast()
+            localStack.removeLast()
             true
         } else {
             exit()
@@ -159,7 +159,7 @@ open class FragmentNavigator(
      */
     protected open fun backTo(command: BackTo): Boolean {
         executePendingTransactions()
-        copyStackToLocal()
+        updateLocalStack()
 
         val key = command.key
 
@@ -168,12 +168,12 @@ open class FragmentNavigator(
         } else {
             val tag = getFragmentTag(key)
 
-            val index = localStackCopy.indexOf(tag)
-            val size = localStackCopy.size
+            val index = localStack.indexOf(tag)
+            val size = localStack.size
 
             if (index != -1) {
                 for (i in 1 until size - index) {
-                    localStackCopy.removeLast()
+                    localStack.removeLast()
                 }
                 fragmentManager.popBackStack(tag, 0)
                 true
@@ -188,7 +188,7 @@ open class FragmentNavigator(
      */
     protected open fun backToRoot(): Boolean {
         fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-        localStackCopy.clear()
+        localStack.clear()
         return true
     }
 
@@ -255,12 +255,12 @@ open class FragmentNavigator(
         }
     }
 
-    private fun copyStackToLocal() {
-        localStackCopy.clear()
+    private fun updateLocalStack() {
+        localStack.clear()
 
         (0 until fragmentManager.backStackEntryCount)
             .map { fragmentManager.getBackStackEntryAt(it) }
             .mapNotNull { it.getName() }
-            .forEach { localStackCopy.add(it) }
+            .forEach { localStack.add(it) }
     }
 }

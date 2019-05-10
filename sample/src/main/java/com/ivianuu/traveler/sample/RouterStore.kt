@@ -21,11 +21,12 @@ import com.ivianuu.traveler.Command
 import com.ivianuu.traveler.Navigator
 import com.ivianuu.traveler.Router
 import com.ivianuu.traveler.RouterListener
+import com.ivianuu.traveler.android.AndroidRouter
 
 private val routers = mutableMapOf<String, Router>()
 
 fun router(key: String) = routers.getOrPut(key) {
-    Router().apply { addListener(LoggingRouterListener(key)) }
+    AndroidRouter().apply { addListener(LoggingRouterListener(key)) }
 }
 
 private class LoggingRouterListener(private val key: String) : RouterListener {

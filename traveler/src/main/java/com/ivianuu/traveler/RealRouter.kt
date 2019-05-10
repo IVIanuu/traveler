@@ -1,7 +1,5 @@
 package com.ivianuu.traveler
 
-import android.os.Handler
-import android.os.Looper
 import java.util.*
 
 /**
@@ -14,13 +12,9 @@ open class RealRouter : Router {
     private var _navigator: Navigator? = null
     private val pendingCommands = LinkedList<Command>()
 
-    private val handler = Handler(Looper.getMainLooper())
-    private val isMainThread get() = Looper.myLooper() == Looper.getMainLooper()
-
     private val listeners = mutableSetOf<RouterListener>()
 
     override fun setNavigator(navigator: Navigator) {
-        requireMainThread()
         if (_navigator != navigator) {
             _navigator = navigator
             notifyListeners { it.onNavigatorSet(this, navigator) }
@@ -29,14 +23,13 @@ open class RealRouter : Router {
     }
 
     override fun removeNavigator() {
-        requireMainThread()
         _navigator?.let { navigator ->
             notifyListeners { it.onNavigatorRemoved(this, navigator) }
         }
         _navigator = null
     }
 
-    override fun enqueueCommands(vararg commands: Command) = mainThread {
+    override fun enqueueCommands(vararg commands: Command) {
         commands.forEach { command ->
             notifyListeners { it.onCommandEnqueued(this, command) }
             executeCommand(command)
@@ -44,22 +37,20 @@ open class RealRouter : Router {
     }
 
     override fun addListener(listener: RouterListener) {
-        requireMainThread()
         listeners.add(listener)
     }
 
     override fun removeListener(listener: RouterListener) {
-        requireMainThread()
         listeners.remove(listener)
     }
 
-    private fun executePendingCommands() {
+    protected open fun executePendingCommands() {
         while (!pendingCommands.isEmpty()) {
             executeCommand(pendingCommands.poll())
         }
     }
 
-    private fun executeCommand(command: Command) {
+    protected open fun executeCommand(command: Command) {
         val navigator = _navigator
         if (navigator != null) {
             notifyListeners { it.preCommandApplied(this, navigator, command) }
@@ -68,18 +59,6 @@ open class RealRouter : Router {
         } else {
             pendingCommands.add(command)
         }
-    }
-
-    private fun mainThread(action: () -> Unit) {
-        if (isMainThread) {
-            action()
-        } else {
-            handler.post(action)
-        }
-    }
-
-    private fun requireMainThread() {
-        if (!isMainThread) throw IllegalArgumentException("must be called from the main thread")
     }
 
     private inline fun notifyListeners(block: (RouterListener) -> Unit) {

@@ -16,7 +16,6 @@
 
 package com.ivianuu.traveler.sample.fragment
 
-import android.R
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -42,7 +41,7 @@ class FragmentsActivity : AppCompatActivity() {
         compositeNavigatorOf(
             FragmentNavigator(
                 supportFragmentManager,
-                R.id.content
+                android.R.id.content
             ),
             ToastNavigator(this)
         )
