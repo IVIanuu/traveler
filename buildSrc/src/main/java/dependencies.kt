@@ -32,7 +32,7 @@ object Versions {
 
     const val junit = "4.12"
 
-    const val kotlin = "1.3.31"
+    const val kotlin = "1.3.40"
     const val mavenGradlePlugin = "2.1"
     const val materialComponents = "1.0.0"
 
@@ -59,7 +59,8 @@ object Deps {
     const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
     const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
 
-    const val mavenGradlePlugin = "com.github.dcendents:android-maven-gradle-plugin:${Versions.mavenGradlePlugin}"
+    const val mavenGradlePlugin =
+        "com.github.dcendents:android-maven-gradle-plugin:${Versions.mavenGradlePlugin}"
 
     const val materialComponents =
         "com.google.android.material:material:${Versions.materialComponents}"
