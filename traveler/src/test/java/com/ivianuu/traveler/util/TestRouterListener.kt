@@ -23,16 +23,16 @@ import com.ivianuu.traveler.RouterListener
 
 class TestRouterListener : RouterListener {
 
-    val commandEnqueuedHistory get() = _commandEnqueuedHistory.toList()
     private val _commandEnqueuedHistory = mutableListOf<Command>()
+    val commandEnqueuedHistory get() = _commandEnqueuedHistory.toList()
     val commandEnqueuedCalls get() = _commandEnqueuedHistory.size
 
-    val preCommandAppliedHistory get() = _preCommandAppliedHistory.toList()
     private val _preCommandAppliedHistory = mutableListOf<Command>()
+    val preCommandAppliedHistory get() = _preCommandAppliedHistory.toList()
     val preCommandAppliedCalls get() = _preCommandAppliedHistory.size
 
-    val postCommandAppliedHistory get() = _postCommandAppliedHistory.toList()
     private val _postCommandAppliedHistory = mutableListOf<Command>()
+    val postCommandAppliedHistory get() = _postCommandAppliedHistory.toList()
     val postCommandAppliedCalls get() = _postCommandAppliedHistory.size
 
     override fun onCommandEnqueued(router: Router, command: Command) {

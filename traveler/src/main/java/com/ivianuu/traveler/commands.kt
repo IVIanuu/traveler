@@ -32,7 +32,7 @@ interface MetaCommand : Command {
 /**
  * Goes back to the previous screen
  */
-class Back : Command {
+object Back : Command {
     override fun toString() = "Back"
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

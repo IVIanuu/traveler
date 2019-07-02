@@ -17,7 +17,7 @@
 package com.ivianuu.traveler
 
 /**
- * The object used to navigate around
+ * The object used to push around
  */
 interface Router {
 
@@ -27,7 +27,7 @@ interface Router {
     val navigator: Navigator?
 
     /**
-     * Sets the [navigator] which will be used to navigate
+     * Sets the [navigator] which will be used to push
      */
     fun setNavigator(navigator: Navigator)
 
@@ -64,7 +64,7 @@ fun Router(): Router = RealRouter()
 val Router.hasNavigator: Boolean get() = navigator != null
 
 /**
- * Sets the [navigator] which will be used to navigate
+ * Sets the [navigator] which will be used to push
  */
 fun Router.setNavigator(navigator: (command: Command) -> Unit): Navigator {
     return object : Navigator {
@@ -84,7 +84,7 @@ fun Router.enqueueCommands(commands: Collection<Command>) {
 /**
  * Navigates forward to [key]
  */
-fun Router.navigate(key: Any, data: Any? = null) {
+fun Router.push(key: Any, data: Any? = null) {
     enqueueCommands(Forward(key, data))
 }
 
@@ -106,24 +106,6 @@ fun Router.replaceTop(key: Any, data: Any? = null) {
 }
 
 /**
- * Opens all [keys]
- */
-fun Router.newChain(vararg keys: Any) {
-    val commands =
-        arrayOf(BackTo(null), *keys.map { Forward(it, null) }.toTypedArray())
-    enqueueCommands(*commands)
-}
-
-/**
- * Pops to the root and opens all [keys]
- */
-fun Router.newRootChain(vararg keys: Any) {
-    val commands =
-        arrayOf(BackTo(null), *keys.map { Forward(it, null) }.toTypedArray())
-    enqueueCommands(*commands)
-}
-
-/**
  * Goes back to [key]
  */
 fun Router.popTo(key: Any) {
@@ -140,8 +122,8 @@ fun Router.popToRoot() {
 /**
  * Goes back to the previous screen
  */
-fun Router.goBack() {
-    enqueueCommands(Back())
+fun Router.pop() {
+    enqueueCommands(Back)
 }
 
 /**
@@ -150,7 +132,7 @@ fun Router.goBack() {
 fun Router.finish() {
     enqueueCommands(
         BackTo(null),
-        Back()
+        Back
     )
 }
 

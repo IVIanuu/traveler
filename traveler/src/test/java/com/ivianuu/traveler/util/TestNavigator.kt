@@ -20,8 +20,9 @@ import com.ivianuu.traveler.Command
 import com.ivianuu.traveler.Navigator
 
 class TestNavigator : Navigator {
-    val history get() = _history.toList()
+
     private val _history = mutableListOf<Command>()
+    val history get() = _history.toList()
 
     val applyCommandCount get() = _history.size
 

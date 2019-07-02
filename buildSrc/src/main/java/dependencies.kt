@@ -14,11 +14,11 @@ object Build {
 object Publishing {
     const val groupId = "com.ivianuu.traveler"
     const val vcsUrl = "https://github.com/IVIanuu/traveler"
-    const val version = "0.0.1-dev-6"
+    const val version = "0.0.1-dev-7"
 }
 
 object Versions {
-    const val androidGradlePlugin = "3.4.0"
+    const val androidGradlePlugin = "3.5.0-beta05"
 
     const val androidxAppCompat = "1.1.0-alpha04"
     const val androidxFragment = "1.1.0-alpha08"

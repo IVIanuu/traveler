@@ -23,8 +23,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.ivianuu.traveler.*
 import com.ivianuu.traveler.android.FragmentKey
+import com.ivianuu.traveler.finish
+import com.ivianuu.traveler.pop
+import com.ivianuu.traveler.popTo
+import com.ivianuu.traveler.popToRoot
+import com.ivianuu.traveler.push
 import com.ivianuu.traveler.sample.R
 import com.ivianuu.traveler.sample.router
 import com.ivianuu.traveler.sample.showToast
@@ -59,8 +63,8 @@ class CounterFragment : Fragment() {
 
         title.text = "Count ${key.count}"
 
-        add.setOnClickListener { router.navigate(CounterKey(key.count + 1)) }
-        remove.setOnClickListener { router.goBack() }
+        add.setOnClickListener { router.push(CounterKey(key.count + 1)) }
+        remove.setOnClickListener { router.pop() }
         root.setOnClickListener { router.popToRoot() }
         pop_to_3.setOnClickListener { router.popTo(CounterKey(3)) }
         quit.setOnClickListener { router.finish() }

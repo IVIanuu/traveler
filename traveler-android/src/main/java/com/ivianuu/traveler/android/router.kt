@@ -37,7 +37,7 @@ fun Router.setNavigator(
 }
 
 /**
- * Sets the [navigator] which will be used to navigate
+ * Sets the [navigator] which will be used to push
  */
 fun Router.setNavigator(
     owner: LifecycleOwner,
