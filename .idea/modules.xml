@@ -3,6 +3,12 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Traveler.iml" filepath="$PROJECT_DIR$/.idea/Traveler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/buildSrc/buildSrc.iml" filepath="$PROJECT_DIR$/buildSrc/buildSrc.iml" group="traveler/buildSrc" />
+      <module fileurl="file://$PROJECT_DIR$/sample/sample.iml" filepath="$PROJECT_DIR$/sample/sample.iml" group="traveler/sample" />
+      <module fileurl="file://$PROJECT_DIR$/traveler.iml" filepath="$PROJECT_DIR$/traveler.iml" group="traveler" />
+      <module fileurl="file://$PROJECT_DIR$/traveler-android/traveler-android.iml" filepath="$PROJECT_DIR$/traveler-android/traveler-android.iml" group="traveler/traveler-android" />
+      <module fileurl="file://$PROJECT_DIR$/traveler-common/traveler-common.iml" filepath="$PROJECT_DIR$/traveler-common/traveler-common.iml" group="traveler/traveler-common" />
+      <module fileurl="file://$PROJECT_DIR$/traveler/traveler-traveler.iml" filepath="$PROJECT_DIR$/traveler/traveler-traveler.iml" group="traveler/traveler" />
     </modules>
   </component>
 </project>

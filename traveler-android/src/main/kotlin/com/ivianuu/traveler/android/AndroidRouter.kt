@@ -2,7 +2,10 @@ package com.ivianuu.traveler.android
 
 import android.os.Handler
 import android.os.Looper
-import com.ivianuu.traveler.*
+import com.ivianuu.traveler.Command
+import com.ivianuu.traveler.Navigator
+import com.ivianuu.traveler.RealRouter
+import com.ivianuu.traveler.hasNavigator
 
 /**
  * Ensures that all [Command]s are passed to [Navigator]s on the main thread

@@ -21,9 +21,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.ivianuu.traveler.android.ActivityKey
-import com.ivianuu.traveler.common.compositeNavigatorOf
 import com.ivianuu.traveler.android.FragmentNavigator
 import com.ivianuu.traveler.android.setNavigator
+import com.ivianuu.traveler.common.compositeNavigatorOf
 import com.ivianuu.traveler.sample.ToastNavigator
 import com.ivianuu.traveler.sample.router
 import com.ivianuu.traveler.setRoot
