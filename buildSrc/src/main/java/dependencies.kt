@@ -30,6 +30,7 @@ object Versions {
 
     const val bintray = "1.8.4"
 
+
     const val junit = "4.12"
 
     const val kotlin = "1.3.31"
